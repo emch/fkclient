@@ -30,6 +30,10 @@ Destructor Chunk
 	DeAllocate(This._blocks)
 End Destructor
 
+Sub Chunk.CreateMesh()
+	
+End Sub
+
 Property Chunk.Update(dt As Single)
 
 End Property

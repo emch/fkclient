@@ -30,10 +30,14 @@ Destructor Chunk
 	DeAllocate(This._blocks)
 End Destructor
 
+Sub Chunk.CreateMesh()
+
+End Sub
+
 Property Chunk.Update(dt As Single)
 
 End Property
 
-Property RenderChunk(b_position As Vector3d)
+Property Chunk.Render(b_position As Vector3d)
 	
 End Property
