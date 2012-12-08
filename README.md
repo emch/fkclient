@@ -12,3 +12,6 @@ Used libraries are :
 - OpenGL
 - SDL
 - Extended FreeBasic library
+- winsock
+
+A server (fkserver) will be developed to allow multiplayer, of course.
