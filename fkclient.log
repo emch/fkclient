@@ -1,8 +1,8 @@
-Logfile created on 12-08-2012 at 15:02:31
+Logfile created on 12-08-2012 at 16:58:04
 Using FK client 0.0.0
 
-12-08-2012 | 15:02:31 | SCR_WIDTH not found in config file, default parameter used
-12-08-2012 | 15:02:31 | SCR_HEIGHT not found in config file, default parameter used
-12-08-2012 | 15:02:32 | SDL initialised
-12-08-2012 | 15:02:32 | OpenGL initialised
-12-08-2012 | 15:02:32 | Scene resized
+12-08-2012 | 16:58:04 | SCR_WIDTH not found in config file, default parameter used
+12-08-2012 | 16:58:04 | SCR_HEIGHT not found in config file, default parameter used
+12-08-2012 | 16:58:04 | SDL initialised
+12-08-2012 | 16:58:04 | OpenGL initialised
+12-08-2012 | 16:58:04 | Scene resized
