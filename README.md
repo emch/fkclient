@@ -15,3 +15,5 @@ Used libraries are :
 - winsock
 
 A server (fkserver) will be developed to allow multiplayer, of course.
+
+To open the project, use fbedit and open the .fbp file. If you want to participate, please contact me.
