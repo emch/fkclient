@@ -37,8 +37,8 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Scene objects
-Dim Shared test As Block
-Dim Shared testPosition As Vector3d = Vector3d()
+'Dim Shared test As Block
+'Dim Shared testPosition As Vector3d = Vector3d()
 Dim Shared testChunk As Chunk = Chunk()
 
 '' Entry point
@@ -113,6 +113,7 @@ While loopOn And noError
    glFlush
    
    SDL_GL_SwapBuffers
+   ''SDL_Delay 40			'' avoid high CPU usage ???
 Wend
 
 SDL_Quit
@@ -175,7 +176,7 @@ Function DrawScene() As Integer
 	glTranslatef(0.0f,0.0f,-6.0f) '' see how to make a camera ...
 	
 	'' Rendering objects
-	RenderBlock(test, testPosition) '' provisoire
+	'RenderBlock(test, testPosition) '' provisoire
 	
 	Return TRUE
 End Function

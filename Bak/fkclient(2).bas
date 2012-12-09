@@ -37,8 +37,8 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Scene objects
-Dim Shared test As Block
-Dim Shared testPosition As Vector3d = Vector3d()
+'Dim Shared test As Block
+'Dim Shared testPosition As Vector3d = Vector3d()
 Dim Shared testChunk As Chunk = Chunk()
 
 '' Entry point
@@ -113,6 +113,7 @@ While loopOn And noError
    glFlush
    
    SDL_GL_SwapBuffers
+   SDL_Delay 100			'' avoid high CPU usage
 Wend
 
 SDL_Quit
@@ -149,9 +150,7 @@ Function InitScene() As Integer
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
-	'' Enable mesh rendering with glDrawArrays
-	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
-	
+	'' test (provisoire)
 	testChunk.CreateMesh()
 	
 	LogToFile("OpenGL initialised")
@@ -177,7 +176,7 @@ Function DrawScene() As Integer
 	glTranslatef(0.0f,0.0f,-6.0f) '' see how to make a camera ...
 	
 	'' Rendering objects
-	RenderBlock(test, testPosition) '' provisoire
+	'RenderBlock(test, testPosition) '' provisoire
 	
 	Return TRUE
 End Function

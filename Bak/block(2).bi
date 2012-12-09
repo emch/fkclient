@@ -16,6 +16,6 @@ Type Block
    Declare Property SetActive(As Integer)
 End Type
 
-'Declare Sub RenderBlock(As Block, As Vector3d)
+Declare Sub RenderBlock(As Block, As Vector3d)
 
 #endif

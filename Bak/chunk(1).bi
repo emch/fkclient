@@ -5,9 +5,6 @@
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
 
-'' see http://www.songho.ca/opengl/gl_vertexarray.html
-#Define MAX_VERTICES 16384
-
 Type Chunk
 	Private:
 	_blocks as Block Ptr Ptr Ptr
@@ -16,6 +13,7 @@ Type Chunk
 	Public:
 	Declare Constructor()
 	Declare Destructor()
+	Declare Function GetBlock(As Integer, As Integer, As Integer) As Block
 	Declare Sub CreateMesh()
 	Declare Property Update(As Single)
 	Declare Property Render(As Vector3d)

@@ -1,3 +1,4 @@
+#Include "headers/globals.bi"
 #Include "headers/chunk.bi"
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
@@ -33,10 +34,20 @@ Destructor Chunk
 End Destructor
 
 Sub Chunk.CreateMesh()
-	'' create new mesh
-	'' fill arrays
-	'' and allocate arrays to gl renderer using glVertexArray ...
+	Dim As Integer x,y,z
+	
 	This._mesh = New Mesh(MAX_VERTICES)
+	
+	'' Fill mesh arrays with data from Chunk
+	For x = 0 To CHUNK_SIZE - 1
+		For y = 0 To CHUNK_SIZE - 1
+			For z = 0 To CHUNK_SIZE - 1
+				If This._blocks[x][y][z].IsActive() = TRUE Then
+					This._mesh->AppendCube(x,y,z)
+				EndIf
+			Next
+		Next
+	Next
 End Sub
 
 Property Chunk.Update(dt As Single)
@@ -44,7 +55,7 @@ Property Chunk.Update(dt As Single)
 End Property
 
 Property Chunk.Render(b_position As Vector3d)
-	'' Activate rendering
+	'' Activate rendering from arrays
 	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
 	
 	'' simple call to glDrawElements via Mesh

@@ -1,4 +1,5 @@
 #Include "headers/mesh.bi"
+#Include "headers/globals.bi"
 
 Constructor Mesh(size As Integer)
 	This._size = size
@@ -26,4 +27,8 @@ End Function
 
 Function Mesh.GetIndexArray() As GLfloat Ptr
 	Return This._indexArray
+End Function
+
+Function Mesh.AppendCube(x As Integer, y As Integer, z As Integer) As Byte
+	Return TRUE
 End Function

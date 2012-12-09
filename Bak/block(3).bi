@@ -1,4 +1,4 @@
-#Ifndef __HEADER_BLOCK_BI__
+#ifndef __HEADER_BLOCK_BI__
 #define __HEADER_BLOCK_BI__
 
 #Include "vector3d.bi"
@@ -12,10 +12,10 @@ Type Block
    Public:
    Declare Constructor()
    ''Declare Destructor()
-   Declare Function IsActive() As Byte
+   Declare Property IsActive() As Byte
    Declare Property SetActive(As Integer)
 End Type
 
-'Declare Sub RenderBlock(As Block, As Vector3d)
+Declare Sub RenderBlock(As Block, As Vector3d)
 
 #endif

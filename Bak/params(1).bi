@@ -14,6 +14,7 @@
 
 '' Chunks
 #Define CHUNK_SIZE 			16							'' Chunk size, CHUNK_SIZE^3=number of blocks in one chunk
+#Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name
 #Define CONFIG_FILE_NAME	"fkclient.cfg"			'' Configuration filename
@@ -27,7 +28,6 @@
 ''
 
 '' Screen parameters
-#Define GET_DEFAULT_NAME(param)	param _ _DEFAULT
 #Define SCR_WIDTH_PARAM		"SCR_WIDTH"
 #Define SCR_WIDTH_DEFAULT	850.0
 #Define SCR_HEIGHT_PARAM	"SCR_HEIGHT"

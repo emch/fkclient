@@ -25,5 +25,9 @@ Function Mesh.GetColorArray() As GLfloat Ptr
 End Function
 
 Function Mesh.GetIndexArray() As GLfloat Ptr
-	
+	Return This._indexArray
+End Function
+
+Function Mesh.AppendCube(x As Integer, y As Integer, z As Integer) As Byte
+	Return TRUE
 End Function

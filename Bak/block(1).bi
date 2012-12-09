@@ -1,10 +1,8 @@
-#ifndef __HEADER_BLOCK_BI__
+#Ifndef __HEADER_BLOCK_BI__
 #define __HEADER_BLOCK_BI__
 
 #Include "vector3d.bi"
 #Include "blocktype.bi"
-
-#Inclib "block"
 
 Type Block
 	Private:
@@ -14,10 +12,10 @@ Type Block
    Public:
    Declare Constructor()
    ''Declare Destructor()
-   Declare Property IsActive() As Byte
+   Declare Function IsActive() As Byte
    Declare Property SetActive(As Integer)
 End Type
 
-Declare Sub RenderBlock(As Block, As Vector3d)
+Declare Sub RenderBlock(As Block, As Vector3d) '' temporary
 
 #endif

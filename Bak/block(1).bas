@@ -11,12 +11,12 @@ Constructor Block
 	This._isActive = TRUE
 End Constructor
 
-Property Block.IsActive() As Byte
-	If This._isActive = 1 Then
+Function Block.IsActive() As Byte
+	If This._isActive = TRUE Then
 		Return TRUE
 	EndIf
 	Return FALSE
-End Property
+End Function
 
 Property Block.SetActive(activate As Integer)
 	This._isActive = activate

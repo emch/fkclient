@@ -12,7 +12,7 @@ Constructor Block
 End Constructor
 
 Property Block.IsActive() As Byte
-	If This._isActive = TRUE Then
+	If This._isActive = 1 Then
 		Return TRUE
 	EndIf
 	Return FALSE

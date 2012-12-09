@@ -19,3 +19,15 @@ End Function
 Function Mesh.GetNormalArray() As GLfloat Ptr
 	Return This._normalArray
 End Function
+
+Function Mesh.GetColorArray() As GLfloat Ptr
+	Return This._colorArray
+End Function
+
+Function Mesh.GetIndexArray() As GLfloat Ptr
+	Return This._indexArray
+End Function
+
+Function Mesh.AppendCube(x As Integer, y As Integer, z As Integer)
+	Return TRUE
+End Function
