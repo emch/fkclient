@@ -1,6 +1,7 @@
 #Include "headers/chunk.bi"
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
+#Include "gl/gl.bi"
 
 Constructor Chunk
 	Dim i As Integer
@@ -34,13 +35,27 @@ End Destructor
 Sub Chunk.CreateMesh()
 	'' create new mesh
 	'' fill arrays
-	'' and allocate arrays
+	'' and allocate arrays to gl renderer using glVertexArray ...
+	This._mesh = New Mesh(MAX_VERTICES)
 End Sub
 
 Property Chunk.Update(dt As Single)
-
+	'' UpdateMesh here !
 End Property
 
 Property Chunk.Render(b_position As Vector3d)
+	'' Activate rendering
+	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
 	
+	'' simple call to glDrawElements via Mesh
+	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
+	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
+	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
+	glIndexPointer(GL_FLOAT, 0, This._mesh->GetIndexArray())
+	''glTexCoordPointer : see how textures are rendered
+	
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	
+	'' Disable rendering from arrays
+	glDisableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY)
 End Property

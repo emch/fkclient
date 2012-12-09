@@ -5,6 +5,9 @@
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
 
+'' see http://www.songho.ca/opengl/gl_vertexarray.html
+#Define MAX_VERTICES 16384
+
 Type Chunk
 	Private:
 	_blocks as Block Ptr Ptr Ptr

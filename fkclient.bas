@@ -149,6 +149,9 @@ Function InitScene() As Integer
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
+	'' test (provisoire)
+	testChunk.CreateMesh()
+	
 	LogToFile("OpenGL initialised")
 	Return TRUE																'' no error occurred
 End Function

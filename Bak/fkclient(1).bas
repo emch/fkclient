@@ -106,7 +106,7 @@ While loopOn And noError
 	Wend
 	
 	'' Temporary (future dev option) : wireframe
-	glPolygonMode GL_FRONT_AND_BACK, GL_LINE 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
    noError = noError Or DrawScene()
 
@@ -148,6 +148,12 @@ Function InitScene() As Integer
 	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
+	
+	'' Enable mesh rendering with glDrawArrays
+	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
+	
+	'' test (provisoire)
+	testChunk.CreateMesh()
 	
 	LogToFile("OpenGL initialised")
 	Return TRUE																'' no error occurred
