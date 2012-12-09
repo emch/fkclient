@@ -5,6 +5,8 @@
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
 
+'' see http://www.songho.ca/opengl/gl_vertexarray.html
+
 Type Chunk
 	Private:
 	_blocks as Block Ptr Ptr Ptr

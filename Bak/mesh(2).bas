@@ -1,13 +1,13 @@
 #Include "headers/mesh.bi"
-#Include "headers/vertex.bi"
-#Include "headers/triangle.bi"
 
 Constructor Mesh(size As Integer)
-	This._vertices = Callocate(size, SizeOf(Vertex))
-	this._triangles = Callocate(size, SizeOf(Triangle))
+	This._size = size
+	This._vertexArray = Callocate(3*size, SizeOf(Single))
+	This._normalArray = Callocate(3*size, SizeOf(Single))
+	This._colorArray = Callocate(4*size, SizeOf(Single))
+	This._indexArray = Callocate(size, SizeOf(Single))
 End Constructor
 
 Destructor Mesh()
-	DeAllocate(this._vertices)
-	DeAllocate(this._triangles)
+	DeAllocate(this._vertexArray)
 End Destructor

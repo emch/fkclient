@@ -1,5 +1,6 @@
 #Include "headers/chunk.bi"
 #Include "headers/block.bi"
+#Include "headers/mesh.bi"
 
 Constructor Chunk
 	Dim i As Integer
@@ -30,9 +31,9 @@ Destructor Chunk
 	DeAllocate(This._blocks)
 End Destructor
 
-Property Chunk.CreateMesh()
-
-End Property
+Sub Chunk.CreateMesh()
+	'' create new mesh and allocate arrays
+End Sub
 
 Property Chunk.Update(dt As Single)
 

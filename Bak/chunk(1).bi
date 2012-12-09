@@ -8,7 +8,7 @@
 Type Chunk
 	Private:
 	_blocks as Block Ptr Ptr Ptr
-	_mesh As Mesh
+	_mesh As Mesh Ptr
 	
 	Public:
 	Declare Constructor()

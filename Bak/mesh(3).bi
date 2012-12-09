@@ -1,16 +1,15 @@
-' see glDrawArrays and how to 'activate' arrays
-
 #Ifndef __HEADER_MESH_BI__
 #define __HEADER_MESH_BI__
 
-#Include "headers/vertex.bi"
-#Include "headers/triangle.bi"
-
 Type Mesh
 	Private:
-	_size As Integer				'' maximum number of vertices
-	_vertices As Vertex Ptr
-	_triangles As triangle Ptr
+	_size As Integer					'' maximum number of vertices
+	_vertexArray As Single Ptr		'' glVertexPointer
+	_normalArray As Single Ptr 	'' glNormalPointer
+	_colorArray As Single Ptr 		'' glColorPointer
+	_indexArray As single Ptr		'' glIndexPointer
+	'' texcoords
+	'' edgeflag?
 	
 	Public:
 	Declare Constructor(As Integer)

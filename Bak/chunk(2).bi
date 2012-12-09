@@ -2,7 +2,7 @@
 #define __HEADER_CHUNK_BI__
 
 #Include "headers/params.bi"
-#Include "block.bi"
+#Include "headers/block.bi"
 #Include "headers/mesh.bi"
 
 Type Chunk

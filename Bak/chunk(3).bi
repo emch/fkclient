@@ -1,7 +1,7 @@
 #Ifndef __HEADER_CHUNK_BI__
 #define __HEADER_CHUNK_BI__
 
-#Include "params.bi"
+#Include "headers/params.bi"
 #Include "block.bi"
 #Include "headers/mesh.bi"
 
