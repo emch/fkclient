@@ -3,6 +3,7 @@
 
 #Include "gl/gl.bi"
 #Include "headers/params.bi"
+#Include "headers/vector3d.bi"
 
 #Define NUM_VERTEX_COORDS 	3
 #Define NUM_NORMAL_COORDS 	3
@@ -16,7 +17,7 @@ Type Mesh
 	_vertexArray As GLfloat Ptr	'' glVertexPointer
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer
-	_indexArray As GLfloat Ptr		'' glIndexPointer
+	_indexArray As Integer Ptr		'' glIndexPointer
 	'' texcoords
 	'' edgeflag?
 	
@@ -27,9 +28,11 @@ Type Mesh
 	Declare Function GetVertexArray() As GLfloat Ptr
 	Declare Function GetNormalArray() As GLfloat Ptr
 	Declare Function GetColorArray() As GLfloat Ptr
-	Declare Function GetIndexArray() As GLfloat Ptr
+	Declare Function GetIndexArray() As Integer Ptr
 	'' Mesh generation functions
-	Declare Function AppendCube(As Integer, As Integer, As Integer)
+	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat)
+	Declare Sub AddTriangle(As Integer, As Integer, As Integer)
+	Declare Function AppendCube(As Single, As Single, As Single) As Byte
 End Type
 
 #EndIf

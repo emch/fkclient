@@ -4,6 +4,8 @@
 #Include "vector3d.bi"
 #Include "blocktype.bi"
 
+#Define BLOCK_RENDER_SIZE	0.5
+
 Type Block
 	Private:
 	_isActive As Byte
@@ -16,6 +18,6 @@ Type Block
    Declare Property SetActive(As Integer)
 End Type
 
-Declare Sub RenderBlock(As Block, As Vector3d)
+'Declare Sub RenderBlock(As Block, As Vector3d)
 
 #endif

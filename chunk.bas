@@ -62,7 +62,7 @@ Property Chunk.Render(b_position As Vector3d)
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
 	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
 	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
-	glIndexPointer(GL_FLOAT, 0, This._mesh->GetIndexArray())
+	glIndexPointer(GL_INT, 0, This._mesh->GetIndexArray())
 	''glTexCoordPointer : see how textures are rendered
 	
 	glDrawArrays(GL_TRIANGLES, 0, 36)

@@ -113,7 +113,7 @@ While loopOn And noError
    glFlush
    
    SDL_GL_SwapBuffers
-   SDL_Delay 40			'' avoid high CPU usage
+   ''SDL_Delay 40			'' avoid high CPU usage ???
 Wend
 
 SDL_Quit

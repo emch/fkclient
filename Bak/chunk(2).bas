@@ -38,7 +38,7 @@ Sub Chunk.CreateMesh()
 	
 	This._mesh = New Mesh(MAX_VERTICES)
 	
-	'' Fill mesh arrays with data from Chun
+	'' Fill mesh arrays with data from Chunk
 	For x = 0 To CHUNK_SIZE - 1
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1

@@ -36,12 +36,9 @@ End Destructor
 Sub Chunk.CreateMesh()
 	Dim As Integer x,y,z
 	
-	'' create new mesh
-	'' fill arrays
-	'' and allocate arrays to gl renderer using glVertexArray ...
 	This._mesh = New Mesh(MAX_VERTICES)
 	
-	
+	'' Fill mesh arrays with data from Chun
 	For x = 0 To CHUNK_SIZE - 1
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1
