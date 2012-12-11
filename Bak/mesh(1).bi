@@ -8,12 +8,14 @@
 #Define NUM_VERTEX_COORDS 	3
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
-#Define NUM_INDEX_COORDS	1
+#Define NUM_INDEX_COORDS	6 '' 3*6/4 in reality ...
 #Define MAX_VERTICES 		4*BLOCKS_PER_CHUNK	'' maximum number of vertices in one mesh = 16384
 
 Type Mesh
 	Private:
 	_size As Integer					'' maximum number of vertices
+	_num As Integer 					'' number of vertices
+	_indexArrayIndice As Integer	'' running indice in indexArray
 	_vertexArray As GLfloat Ptr	'' glVertexPointer
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer

@@ -37,14 +37,11 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Scene objects
-'Dim Shared test As Block
-'Dim Shared testPosition As Vector3d = Vector3d()
 Dim Shared testChunk As Chunk = Chunk()
 
 '' Entry point
 ClearLogFile()									'' Clearing logfile for a new session!
 noError = LoadConfigFile(@configParams)'' Load config file in configuration hashtable
-
 
 '' CONFIG VARIABLES, find a cleaner way but the idea is here!
 
@@ -113,7 +110,7 @@ While loopOn And noError
    glFlush
    
    SDL_GL_SwapBuffers
-   ''SDL_Delay 40			'' avoid high CPU usage ???
+   SDL_Delay 40			'' avoid high CPU usage (temporary)
 Wend
 
 SDL_Quit
@@ -150,8 +147,13 @@ Function InitScene() As Integer
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
+	'' Temporary
+	'' Load objects
+	testChunk.Load()
+	
 	'' test (provisoire)
 	testChunk.CreateMesh()
+	'' End temporary
 	
 	LogToFile("OpenGL initialised")
 	Return TRUE																'' no error occurred
@@ -176,7 +178,7 @@ Function DrawScene() As Integer
 	glTranslatef(0.0f,0.0f,-6.0f) '' see how to make a camera ...
 	
 	'' Rendering objects
-	'RenderBlock(test, testPosition) '' provisoire
+	'testChunk.Render(...)
 	
 	Return TRUE
 End Function

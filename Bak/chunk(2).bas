@@ -2,6 +2,7 @@
 #Include "headers/chunk.bi"
 #Include "headers/block.bi"
 #Include "headers/mesh.bi"
+#Include "headers/logging.bi"
 #Include "gl/gl.bi"
 
 Constructor Chunk
@@ -33,6 +34,18 @@ Destructor Chunk
 	DeAllocate(This._blocks)
 End Destructor
 
+Sub Chunk.Load() '' adapt to load from file/other source
+	Dim As Integer i, j, k
+	
+	For i = 0 To CHUNK_SIZE - 1
+		For j = 0 To CHUNK_SIZE - 1
+			For k = 0 To CHUNK_SIZE - 1
+				This._blocks[i][j][k] = Block()
+			Next
+		Next
+	Next
+End Sub
+
 Sub Chunk.CreateMesh()
 	Dim As Integer x,y,z
 	
@@ -43,7 +56,8 @@ Sub Chunk.CreateMesh()
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1
 				If This._blocks[x][y][z].IsActive() = TRUE Then
-					This._mesh->AppendCube(x,y,z)
+					' Append cube not working
+					'This._mesh->AppendCube(x,y,z) '' add a cube to the mesh
 				EndIf
 			Next
 		Next
@@ -55,6 +69,9 @@ Property Chunk.Update(dt As Single)
 End Property
 
 Property Chunk.Render(b_position As Vector3d)
+	'' Translate Chunk position
+	glTranslatef(b_position.X, b_position.Y, -b_position.Z) '' -b_position.Z to get IN screen ?
+	
 	'' Activate rendering from arrays
 	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
 	
@@ -62,7 +79,7 @@ Property Chunk.Render(b_position As Vector3d)
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
 	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
 	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
-	glIndexPointer(GL_FLOAT, 0, This._mesh->GetIndexArray())
+	glIndexPointer(GL_INT, 0, This._mesh->GetIndexArray())
 	''glTexCoordPointer : see how textures are rendered
 	
 	glDrawArrays(GL_TRIANGLES, 0, 36)
@@ -70,3 +87,7 @@ Property Chunk.Render(b_position As Vector3d)
 	'' Disable rendering from arrays
 	glDisableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY)
 End Property
+
+Function Chunk.GetBlocks() As Block Ptr Ptr Ptr
+	Return This._blocks
+End Function
