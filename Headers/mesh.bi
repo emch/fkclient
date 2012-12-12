@@ -8,8 +8,8 @@
 #Define NUM_VERTEX_COORDS 	3
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
-#Define NUM_INDEX_COORDS	2 '' 6/4 in reality ...
-#Define MAX_VERTICES 		4*BLOCKS_PER_CHUNK	'' maximum number of vertices in one mesh = 16384
+#Define NUM_INDEX_COORDS	2 '' 6/4
+#Define MAX_VERTICES 		2*6*4*BLOCKS_PER_CHUNK	'' maximum number of vertices in one mesh = 98304 (cf. 6 faces et 4 vertices par face)
 
 Type Mesh
 	Private:

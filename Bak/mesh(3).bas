@@ -79,7 +79,7 @@ Sub Mesh.AddTriangle(ind1 As Integer, ind2 As Integer, ind3 As Integer)
 	
 	This._indexArrayIndice += 3
 	
-	'LogToFile("index" & Str(This._indexArrayIndice)) '' debugging
+	'LogToFile("i" & Str(This._indexArrayIndice)) '' debugging
 	
 End Sub
 
@@ -118,63 +118,63 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(v1, v2, v3)
 	This.AddTriangle(v1, v3, v4)
 	
-	'' AddTriangle not working
+	'' Bug for indice 73982 (AddVertex in cause)
 	'' Problems of memory : indices in AddVertex and AddTriangle are badly managed ...
 	
 	' Back
-   'n1 = Vector3d(0.0, 0.0, -1.0)
+   n1 = Vector3d(0.0, 0.0, -1.0)
 
-   'v5 = This.AddVertex(p5, n1, r, g, b, a)
-   'v6 = This.AddVertex(p6, n1, r, g, b, a)
-   'v7 = This.AddVertex(p7, n1, r, g, b, a)
-   'v8 = This.AddVertex(p8, n1, r, g, b, a)
+   v5 = This.AddVertex(p5, n1, r, g, b, a)
+   v6 = This.AddVertex(p6, n1, r, g, b, a)
+   v7 = This.AddVertex(p7, n1, r, g, b, a)
+   v8 = This.AddVertex(p8, n1, r, g, b, a)
 
-   'This.AddTriangle(v5, v6, v7)
-   'This.AddTriangle(v5, v7, v8)
+   This.AddTriangle(v5, v6, v7)
+   This.AddTriangle(v5, v7, v8)
 	
 	' Right
-	'n1 = Vector3d(1.0, 0.0, 0.0)
-	'
-	'v2 = This.AddVertex(p2, n1, r, g, b, a)
-	'v5 = This.AddVertex(p5, n1, r, g, b, a)
-	'v8 = This.AddVertex(p8, n1, r, g, b, a)
-	'v3 = This.AddVertex(p3, n1, r, g, b, a)
-	'
-	'This.AddTriangle(v2, v5, v8)
-	'This.AddTriangle(v2, v8, v3)
-	'
-	'' Left
-	'n1 = Vector3d(-1.0, 0.0, 0.0)
-	'
-	'v6 = This.AddVertex(p6, n1, r, g, b, a)
-	'v1 = This.AddVertex(p1, n1, r, g, b, a)
-	'v4 = This.AddVertex(p4, n1, r, g, b, a)
-	'v7 = This.AddVertex(p7, n1, r, g, b, a)
-	'
-	'This.AddTriangle(v6, v1, v4)
-	'This.AddTriangle(v6, v4, v7)
-   '
-   '' Top
-	'n1 = Vector3d(0.0, 1.0, 0.0)
-	'
-	'v4 = This.AddVertex(p4, n1, r, g, b, a)
-	'v3 = This.AddVertex(p3, n1, r, g, b, a)
-	'v8 = This.AddVertex(p8, n1, r, g, b, a)
-	'v7 = This.AddVertex(p7, n1, r, g, b, a)
-	'
-	'This.AddTriangle(v4, v3, v8)
-	'This.AddTriangle(v4, v8, v7)
-	'
-	'' Bottom
-	'n1 = Vector3d(0.0, -1.0, 0.0)
-	'
-	'v6 = This.AddVertex(p6, n1, r, g, b, a)
-	'v5 = This.AddVertex(p5, n1, r, g, b, a)
-	'v2 = This.AddVertex(p2, n1, r, g, b, a)
-	'v1 = This.AddVertex(p1, n1, r, g, b, a)
-	'
-	'This.AddTriangle(v6, v5, v2)
-	'This.AddTriangle(v6, v2, v1)
+	n1 = Vector3d(1.0, 0.0, 0.0)
+	
+	v2 = This.AddVertex(p2, n1, r, g, b, a)
+	v5 = This.AddVertex(p5, n1, r, g, b, a)
+	v8 = This.AddVertex(p8, n1, r, g, b, a)
+	v3 = This.AddVertex(p3, n1, r, g, b, a)
+	
+	This.AddTriangle(v2, v5, v8)
+	This.AddTriangle(v2, v8, v3)
+	
+	' Left
+	n1 = Vector3d(-1.0, 0.0, 0.0)
+	
+	v6 = This.AddVertex(p6, n1, r, g, b, a)
+	v1 = This.AddVertex(p1, n1, r, g, b, a)
+	v4 = This.AddVertex(p4, n1, r, g, b, a)
+	v7 = This.AddVertex(p7, n1, r, g, b, a)
+	
+	This.AddTriangle(v6, v1, v4)
+	This.AddTriangle(v6, v4, v7)
+   
+   ' Top
+	n1 = Vector3d(0.0, 1.0, 0.0)
+	
+	v4 = This.AddVertex(p4, n1, r, g, b, a)
+	v3 = This.AddVertex(p3, n1, r, g, b, a)
+	v8 = This.AddVertex(p8, n1, r, g, b, a)
+	v7 = This.AddVertex(p7, n1, r, g, b, a)
+	
+	This.AddTriangle(v4, v3, v8)
+	This.AddTriangle(v4, v8, v7)
+	
+	' Bottom
+	n1 = Vector3d(0.0, -1.0, 0.0)
+	
+	v6 = This.AddVertex(p6, n1, r, g, b, a)
+	v5 = This.AddVertex(p5, n1, r, g, b, a)
+	v2 = This.AddVertex(p2, n1, r, g, b, a)
+	v1 = This.AddVertex(p1, n1, r, g, b, a)
+	
+	This.AddTriangle(v6, v5, v2)
+	This.AddTriangle(v6, v2, v1)
 	
 	Return TRUE
 End Function

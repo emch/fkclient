@@ -51,12 +51,13 @@ Sub Chunk.CreateMesh()
 	
 	This._mesh = New Mesh(MAX_VERTICES)
 	
+	LogToFile(Str(MAX_VERTICES))
+	
 	'' Fill mesh arrays with data from Chunk
 	For x = 0 To CHUNK_SIZE - 1
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1
 				If This._blocks[x][y][z].IsActive() = TRUE Then
-					' Append cube not working
 					This._mesh->AppendCube(x,y,z) '' add a cube to the mesh
 				EndIf
 			Next
