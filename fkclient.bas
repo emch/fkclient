@@ -143,7 +143,7 @@ Function InitScene() As Integer
 	glShadeModel GL_SMOOTH                                  	'' Enable Smooth Shading
 	glClearColor 0.0, 0.0, 0.0, 0.5                         	'' Black Background
 	glClearDepth 1.0                                        	'' Depth Buffer Setup
-	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
+	'glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
@@ -175,10 +175,11 @@ Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
 
-	glTranslatef(0.0f,0.0f,-6.0f) '' see how to make a camera ...
+	glTranslatef(0.0, 0.0, -6.0) '' see how to make a camera ...
 	
 	'' Rendering objects
-	'testChunk.Render(...)
+	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, 0.0)
+	testChunk.Render(chunkPos)
 	
 	Return TRUE
 End Function

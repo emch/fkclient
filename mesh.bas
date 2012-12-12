@@ -118,9 +118,6 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(v1, v2, v3)
 	This.AddTriangle(v1, v3, v4)
 	
-	'' Bug for indice 73982 (AddVertex in cause)
-	'' Problems of memory : indices in AddVertex and AddTriangle are badly managed ...
-	
 	' Back
    n1 = Vector3d(0.0, 0.0, -1.0)
 
@@ -177,4 +174,12 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(v6, v2, v1)
 	
 	Return TRUE
+End Function
+
+Function Mesh.GetNumVertices() As Integer
+	Return This._num
+End Function
+
+Function Mesh.GetNumIndices() As Integer
+	Return This._indexArrayIndice
 End Function

@@ -65,7 +65,7 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	'' Increase current number of vertices and return it (for indice purposes)
 	This._num += 1
 	
-	LogToFile(Str(This._num)) '' debugging
+	'LogToFile(Str(This._num)) '' debugging
 	
 	Return This._num
 End Function
@@ -177,4 +177,12 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(v6, v2, v1)
 	
 	Return TRUE
+End Function
+
+Function Mesh.GetNumVertices() As Integer
+	Return This._num
+End Function
+
+Function Mesh.GetNumIndice() As Integer
+	Return This._indexArrayIndice
 End Function

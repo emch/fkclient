@@ -175,10 +175,11 @@ Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
 
-	glTranslatef(0.0f,0.0f,-6.0f) '' see how to make a camera ...
+	glTranslatef(0.0, 0.0, -100.0) '' see how to make a camera ...
 	
 	'' Rendering objects
-	testChunk.Render(New Vector3d())
+	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, 0.0)
+	testChunk.Render(chunkPos)
 	
 	Return TRUE
 End Function

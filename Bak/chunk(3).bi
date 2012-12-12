@@ -14,11 +14,11 @@ Type Chunk
 	Declare Constructor()
 	Declare Destructor()
 	''Declare Function GetBlock(As Integer, As Integer, As Integer) As Block
-	'Declare Sub Fill()
+	Declare Sub Fill()
 	Declare Sub CreateMesh()
 	Declare Property Update(As Single)
 	Declare Property Render(As Vector3d)
-	Declare Property GetBlocks() As Block Ptr Ptr Ptr
+	Declare Function GetBlocks() As Block Ptr Ptr Ptr
 End Type
 
 #endif

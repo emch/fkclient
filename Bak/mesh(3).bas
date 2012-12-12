@@ -178,3 +178,11 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	
 	Return TRUE
 End Function
+
+Function Mesh.GetNumVertices() As Integer
+	Return This._num
+End Function
+
+Function Mesh.GetNumIndice() As Integer
+	Return This._indexArrayIndex
+End Function
