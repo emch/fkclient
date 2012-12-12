@@ -111,15 +111,13 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
 	v1 = This.AddVertex(p1, n1, r, g, b, a)
+	LogToFile(Str(v1))
 	v2 = This.AddVertex(p2, n1, r, g, b, a)
 	v3 = This.AddVertex(p3, n1, r, g, b, a)
 	v4 = This.AddVertex(p4, n1, r, g, b, a)
 	
 	This.AddTriangle(v1, v2, v3)
 	This.AddTriangle(v1, v3, v4)
-	
-	'' Bug for indice 73982 (AddVertex in cause)
-	'' Problems of memory : indices in AddVertex and AddTriangle are badly managed ...
 	
 	' Back
    n1 = Vector3d(0.0, 0.0, -1.0)

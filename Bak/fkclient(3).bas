@@ -12,7 +12,7 @@
 #Include "Headers/chunk.bi"
 #Include "Headers/block.bi"
 #Include "Headers/params.bi"
-#Include "Headers/globals.bi" 	'' booleans
+#Include "Headers/globals.bi" '' booleans
 #Include "Headers/config.bi"	'' configuration file management
 #Include "Headers/logging.bi"	'' logging
 
@@ -133,7 +133,7 @@ Function InitWindow() As Integer
 	   Return FALSE
 	End If
 	
-	SDL_GL_SetAttribute SDL_GL_DOUBLEBUFFER, 1
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
 	
 	LogToFile("SDL initialised")
 	Return TRUE
@@ -143,7 +143,7 @@ Function InitScene() As Integer
 	glShadeModel GL_SMOOTH                                  	'' Enable Smooth Shading
 	glClearColor 0.0, 0.0, 0.0, 0.5                         	'' Black Background
 	glClearDepth 1.0                                        	'' Depth Buffer Setup
-	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
+	'glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
@@ -175,7 +175,7 @@ Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
 
-	glTranslatef(0.0, 0.0, -10.0) '' see how to make a camera ...
+	glTranslatef(0.0, 0.0, -20.0) '' see how to make a camera ...
 	
 	'' Rendering objects
 	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, 0.0)

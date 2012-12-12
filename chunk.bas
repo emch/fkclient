@@ -68,25 +68,26 @@ Property Chunk.Update(dt As Single)
 End Property
 
 Sub Chunk.Render(b_position As Vector3d)
-	'' Translate Chunk position
-	glTranslatef(b_position.X, b_position.Y, b_position.Z) '' -b_position.Z to get IN screen ?
-	
 	'' Activate rendering from arrays
-	glEnableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY Or GL_INDEX_ARRAY) ''GL_TEXTURE_COORD_ARRAY Or
+	glEnableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
 	
-	'' simple call to glDrawElements via Mesh
+	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
 	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
 	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
-	glIndexPointer(GL_INT, 0, This._mesh->GetIndexArray())
-	''glTexCoordPointer : see how textures are rendered
 	
-	'glDrawArrays(GL_TRIANGLES, 0, 36)
-	'' NOT WORKING
-	glDrawArrays(GL_POINTS, 0, This._mesh->GetNumVertices())
+	glPushMatrix()
+	'' Translate Chunk position
+	glTranslatef(b_position.X, b_position.Y, -b_position.Z)
+	
+	'Code not working
+	glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
+	'glDrawElements(GL_POINTS, This._mesh->GetNumVertices(), GL_INT, This._mesh->GetIndexArray())
+	
+	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_COLOR_ARRAY Or GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY Or GL_INDEX_ARRAY)
+	glDisableClientState(GL_COLOR_ARRAY And GL_NORMAL_ARRAY And GL_VERTEX_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr
