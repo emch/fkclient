@@ -38,9 +38,9 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
-Dim testInitPos As Vector3d = Vector3d(0.0, 0.0, -10.0)
 Dim Shared myCamera As Camera
-myCamera.SetPosition(testInitPos)
+Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
+Dim Shared myCameraDirection As Vector3d
 
 '' Lights
 '' NONE YET!
@@ -80,7 +80,8 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	While SDL_PollEvent(@event)
+	'While 
+		SDL_PollEvent(@event)
 		'' provisoire ? (mettre dans une state machine dédiée ?)
 		Select Case event.type
 			'' Red cross ...
@@ -93,12 +94,20 @@ While loopOn And noError
 						loopOn = FALSE
 					Case SDLK_F11:
 						fullscreenOn = Not fullscreenOn
+					Case SDLK_a: '' config + use direction
+						myCameraPosition.SetX(myCameraPosition.X + 0.5)
+					Case SDLK_d: '' config + use direction
+						myCameraPosition.SetX(myCameraPosition.X - 0.5)
+					Case SDLK_w:
+						myCameraPosition.SetY(myCameraPosition.Y - 0.5)
+					Case SDLK_s:
+						myCameraPosition.SetY(myCameraPosition.Y + 0.5)
 				End Select
 			'' Mouse event
 			Case SDL_MOUSEBUTTONDOWN:
 				Select Case event.button.button
 					Case SDL_BUTTON_LEFT:
-						''Print "left"
+						'LogToFile("left")
 					Case SDL_BUTTON_RIGHT:
 						''Print "right"
 					Case SDL_BUTTON_MIDDLE:
@@ -109,7 +118,7 @@ While loopOn And noError
 						''Print "up"
 				End Select
 		End Select	
-	Wend
+	'Wend
 	
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
@@ -156,6 +165,9 @@ Function InitScene() As Integer
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
+	'' Initialize camera position/direction
+	myCamera.SetPosition(@myCameraPosition)
+	
 	'' Temporary
 	'' Load objects
 	testChunk.Load()
@@ -182,8 +194,11 @@ Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
 	
-	'' Translate to camera position
-	glTranslatef(myCamera.GetPosition().X, myCamera.GetPosition().Y, myCamera.GetPosition().Z)
+	'' Update camera position
+	myCamera.SetPosition(@myCameraPosition)
+	
+	'' Translate to camera position (use myCameraPosition?)
+	glTranslatef(myCamera.GetPosition()->X, myCamera.GetPosition()->Y, myCamera.GetPosition()->Z)
 	'' Point accordingly to camera direction
 	' TODO
 	

@@ -13,14 +13,14 @@
 #Define VERSION_MESSAGE Str(VERSION_MAIN) + "." + Str(VERSION_MINOR) + "." + Str(VERSION_DEBUG)
 
 '' Chunks
-#Define CHUNK_SIZE 			16
+#Define CHUNK_SIZE 			5
 #Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name
 #Define CONFIG_FILE_NAME	"fkclient.cfg"			'' Configuration filename
 
 '' Log file name
-#Define LOGGING_FILE_NAME	"fkclient.log"	'' Logging file name
+#Define LOGGING_FILE_NAME	"fkclient.log"			'' Logging file name
 #Define LOGGING_PREFIX		Date + " | " + Time + " | "
 
 ''

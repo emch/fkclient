@@ -1,7 +1,5 @@
-#ifndef __HEADER_VECTOR3D_BI__
+#Ifndef __HEADER_VECTOR3D_BI__
 #define __HEADER_VECTOR3D_BI__
-
-#Inclib "vector3d"
 
 Type Vector3d
 	Private:

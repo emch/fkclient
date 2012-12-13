@@ -5,14 +5,13 @@
 
 Type Camera
 	Private:
-	_position As Vector3d
-	_direction As Vector3d
+	_position As Vector3d Ptr
+	_direction As Vector3d Ptr
 	
 	Public:
-	'Declare Constructor()
-	Declare Constructor(As Vector3d)
-	Declare Function GetPosition() As Vector3d
-	Declare Function GetDirection() As Vector3d
+	Declare Constructor()
+	Declare Function GetPosition() As Vector3d Ptr
+	Declare Function GetDirection() As Vector3d Ptr
 	Declare Sub SetPosition(As Vector3d)
 	Declare Sub SetDirection(As Vector3d)
 End Type

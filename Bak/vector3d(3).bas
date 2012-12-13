@@ -23,15 +23,3 @@ End Property
 Property Vector3d.Z As Single
 	Return This._z
 End Property
-
-Sub Vector3d.SetX(b_x As Single)
-	This._x = b_x
-End Sub
-
-Sub Vector3d.SetY(b_y As Single)
-	This._y = b_y
-End Sub
-
-Sub Vector3d.SetZ(b_z As Single)
-	This._z = b_z
-End Sub

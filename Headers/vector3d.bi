@@ -13,6 +13,9 @@ Type Vector3d
    Declare Property X As Single
    Declare Property Y As Single
    Declare Property Z As Single
+   Declare Sub SetX(As Single)
+   Declare Sub SetY(As Single)
+   Declare Sub SetZ(As Single)
 End Type
 
 #endif
