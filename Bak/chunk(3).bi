@@ -14,7 +14,7 @@ Type Chunk
 	Declare Constructor()
 	Declare Destructor()
 	''Declare Function GetBlock(As Integer, As Integer, As Integer) As Block
-	Declare Sub Fill()
+	Declare Sub Load()
 	Declare Sub CreateMesh()
 	Declare Property Update(As Single)
 	Declare Property Render(As Vector3d)

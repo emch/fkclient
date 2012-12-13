@@ -15,6 +15,7 @@
 #Include "Headers/globals.bi" '' booleans
 #Include "Headers/config.bi"	'' configuration file management
 #Include "Headers/logging.bi"	'' logging
+#Include "headers/camera.bi"
 
 '' Prototypes
 Declare Function InitWindow() As Integer
@@ -35,6 +36,14 @@ Dim loopOn As Byte = TRUE
 
 '' Configuration hashtable
 Dim Shared configParams As ext.fbext_HashTable((String))
+
+'' Camera
+Dim testInitPos As Vector3d = Vector3d(0.0, 0.0, -10.0)
+Dim Shared myCamera As Camera
+myCamera.SetPosition(testInitPos)
+
+'' Lights
+'' NONE YET!
 
 '' Scene objects
 Dim Shared testChunk As Chunk = Chunk()
@@ -103,7 +112,7 @@ While loopOn And noError
 	Wend
 	
 	'' Temporary (future dev option) : wireframe
-	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
    noError = noError Or DrawScene()
 
@@ -125,16 +134,16 @@ Function InitWindow() As Integer
 	'' Set SDL videomode
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
 	
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
+	
 	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
-	''SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
+	''video = SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
 	
 	If video = NULL Then
 	   LogToFile("Failed to initialise SDL: " + *SDL_GetError())
 	   Return FALSE
 	End If
-	
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
-	
+
 	LogToFile("SDL initialised")
 	Return TRUE
 End Function
@@ -143,15 +152,13 @@ Function InitScene() As Integer
 	glShadeModel GL_SMOOTH                                  	'' Enable Smooth Shading
 	glClearColor 0.0, 0.0, 0.0, 0.5                         	'' Black Background
 	glClearDepth 1.0                                        	'' Depth Buffer Setup
-	'glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
+	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
 	'' Temporary
 	'' Load objects
 	testChunk.Load()
-	
-	'' test (provisoire)
 	testChunk.CreateMesh()
 	'' End temporary
 	
@@ -174,11 +181,14 @@ End Sub
 Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
-
-	glTranslatef(0.0, 0.0, -20.0) '' see how to make a camera ...
+	
+	'' Translate to camera position
+	glTranslatef(myCamera.GetPosition().X, myCamera.GetPosition().Y, myCamera.GetPosition().Z)
+	'' Point accordingly to camera direction
+	' TODO
 	
 	'' Rendering objects
-	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, 0.0)
+	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, -10.0)
 	testChunk.Render(chunkPos)
 	
 	Return TRUE

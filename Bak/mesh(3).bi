@@ -20,8 +20,6 @@ Type Mesh
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer
 	_indexArray As Integer Ptr		'' glIndexPointer
-	'' texcoords
-	'' edgeflag?
 	
 	Public:
 	Declare Constructor(As Integer)
@@ -32,6 +30,7 @@ Type Mesh
 	Declare Function GetColorArray() As GLfloat Ptr
 	Declare Function GetIndexArray() As Integer Ptr
 	Declare Function GetNumVertices() As Integer
+	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
 	Declare Function AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat) As Integer
 	Declare Sub AddTriangle(As Integer, As Integer, As Integer)

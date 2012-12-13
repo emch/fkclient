@@ -3,7 +3,7 @@
 
 Constructor Camera()
 	This._position = Vector3d()
-	This._direction = Vector3d()
+	this._direction = Vector3d()
 End Constructor
 
 Function Camera.GetPosition() As Vector3d

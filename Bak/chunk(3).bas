@@ -69,9 +69,6 @@ End Property
 
 Sub Chunk.Render(b_position As Vector3d)
 	'' Activate rendering from arrays
-	'glEnableClientState(GL_VERTEX_ARRAY)
-	'glEnableClientState(GL_NORMAL_ARRAY)
-	'glEnableClientState(GL_COLOR_ARRAY)
 	glEnableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
 	
 	'' Assign pointers to data
@@ -85,13 +82,12 @@ Sub Chunk.Render(b_position As Vector3d)
 	
 	'Code not working
 	glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
-	'glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
-	'glDrawElements(GL_POINTS, This._mesh->GetNumVertices(), GL_INT, This._mesh->GetIndexArray())
+	'glDrawElements(GL_TRIANGLES, This._mesh->GetNumVertices(), GL_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_COLOR_ARRAY And GL_NORMAL_ARRAY Or GL_VERTEX_ARRAY)
+	glDisableClientState(GL_COLOR_ARRAY And GL_NORMAL_ARRAY And GL_VERTEX_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

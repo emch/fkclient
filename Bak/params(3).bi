@@ -14,6 +14,7 @@
 
 '' Chunks
 #Define CHUNK_SIZE 			16							'' Chunk size, CHUNK_SIZE^3=number of blocks in one chunk
+#Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name
 #Define CONFIG_FILE_NAME	"fkclient.cfg"			'' Configuration filename

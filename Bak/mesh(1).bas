@@ -64,9 +64,7 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	
 	'' Increase current number of vertices and return it (for indice purposes)
 	This._num += 1
-	
-	'LogToFile(Str(This._num)) '' debugging
-	
+
 	Return This._num
 End Function
 
@@ -77,10 +75,7 @@ Sub Mesh.AddTriangle(ind1 As Integer, ind2 As Integer, ind3 As Integer)
 	This._indexArray[indexArrayIndex+1] = ind2
 	This._indexArray[indexArrayIndex+2] = ind3
 	
-	This._indexArrayIndice += 3
-	
-	'LogToFile("i" & Str(This._indexArrayIndice)) '' debugging
-	
+	This._indexArrayIndice += 3	
 End Sub
 
 Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
@@ -111,7 +106,6 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
 	v1 = This.AddVertex(p1, n1, r, g, b, a)
-	LogToFile(Str(v1))
 	v2 = This.AddVertex(p2, n1, r, g, b, a)
 	v3 = This.AddVertex(p3, n1, r, g, b, a)
 	v4 = This.AddVertex(p4, n1, r, g, b, a)

@@ -1,4 +1,0 @@
--camera (2 modes)
--config stored in config file --> how to use hashtable from extended library?
--compress assets in .dat files
--fullscreen mode detecting normal video mode automatically

@@ -111,9 +111,6 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
 	v1 = This.AddVertex(p1, n1, r, g, b, a)
-	LogToFile("X=" & Str(p1.X))
-	LogToFile("Y=" & Str(p1.Y))
-	LogToFile("Z=" & Str(p1.Z))
 	v2 = This.AddVertex(p2, n1, r, g, b, a)
 	v3 = This.AddVertex(p3, n1, r, g, b, a)
 	v4 = This.AddVertex(p4, n1, r, g, b, a)

@@ -17,7 +17,7 @@ Type Chunk
 	Declare Sub Load()
 	Declare Sub CreateMesh()
 	Declare Property Update(As Single)
-	Declare Property Render(As Vector3d)
+	Declare Function Render(As Vector3d)
 	Declare Function GetBlocks() As Block Ptr Ptr Ptr
 End Type
 

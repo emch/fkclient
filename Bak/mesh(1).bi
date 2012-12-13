@@ -9,7 +9,7 @@
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
 #Define NUM_INDEX_COORDS	6/4
-#Define MAX_VERTICES 		6*6*BLOCKS_PER_CHUNK ''6*4*BLOCKS_PER_CHUNK	'' maximum number of vertices in one mesh = 98304 (cf. 6 faces et 4 vertices par face)
+#Define MAX_VERTICES 		6*6*BLOCKS_PER_CHUNK '' optimize
 
 Type Mesh
 	Private:
@@ -19,9 +19,7 @@ Type Mesh
 	_vertexArray As GLfloat Ptr	'' glVertexPointer
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer
-	_indexArray As Integer Ptr		'' glIndexPointer
-	'' texcoords
-	'' edgeflag?
+	_indexArray As Integer Ptr
 	
 	Public:
 	Declare Constructor(As Integer)
@@ -32,7 +30,7 @@ Type Mesh
 	Declare Function GetColorArray() As GLfloat Ptr
 	Declare Function GetIndexArray() As Integer Ptr
 	Declare Function GetNumVertices() As Integer
-	Declare Function GetNumIndice() As Integer
+	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
 	Declare Function AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat) As Integer
 	Declare Sub AddTriangle(As Integer, As Integer, As Integer)
