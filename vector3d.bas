@@ -35,3 +35,7 @@ End Sub
 Sub Vector3d.SetZ(b_z As Single)
 	This._z = b_z
 End Sub
+
+Sub VectProd(vect1 As Vector3d Ptr, vect2 As Vector3d Ptr, outvect As Vector3d Ptr)
+	outvect = New Vector3d(vect1->Y*vect2->Z-vect1->Z*vect2->Y, vect2->X*vect1->Z-vect2->Z*vect1->X, vect1->X*vect2->Y-vect2->X*vect1->Z)
+End Sub

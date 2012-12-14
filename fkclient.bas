@@ -39,8 +39,7 @@ Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
 Dim Shared myCamera As Camera
-Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
-Dim Shared myCameraDirection As Vector3d
+'Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
 
 '' Lights
 '' NONE YET!
@@ -80,8 +79,7 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	'While 
-		SDL_PollEvent(@event)
+	While SDL_PollEvent(@event)
 		'' provisoire ? (mettre dans une state machine dédiée ?)
 		Select Case event.type
 			'' Red cross ...
@@ -94,15 +92,23 @@ While loopOn And noError
 						loopOn = FALSE
 					Case SDLK_F11:
 						fullscreenOn = Not fullscreenOn
+						LogToFile(Str(fullscreenOn))
+					'' TODO: allow two keys to be pressed together ... --> booleans
+					'' TODO: key configuration
+					'' TODO: moves is calculated according to direction  (glRotatef) ...
 					Case SDLK_a: '' config + use direction
-						myCameraPosition.SetX(myCameraPosition.X + 0.05)
+						'' Use booleans and SDL_KEYUP?
+						myCamera.MoveBy(0.05, 0.0, 0.0)
 					Case SDLK_d: '' config + use direction
-						myCameraPosition.SetX(myCameraPosition.X - 0.05)
+						myCamera.MoveBy(-0.05, 0.0, 0.0)
+					'' change to SDLK_SPACE to get up down (according to direction)
 					Case SDLK_w:
-						myCameraPosition.SetY(myCameraPosition.Y - 0.05)
+						myCamera.MoveBy(0.0, -0.05, 0.0)
 					Case SDLK_s:
-						myCameraPosition.SetY(myCameraPosition.Y + 0.05)
+						myCamera.MoveBy(0.0, 0.05, 0.0)
 				End Select
+			Case SDL_KEYUP
+				
 			'' Mouse event
 			Case SDL_MOUSEBUTTONDOWN:
 				Select Case event.button.button
@@ -117,8 +123,10 @@ While loopOn And noError
 					Case SDL_BUTTON_WHEELUP:
 						''Print "up"
 				End Select
+			Case SDL_MOUSEMOTION
+				'LogToFile(Str(event.motion.xrel))
 		End Select	
-	'Wend
+	Wend
 	
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
@@ -144,6 +152,7 @@ Function InitWindow() As Integer
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
 	
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
+	SDL_EnableKeyRepeat(100, 10) ' put as parameters
 	
 	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
 	''video = SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
@@ -166,7 +175,7 @@ Function InitScene() As Integer
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	
 	'' Initialize camera position/direction
-	myCamera.SetPosition(@myCameraPosition)
+	myCamera.Initialize()
 	
 	'' Temporary
 	'' Load objects
@@ -194,12 +203,10 @@ Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
 	glLoadIdentity									            '' Reset the scene
 	
-	'' Update camera position
-	myCamera.SetPosition(@myCameraPosition)
-	
 	'' Translate to camera position (use myCameraPosition?)
-	glTranslatef(myCamera.GetPosition()->X, myCamera.GetPosition()->Y, myCamera.GetPosition()->Z)
-	'' Point accordingly to camera direction
+	'glTranslatef(myCamera.GetPosition()->X, myCamera.GetPosition()->Y, myCamera.GetPosition()->Z)
+	myCamera.Move()
+	'' Point accordingly to camera direction --> glRotate
 	' TODO
 	
 	'' Rendering objects

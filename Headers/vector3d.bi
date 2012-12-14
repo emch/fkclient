@@ -18,4 +18,6 @@ Type Vector3d
    Declare Sub SetZ(As Single)
 End Type
 
-#endif
+Declare Sub VectProd(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)
+
+#EndIf

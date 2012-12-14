@@ -1,7 +1,5 @@
-#ifndef __HEADER_VECTOR3D_BI__
+#Ifndef __HEADER_VECTOR3D_BI__
 #define __HEADER_VECTOR3D_BI__
-
-''#Inclib "vector3d"
 
 Type Vector3d
 	Private:
@@ -15,6 +13,11 @@ Type Vector3d
    Declare Property X As Single
    Declare Property Y As Single
    Declare Property Z As Single
+   Declare Sub SetX(As Single)
+   Declare Sub SetY(As Single)
+   Declare Sub SetZ(As Single)
 End Type
 
-#endif
+Declare Sub VectProd(As Vector3d, As Vector3d, As Vector3d Ptr
+
+#EndIf

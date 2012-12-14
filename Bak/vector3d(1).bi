@@ -15,6 +15,9 @@ Type Vector3d
    Declare Property Z As Single
    Declare Sub SetX(As Single)
    Declare Sub SetY(As Single)
+   Declare Sub SetZ(As Single)
 End Type
 
-#endif
+Declare Sub VectProd(As Vector3d Ptr, As Vector3d, As Vector3d Ptr)
+
+#EndIf
