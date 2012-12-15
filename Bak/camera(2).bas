@@ -37,17 +37,23 @@ Sub Camera.Move()
 	glTranslatef(This.GetPosition()->X, This.GetPosition()->Y, This.GetPosition()->Z)
 End Sub
 
+'' Moving camera in its current referential
 Sub Camera.MoveBy(x As Single, y As Single, z As Single)
-	Dim orthovect As Vector3d Ptr
-	VectProd(This._direction, This._vertical, orthovect)
+	'Dim orthovect As Vector3d Ptr
+	'VectProd(This._direction, This._vertical, orthovect)
+	'implement different camera modes
 	
-	'This.GetPosition()->SetX(This.GetPosition()->X + x)	'' for X, we move along the vector orthogonal to vertical & direction
-	This.GetPosition()->SetX(This.GetPosition()->X + x)
-	This.GetPosition()->SetY(This.GetPosition()->Y + y)	'' for Y, we move along the vertical
-	This.GetPosition()->SetZ(This.GetPosition()->Z + z)	'' for Z, we move along the direction
+	This.GetPosition()->SetX(This.GetPosition()->X + x)	'' TODO: for X, we move along the vector orthogonal to vertical & direction
+	This.GetPosition()->SetY(This.GetPosition()->Y + y)	'' TODO: for Y, we move along the vertical?
+	This.GetPosition()->SetZ(This.GetPosition()->Z + z)	'' TODO: for Z, we move along the direction
 	'This.Move()
 End Sub
 
-Sub Camera.PointAt(x As Single, y As Single, z As Single)
-	
+'' Pointing to a given point
+Sub Camera.LookAt(vect As Vector3d Ptr, cursor As Cursor)
+	'' Calculate angles ...
+	'' use gluLookAt!!! (see tuto)
+	'' pb how do you determine this point from the SDL cursor? --> glutPassiveMotionFunc?
+	'' Get cursor position and create a vector in current referential with the cursor coordinates + another one
+	''don't forget to recalculate cursor position to get it against the center of the screen
 End Sub

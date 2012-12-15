@@ -18,6 +18,8 @@ Type Vector3d
    Declare Sub SetZ(As Single)
 End Type
 
-Declare Sub VectProd(As Vector3d, As Vector3d, As Vector3d Ptr
+Declare Sub VectProd(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)
+Declare Sub VectOrthProj(As Vector3d Ptr, As Vector3d Ptr, As Vector3d)
+Declare Sub VectNormalize(As Vector3d Ptr, As Vector3d Ptr)
 
 #EndIf

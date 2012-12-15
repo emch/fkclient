@@ -2,6 +2,7 @@
 #define __HEADER_CAMERA_BI__
 
 #Include "headers/vector3d.bi"
+#Include "headers/cursor.bi"
 
 Type Camera
 	Private:
@@ -20,7 +21,7 @@ Type Camera
 	
 	Declare Sub Move()
 	Declare Sub MoveBy(x As Single, y As Single, z As Single)
-	Declare Sub PointAt(As Single, As Single, As Single)
+	Declare Sub LookAt(As Vector3d Ptr, As Cursor Ptr)
 End Type
 
 #EndIf

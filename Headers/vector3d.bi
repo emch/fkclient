@@ -19,5 +19,8 @@ Type Vector3d
 End Type
 
 Declare Sub VectProd(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)
+Declare Function VectScalarProd(As Vector3d Ptr, As Vector3d Ptr) As Single
+Declare Sub VectOrthProj(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)
+Declare Sub VectNormalize(As Vector3d Ptr, As Vector3d Ptr)
 
 #EndIf

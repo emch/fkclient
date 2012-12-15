@@ -4,8 +4,8 @@
 '' Libraries
 #Include "SDL/SDL.bi"
 #Include "SDL/SDL.bi"
-#Include "GL/gl.bi"
-#Include "GL/glu.bi"
+#Include "gl/gl.bi"
+#Include "gl/glu.bi"
 
 '' Project headers
 #Include "Headers/vector3d.bi"
@@ -16,6 +16,7 @@
 #Include "Headers/config.bi"	'' configuration file management
 #Include "Headers/logging.bi"	'' logging
 #Include "headers/camera.bi"
+#Include "headers/cursor.bi"
 
 '' Prototypes
 Declare Function InitWindow() As Integer
@@ -38,6 +39,7 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
+Dim Shared myCursor As Cursor
 Dim Shared myCamera As Camera
 'Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
 
@@ -92,7 +94,6 @@ While loopOn And noError
 						loopOn = FALSE
 					Case SDLK_F11:
 						fullscreenOn = Not fullscreenOn
-						LogToFile(Str(fullscreenOn))
 					'' TODO: allow two keys to be pressed together ... --> booleans
 					'' TODO: key configuration
 					'' TODO: moves is calculated according to direction  (glRotatef) ...
@@ -124,7 +125,8 @@ While loopOn And noError
 						''Print "up"
 				End Select
 			Case SDL_MOUSEMOTION
-				'LogToFile(Str(event.motion.xrel))
+				myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
+				LogToFile(Str(myCursor.GetX())&"-"&Str(myCursor.GetY()))
 		End Select	
 	Wend
 	
@@ -173,9 +175,10 @@ Function InitScene() As Integer
 	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
+	glEnable GL_CULL_FACE
 	
 	'' Initialize camera position/direction
-	myCamera.SetPosition(New Vector3d(0.0, 0.0, -10.0))
+	myCamera.Initialize()
 	
 	'' Temporary
 	'' Load objects

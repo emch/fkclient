@@ -11,6 +11,7 @@ Type Camera
 	
 	Public:
 	Declare Constructor()
+	Declare Sub Initialize()
 	Declare Function GetPosition() As Vector3d Ptr
 	Declare Function GetDirection() As Vector3d Ptr
 	Declare Function GetVertical() As Vector3d Ptr
@@ -18,8 +19,8 @@ Type Camera
 	Declare Sub SetDirection(As Vector3d Ptr)
 	
 	Declare Sub Move()
-	Declare Sub Camera.Move(x As Single, y As Single, z As Single)
-	Declare Sub PointAt(As Single, As Single, As Single)
+	Declare Sub MoveBy(x As Single, y As Single, z As Single)
+	Declare Sub LookAt(As Single, As Single, As Single)
 End Type
 
 #EndIf
