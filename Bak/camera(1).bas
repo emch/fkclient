@@ -1,4 +1,5 @@
 #Include "gl/gl.bi"
+#Include "gl/glu.bi"
 #Include "headers/camera.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/logging.bi"
@@ -7,7 +8,7 @@
 Constructor Camera()
 	This._position = New Vector3d()
 	This._direction = New Vector3d(0.0, 0.0, -1.0) 	'' initial direction points in screen (set as param/config?)
-	This._vertical = New Vector3d(0.0, -1.0, 0.0)	'' Y axis is pointing toward the bottom of the screen
+	This._vertical = New Vector3d(0.0, -1.0, 0.0)	'' initial vertical (Y axis is pointing toward the bottom of the screen)
 End Constructor
 
 Sub Camera.Initialize()
@@ -51,10 +52,37 @@ Sub Camera.MoveBy(x As Single, y As Single, z As Single)
 End Sub
 
 '' Pointing to a given point
-Sub Camera.LookAt(vect As Vector3d Ptr, cursor As Cursor)
-	'' Calculate angles ...
-	'' use gluLookAt!!! (see tuto)
-	'' pb how do you determine this point from the SDL cursor? --> glutPassiveMotionFunc?
-	'' Get cursor position and create a vector in current referential with the cursor coordinates + another one
-	''don't forget to recalculate cursor position to get it against the center of the screen
+Sub Camera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be expressed?
+	Dim testtemp As Integer = 800
+	
+	Dim locx As Vector3d Ptr = VectCopy(This._direction)
+	Dim locy As Vector3d Ptr = VectCopy(This._vertical)
+	Dim locz As Vector3d Ptr = New Vector3d()
+	locz = VectMult(locx, locy)
+	
+	Dim temp1 As Vector3d Ptr = New Vector3d()
+	Dim temp2 As Vector3d Ptr = New Vector3d()
+	Dim temp3 As Vector3d Ptr = New Vector3d()
+	
+	'' Recalculate direction and vertical
+	'VectAdd(locx,  + myCursor.yrel * locy, locx)
+	temp1 = VectConstMult(locz, cursor->GetXrel()/testtemp)
+	temp2 = VectConstMult(locy, cursor->GetYrel()/testtemp)
+	temp3 = VectAdd(temp1, temp2)
+	locx = VectAdd(locx, temp3)
+	locx = VectNormalize(locx)
+	
+	temp1 = VectConstMult(This._direction, -cursor->GetXrel()/testtemp)
+	temp2 = VectConstMult(locz, -cursor->GetYrel()/testtemp)
+	temp3 = VectAdd(temp1, temp2)
+	locy = VectAdd(locy, temp3)
+	
+	locz = VectMult(locx, locy)
+	
+	This._direction = locx
+	This._vertical = locy
+	
+	'' Look at
+	glLoadIdentity
+	gluLookAt(This.GetPosition()->X, This.GetPosition()->Y, This.GetPosition()->Z, locx->X, locx->Y, locx->Z, 0.0, -1.0, 0.0)
 End Sub

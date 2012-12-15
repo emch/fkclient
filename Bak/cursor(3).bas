@@ -13,7 +13,7 @@ Function Cursor.GetY() As Integer
 	Return This._y
 End Function
 
-Sub Cursor.Update(x As Integer, y As Integer, s_height As Integer, s_width As Integer)
-	This._x = x - s_height/2
-	This._y = y - s_width/2
+Sub Cursor.Update(x As Integer, y As Integer, s_width As Integer, s_height As Integer)
+	This._x = x - s_width/2
+	This._y = y - s_height/2
 End Sub

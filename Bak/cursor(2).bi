@@ -3,14 +3,14 @@
 
 Type Cursor
 	Private:
-	_x As Integer
-	_y As Integer
+	_x As Integer 'xrel?
+	_y As Integer	'yrel?
 	
 	Public:
 	Declare Constructor()
 	Declare Function GetX() As Integer
 	Declare Function GetY() As Integer
-	Declare Function Update(As Integer, As Integer)
+	Declare Sub Update(As Integer, As Integer, As Integer, As Integer)
 End Type
 
 #EndIf

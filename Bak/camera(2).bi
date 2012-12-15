@@ -20,7 +20,7 @@ Type Camera
 	
 	Declare Sub Move()
 	Declare Sub MoveBy(x As Single, y As Single, z As Single)
-	Declare Sub LookAt(As Vector3d Ptr)
+	Declare Sub Rotate(As Vector3d Ptr)
 End Type
 
 #EndIf

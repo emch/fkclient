@@ -18,8 +18,12 @@ Type Vector3d
    Declare Sub SetZ(As Single)
 End Type
 
-Declare Sub VectProd(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)
-Declare Sub VectOrthProj(As Vector3d Ptr, As Vector3d Ptr, As Vector3d)
-Declare Sub VectNormalize(As Vector3d Ptr, As Vector3d Ptr)
+Declare Function VectAdd(As Vector3d Ptr, As Vector3d Ptr) As Vector3d Ptr		'' adding vectors
+Declare Function VectConstMult(As Vector3d Ptr, As Single) As Vector3d Ptr			'' multiplying by constant
+Declare Function VectMult(As Vector3d Ptr, As Vector3d Ptr) As Vector3d Ptr			'' vectorial product
+Declare Function VectScalarProd(As Vector3d Ptr, As Vector3d Ptr) As Single	'' scalar product
+Declare Sub VectOrthProj(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)	'' orthgonal projection
+Declare Sub VectNormalize(As Vector3d Ptr, As Vector3d Ptr)							'' normalization
+Declare Function VectCopy(As Vector3d Ptr) As Vector3d Ptr							'' copy
 
 #EndIf

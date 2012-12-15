@@ -125,9 +125,10 @@ While loopOn And noError
 						''Print "up"
 				End Select
 			Case SDL_MOUSEMOTION
-				myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
+				'myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
+				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height)
 				'LogToFile(Str(myCursor.GetX())&"-"&Str(myCursor.GetY())) '' debugging
-		End Select	
+		End Select
 	Wend
 	
 	'' Temporary (future dev option) : wireframe
@@ -204,13 +205,16 @@ End Sub
 
 Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
-	glLoadIdentity									            '' Reset the scene
+	'' Reset the scene
+	glLoadIdentity
 	
 	'' Translate to camera position (use myCameraPosition?)
-	'glTranslatef(myCamera.GetPosition()->X, myCamera.GetPosition()->Y, myCamera.GetPosition()->Z)
 	myCamera.Move()
-	'' Point accordingly to camera direction --> glRotate
-	' TODO
+	
+	'' Point towards a point (cursor determined)
+	myCamera.Rotate(@myCursor)
+	
+	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	
 	'' Rendering objects
 	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, -10.0)
