@@ -3,18 +3,18 @@
 
 '' Libraries
 #Include "SDL/SDL.bi"
-#Include "SDL/SDL.bi"
 #Include "gl/gl.bi"
 #Include "gl/glu.bi"
 
 '' Project headers
-#Include "Headers/vector3d.bi"
-#Include "Headers/chunk.bi"
-#Include "Headers/block.bi"
-#Include "Headers/params.bi"
-#Include "Headers/globals.bi" '' booleans
-#Include "Headers/config.bi"	'' configuration file management
-#Include "Headers/logging.bi"	'' logging
+#Include "headers/keystates.bi"
+#Include "headers/vector3d.bi"
+#Include "headers/chunk.bi"
+#Include "headers/block.bi"
+#Include "headers/params.bi"
+#Include "headers/globals.bi" '' booleans
+#Include "headers/config.bi"	'' configuration file management
+#Include "headers/logging.bi"	'' logging
 #Include "headers/camera.bi"
 #Include "headers/cursor.bi"
 
@@ -28,9 +28,10 @@ Declare Function DrawScene() as Integer
 Dim Shared video As SDL_Surface Ptr
 Dim Shared fullscreenOn As Byte = FALSE
 
-'' SDL Event holder
+'' SDL Event holder and keystates
 Dim event As SDL_Event
 Dim noError As Integer = TRUE
+Dim Shared myKeyStates As KeyStates = KeyStates()
 
 '' Loop indicator
 Dim loopOn As Byte = TRUE
@@ -81,8 +82,7 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	While SDL_PollEvent(@event)
-		'' provisoire ? (mettre dans une state machine dédiée ?)
+	While SDL_PollEvent(@event) ''put in eventhandler object/function
 		Select Case event.type
 			'' Red cross ...
 			Case SDL_QUIT_:
@@ -90,25 +90,34 @@ While loopOn And noError
 			'' Keyboard event
 			Case SDL_KEYDOWN:
 				Select Case event.key.keysym.sym
-					Case SDLK_ESCAPE: '' provisoire (cf. retour vers menu)
+					Case SDLK_ESCAPE: '' bugging sometimes (when lots of other keys pressed)
 						loopOn = FALSE
-					Case SDLK_F11:
-						fullscreenOn = Not fullscreenOn
-					'' TODO: allow two keys to be pressed together ... --> booleans
-					'' TODO: key configuration
-					'' TODO: moves is calculated according to direction  (glRotatef) ...
-					Case SDLK_a: '' config + use direction
-						'' Use booleans and SDL_KEYUP?
-						myCamera.MoveBy(0.05, 0.0, 0.0)
-					Case SDLK_d: '' config + use direction
-						myCamera.MoveBy(-0.05, 0.0, 0.0)
-					'' change to SDLK_SPACE to get up down (according to direction)
-					Case SDLK_w:
-						myCamera.MoveBy(0.0, -0.05, 0.0)
-					Case SDLK_s:
-						myCamera.MoveBy(0.0, 0.05, 0.0)
+					'Case SDLK_F11:
+					'	fullscreenOn = Not fullscreenOn
+					Case myKeyStates.GetKeyCode("left"):
+						myKeyStates.SetKeyState("left", TRUE)
+						myCamera.MoveBy(0.05, 0.0, 0.0) ''remove
+					Case myKeyStates.GetKeyCode("right"):
+						myKeyStates.SetKeyState("right", TRUE)
+						myCamera.MoveBy(-0.05, 0.0, 0.0) ''remove
+					Case myKeyStates.GetKeyCode("forward"):
+						myKeyStates.SetKeyState("forward", TRUE)
+						myCamera.MoveBy(0.0, -0.05, 0.0) ''remove
+					Case myKeyStates.GetKeyCode("backward"):
+						myKeyStates.SetKeyState("backward", TRUE)
+						myCamera.MoveBy(0.0, 0.05, 0.0) ''remove
 				End Select
-			Case SDL_KEYUP
+			Case SDL_KEYUP:
+				Select Case event.key.keysym.sym
+					Case myKeyStates.GetKeyCode("left"):
+						myKeyStates.SetKeyState("left", FALSE)
+					Case myKeyStates.GetKeyCode("right"):
+						myKeyStates.SetKeyState("right", FALSE)
+					Case myKeyStates.GetKeyCode("forward"):
+						myKeyStates.SetKeyState("forward", FALSE)
+					Case myKeyStates.GetKeyCode("backward"):
+						myKeyStates.SetKeyState("backward", FALSE) 
+				End Select
 				
 			'' Mouse event
 			Case SDL_MOUSEBUTTONDOWN:
@@ -126,7 +135,7 @@ While loopOn And noError
 				End Select
 			Case SDL_MOUSEMOTION
 				'myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
-				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height)
+				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project
 				'LogToFile(Str(myCursor.GetX())&"-"&Str(myCursor.GetY())) '' debugging
 		End Select
 	Wend
@@ -155,7 +164,7 @@ Function InitWindow() As Integer
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
 	
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
-	SDL_EnableKeyRepeat(100, 10) ' put as parameters
+	SDL_EnableKeyRepeat(100, 10) ' in fine : delete, change delay?
 	
 	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
 	''video = SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
@@ -205,13 +214,14 @@ End Sub
 
 Function DrawScene() As Integer
 	glClear GL_COLOR_BUFFER_BIT OR GL_DEPTH_BUFFER_BIT
-	glLoadIdentity									            '' Reset the scene
+	'' Reset the scene
+	glLoadIdentity
 	
 	'' Translate to camera position (use myCameraPosition?)
-	myCamera.Move()
+	myCamera.Move() 'place where keyboard event occurs, not here!
 	
 	'' Point towards a point (cursor determined)
-	myCamera.Rotate(@myCursor)
+	myCamera.Rotate(@myCursor) 'place where mouse event occurs, not here!
 	
 	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	
