@@ -90,10 +90,10 @@ While loopOn And noError
 			'' Keyboard event
 			Case SDL_KEYDOWN:
 				Select Case event.key.keysym.sym
-					Case SDLK_ESCAPE: '' bugging sometimes
+					Case SDLK_ESCAPE: '' bugging sometimes (when lots of other keys pressed)
 						loopOn = FALSE
-					Case SDLK_F11:
-						fullscreenOn = Not fullscreenOn
+					'Case SDLK_F11:
+					'	fullscreenOn = Not fullscreenOn
 					Case myKeyStates.GetKeyCode("left"):
 						myKeyStates.SetKeyState("left", TRUE)
 						myCamera.MoveBy(0.05, 0.0, 0.0) ''remove
@@ -123,20 +123,18 @@ While loopOn And noError
 			Case SDL_MOUSEBUTTONDOWN:
 				Select Case event.button.button
 					Case SDL_BUTTON_LEFT:
-						'LogToFile("left")
+						
 					Case SDL_BUTTON_RIGHT:
-						''Print "right"
+						
 					Case SDL_BUTTON_MIDDLE:
-						''Print "middle"
+						
 					Case SDL_BUTTON_WHEELDOWN:
-						''Print "down"
+						
 					Case SDL_BUTTON_WHEELUP:
-						''Print "up"
+						
 				End Select
 			Case SDL_MOUSEMOTION
-				'myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
 				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project
-				'LogToFile(Str(myCursor.GetX())&"-"&Str(myCursor.GetY())) '' debugging
 		End Select
 	Wend
 	
@@ -175,6 +173,7 @@ Function InitWindow() As Integer
 	End If
 
 	LogToFile("SDL initialised")
+	
 	Return TRUE
 End Function
 

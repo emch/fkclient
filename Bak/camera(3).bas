@@ -75,8 +75,6 @@ Sub Camera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be e
 	temp1 = VectConstMult(This._direction, -cursor->GetXrel()/testtemp)
 	temp2 = VectConstMult(locz, -cursor->GetYrel()/testtemp)
 	temp3 = VectAdd(temp1, temp2)
-	'temp2 =
-	'temp3 =
 	locy = VectAdd(locy, temp3)
 	
 	locz = VectMult(locx, locy)

@@ -41,7 +41,7 @@ Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
 Dim Shared myCursor As Cursor
-Dim Shared myCamera As Camera
+Dim Shared myCamera As FreeflyCamera
 'Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
 
 '' Lights
@@ -129,9 +129,9 @@ While loopOn And noError
 					Case SDL_BUTTON_MIDDLE:
 						
 					Case SDL_BUTTON_WHEELDOWN:
-						
+						'' camera down
 					Case SDL_BUTTON_WHEELUP:
-						
+						'' camera up
 				End Select
 			Case SDL_MOUSEMOTION
 				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project

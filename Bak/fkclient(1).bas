@@ -123,20 +123,18 @@ While loopOn And noError
 			Case SDL_MOUSEBUTTONDOWN:
 				Select Case event.button.button
 					Case SDL_BUTTON_LEFT:
-						'LogToFile("left")
+						
 					Case SDL_BUTTON_RIGHT:
-						''Print "right"
+						
 					Case SDL_BUTTON_MIDDLE:
-						''Print "middle"
+						
 					Case SDL_BUTTON_WHEELDOWN:
-						''Print "down"
+						'' camera down
 					Case SDL_BUTTON_WHEELUP:
-						''Print "up"
+						'' camera up
 				End Select
 			Case SDL_MOUSEMOTION
-				'myCursor.Update(event.motion.x, event.motion.y, scr_width, scr_height)
 				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project
-				'LogToFile(Str(myCursor.GetX())&"-"&Str(myCursor.GetY())) '' debugging
 		End Select
 	Wend
 	

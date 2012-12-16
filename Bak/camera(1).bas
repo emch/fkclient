@@ -53,36 +53,9 @@ End Sub
 
 '' Pointing to a given point
 Sub Camera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be expressed?
-	Dim testtemp As Integer = 800
 	
-	Dim locx As Vector3d Ptr = VectCopy(This._direction)
-	Dim locy As Vector3d Ptr = VectCopy(This._vertical)
-	Dim locz As Vector3d Ptr = New Vector3d()
-	locz = VectMult(locx, locy)
-	
-	Dim temp1 As Vector3d Ptr = New Vector3d()
-	Dim temp2 As Vector3d Ptr = New Vector3d()
-	Dim temp3 As Vector3d Ptr = New Vector3d()
-	
-	'' Recalculate direction and vertical
-	'VectAdd(locx,  + myCursor.yrel * locy, locx)
-	temp1 = VectConstMult(locz, cursor->GetXrel()/testtemp)
-	temp2 = VectConstMult(locy, cursor->GetYrel()/testtemp)
-	temp3 = VectAdd(temp1, temp2)
-	locx = VectAdd(locx, temp3)
-	locx = VectNormalize(locx)
-	
-	temp1 = VectConstMult(This._direction, -cursor->GetXrel()/testtemp)
-	temp2 = VectConstMult(locz, -cursor->GetYrel()/testtemp)
-	temp3 = VectAdd(temp1, temp2)
-	locy = VectAdd(locy, temp3)
-	
-	locz = VectMult(locx, locy)
-	
-	This._direction = locx
-	This._vertical = locy
 	
 	'' Look at
-	glLoadIdentity
-	gluLookAt(This.GetPosition()->X, This.GetPosition()->Y, This.GetPosition()->Z, locx->X, locx->Y, locx->Z, 0.0, -1.0, 0.0)
+	'glLoadIdentity
+	'gluLookAt(This.GetPosition()->X, This.GetPosition()->Y, This.GetPosition()->Z, locx->X, locx->Y, locx->Z, 0.0, -1.0, 0.0)
 End Sub

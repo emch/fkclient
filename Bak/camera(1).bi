@@ -2,8 +2,9 @@
 #define __HEADER_CAMERA_BI__
 
 #Include "headers/vector3d.bi"
+#Include "headers/cursor.bi"
 
-Type Camera
+Type FreeflyCamera '' currently : freefly camera (implement different modes?)
 	Private:
 	_position As Vector3d Ptr
 	_direction As Vector3d Ptr

@@ -5,42 +5,42 @@
 #Include "headers/logging.bi"
 #Include "headers/cursor.bi"
 
-Constructor Camera()
+Constructor FreeflyCamera()
 	This._position = New Vector3d()
 	This._direction = New Vector3d(0.0, 0.0, -1.0) 	'' initial direction points in screen (set as param/config?)
 	This._vertical = New Vector3d(0.0, -1.0, 0.0)	'' initial vertical (Y axis is pointing toward the bottom of the screen)
 End Constructor
 
-Sub Camera.Initialize()
+Sub FreeflyCamera.Initialize()
 	This.SetPosition(New Vector3d(0.0, 0.0, -10.0)) '' Put in parameter or read a file or ...
 End Sub
 
-Function Camera.GetPosition() As Vector3d Ptr
+Function FreeflyCamera.GetPosition() As Vector3d Ptr
 	Return This._position
 End Function
 
-Function Camera.GetDirection() As Vector3d Ptr
+Function FreeflyCamera.GetDirection() As Vector3d Ptr
 	Return This._direction
 End Function
 
-Function Camera.GetVertical() As Vector3d Ptr
+Function FreeflyCamera.GetVertical() As Vector3d Ptr
 	Return This._vertical
 End Function
 
-Sub Camera.SetPosition(b_pos As Vector3d Ptr)
+Sub FreeflyCamera.SetPosition(b_pos As Vector3d Ptr)
 	This._position = b_pos
 End Sub
 
-Sub Camera.SetDirection(b_dir As Vector3d Ptr)
+Sub FreeflyCamera.SetDirection(b_dir As Vector3d Ptr)
 	This._direction = b_dir
 End Sub
 
-Sub Camera.Move()
+Sub FreeflyCamera.Move()
 	glTranslatef(This.GetPosition()->X, This.GetPosition()->Y, This.GetPosition()->Z)
 End Sub
 
 '' Moving camera in its current referential
-Sub Camera.MoveBy(x As Single, y As Single, z As Single)
+Sub FreeflyCamera.MoveBy(x As Single, y As Single, z As Single)
 	'Dim orthovect As Vector3d Ptr
 	'VectProd(This._direction, This._vertical, orthovect)
 	'implement different camera modes
@@ -52,7 +52,7 @@ Sub Camera.MoveBy(x As Single, y As Single, z As Single)
 End Sub
 
 '' Pointing to a given point
-Sub Camera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be expressed?
+Sub FreeflyCamera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be expressed?
 	
 	
 	'' Look at

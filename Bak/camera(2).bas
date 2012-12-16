@@ -53,7 +53,7 @@ End Sub
 
 '' Pointing to a given point
 Sub Camera.Rotate(cursor As Cursor Ptr) '' in which referential should vect be expressed?
-	Dim testtemp As Integer = 50
+	Dim testtemp As Integer = 800
 	
 	Dim locx As Vector3d Ptr = VectCopy(This._direction)
 	Dim locy As Vector3d Ptr = VectCopy(This._vertical)

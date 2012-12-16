@@ -10,6 +10,7 @@ Type Vector3d
    Public:
    Declare Constructor()
    Declare Constructor(As Single, As Single, As Single)
+   Declare Constructor(As Vector3d Ptr)
    Declare Property X As Single
    Declare Property Y As Single
    Declare Property Z As Single
@@ -18,12 +19,10 @@ Type Vector3d
    Declare Sub SetZ(As Single)
 End Type
 
-Declare Function VectAdd(As Vector3d Ptr, As Vector3d Ptr) As Vector3d Ptr		'' adding vectors
-Declare Function VectConstMult(As Vector3d Ptr, As Single) As Vector3d Ptr		'' multiplying by constant
-Declare Function VectMult(As Vector3d Ptr, As Vector3d Ptr) As Vector3d Ptr	'' vectorial product
-Declare Function VectScalarProd(As Vector3d Ptr, As Vector3d Ptr) As Single	'' scalar product
-Declare Sub VectOrthProj(As Vector3d Ptr, As Vector3d Ptr, As Vector3d Ptr)	'' orthgonal projection
-Declare Sub VectNormalize(As Vector3d Ptr, As Vector3d Ptr)							'' normalization
-Declare Function VectCopy(As Vector3d Ptr) As Vector3d Ptr							'' copy
+Declare Operator +(As Vector3d, As Vector3d) As Vector3d
+Declare Operator -(As Vector3d, As Vector3d) As Vector3d
+Declare Operator *(As Single, As Vector3d) As Vector3d
+Declare Operator /(As Vector3d, As Single) As Vector3d
+Declare Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d
 
 #EndIf

@@ -2,8 +2,9 @@
 #define __HEADER_CAMERA_BI__
 
 #Include "headers/vector3d.bi"
+#Include "headers/cursor.bi"
 
-Type Camera
+Type Camera '' currently : freefly camera (implement different modes?)
 	Private:
 	_position As Vector3d Ptr
 	_direction As Vector3d Ptr
@@ -20,7 +21,7 @@ Type Camera
 	
 	Declare Sub Move()
 	Declare Sub MoveBy(x As Single, y As Single, z As Single)
-	Declare Sub Rotate(As Vector3d Ptr)
+	Declare Sub Rotate(As Cursor Ptr)
 End Type
 
 #EndIf
