@@ -3,25 +3,45 @@
 
 #Include "headers/vector3d.bi"
 #Include "headers/cursor.bi"
+#Include "headers/keystates.bi"
+#Include "sdl/sdl_events.bi"
 
-Type FreeflyCamera '' currently : freefly camera (implement different modes?)
+Type FreeflyCamera
 	Private:
-	_position As Vector3d Ptr
-	_direction As Vector3d Ptr
-	_vertical As Vector3d Ptr
+	_speed As Single
+	_sensivity As Single
+	
+	_timeBeforeStoppingVerticalMotion As UInteger
+	_verticalMotionActive As Integer
+	_verticalMotionDirection As Integer
+	
+	_keystates As KeyStates Ptr
+	
+	_position As Vector3d
+	_target As Vector3d
+	_forward As Vector3d
+	_left As Vector3d
+	
+	_theta As Single
+	_phi As Single
+	
+	Declare Sub VectorsFromAngles()
 	
 	Public:
-	Declare Constructor()
-	Declare Sub Initialize()
-	Declare Function GetPosition() As Vector3d Ptr
-	Declare Function GetDirection() As Vector3d Ptr
-	Declare Function GetVertical() As Vector3d Ptr
-	Declare Sub SetPosition(As Vector3d Ptr)
-	Declare Sub SetDirection(As Vector3d Ptr)
+	Declare Constructor(As Vector3d, As KeyStates Ptr)
+	Declare Destructor()
 	
-	Declare Sub Move()
-	Declare Sub MoveBy(x As Single, y As Single, z As Single)
-	Declare Sub Rotate(As Cursor Ptr)
+	Declare Sub OnMouseMotion(As SDL_MouseMotionEvent)
+	Declare Sub OnMouseButton(As SDL_MouseButtonEvent)
+	Declare Sub OnKeyboard(As SDL_KeyboardEvent)
+	
+	Declare Sub Animate(As UInteger)
+	Declare Sub SetSpeed(As Single)
+	Declare Sub SetSensitivity(As Single)
+	
+	Declare Sub SetPosition(As Vector3d)
+	
+	Declare Sub Look()
 End Type
 
 #EndIf

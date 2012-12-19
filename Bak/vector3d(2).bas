@@ -42,9 +42,9 @@ Sub Vector3d.SetZ(b_z As Single)
 	This._z = b_z
 End Sub
 
-Function Vector3d.Normalize()
+Sub Vector3d.Normalize()
 	
-End Function
+End Sub
 
 Operator +(v As Vector3d, w As Vector3d) As Vector3d
 	Return Vector3d(v.X+w.X, v.Y+w.Y, v.Z+w.Z)

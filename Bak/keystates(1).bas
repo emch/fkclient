@@ -7,6 +7,8 @@ Constructor KeyStates	'' in fine : load from config file
 	This.AddKey("backward", SDLK_s)
 	This.AddKey("left", 		SDLK_a)
 	This.AddKey("right", 	SDLK_d)
+	This.AddKey("boost",		SDLK_LSHIFT)
+	'_keyconf["boost"] = SDLK_LSHIFT;
 End Constructor
 
 Sub KeyStates.AddKey(keyfunc As String, keycode As Integer)
@@ -15,7 +17,7 @@ Sub KeyStates.AddKey(keyfunc As String, keycode As Integer)
 End Sub
 
 Function KeyStates.GetKeyState(keyfunc As String) As Integer
-	Return This._state.GetValue(keyfunc) '' working?
+	Return *This._state.GetValue(keyfunc) '' working?
 End Function
 
 Function KeyStates.GetKeyCode(keyfunc As String) As Integer

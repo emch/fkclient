@@ -41,8 +41,7 @@ Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
 Dim Shared myCursor As Cursor
-Dim Shared myCamera As Camera
-'Dim Shared myCameraPosition As Vector3d = Vector3d(0.0, 0.0, -10.0)
+Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates)
 
 '' Lights
 '' NONE YET!
@@ -82,7 +81,7 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	While SDL_PollEvent(@event) ''put in eventhandler object/function
+	While SDL_PollEvent(@event) ''put in eventhandler object/function. Better --> call object dedicated functions
 		Select Case event.type
 			'' Red cross ...
 			Case SDL_QUIT_:
@@ -96,16 +95,16 @@ While loopOn And noError
 					'	fullscreenOn = Not fullscreenOn
 					Case myKeyStates.GetKeyCode("left"):
 						myKeyStates.SetKeyState("left", TRUE)
-						myCamera.MoveBy(0.05, 0.0, 0.0) ''remove
+						'myCamera.MoveBy(0.05, 0.0, 0.0) ''remove
 					Case myKeyStates.GetKeyCode("right"):
 						myKeyStates.SetKeyState("right", TRUE)
-						myCamera.MoveBy(-0.05, 0.0, 0.0) ''remove
+						'myCamera.MoveBy(-0.05, 0.0, 0.0) ''remove
 					Case myKeyStates.GetKeyCode("forward"):
 						myKeyStates.SetKeyState("forward", TRUE)
-						myCamera.MoveBy(0.0, -0.05, 0.0) ''remove
+						'myCamera.MoveBy(0.0, -0.05, 0.0) ''remove
 					Case myKeyStates.GetKeyCode("backward"):
 						myKeyStates.SetKeyState("backward", TRUE)
-						myCamera.MoveBy(0.0, 0.05, 0.0) ''remove
+						'myCamera.MoveBy(0.0, 0.05, 0.0) ''remove
 				End Select
 			Case SDL_KEYUP:
 				Select Case event.key.keysym.sym
@@ -129,9 +128,9 @@ While loopOn And noError
 					Case SDL_BUTTON_MIDDLE:
 						
 					Case SDL_BUTTON_WHEELDOWN:
-						
+						'' camera down
 					Case SDL_BUTTON_WHEELUP:
-						
+						'' camera up
 				End Select
 			Case SDL_MOUSEMOTION
 				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project
@@ -163,6 +162,9 @@ Function InitWindow() As Integer
 	
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
 	SDL_EnableKeyRepeat(100, 10) ' in fine : delete, change delay?
+	SDL_WM_GrabInput(SDL_GRAB_ON) 	'mouse confined to application window
+	SDL_ShowCursor(SDL_DISABLE)		'disabling mouse cursor
+	'' TODO : show cross in the middle of the screen
 	
 	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
 	''video = SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
@@ -173,7 +175,6 @@ Function InitWindow() As Integer
 	End If
 
 	LogToFile("SDL initialised")
-	
 	Return TRUE
 End Function
 
@@ -187,7 +188,7 @@ Function InitScene() As Integer
 	glEnable GL_CULL_FACE
 	
 	'' Initialize camera position/direction
-	myCamera.Initialize()
+	'myCamera.Initialize()
 	
 	'' Temporary
 	'' Load objects
@@ -217,10 +218,10 @@ Function DrawScene() As Integer
 	glLoadIdentity
 	
 	'' Translate to camera position (use myCameraPosition?)
-	myCamera.Move() 'place where keyboard event occurs, not here!
+	'myCamera.Move() 'place where keyboard event occurs, not here!
 	
 	'' Point towards a point (cursor determined)
-	myCamera.Rotate(@myCursor) 'place where mouse event occurs, not here!
+	'myCamera.Rotate(@myCursor) 'place where mouse event occurs, not here!
 	
 	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	

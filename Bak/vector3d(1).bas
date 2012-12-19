@@ -44,7 +44,7 @@ End Sub
 
 Sub Vector3d.Normalize()
 	
-End Function
+End Sub
 
 Operator +(v As Vector3d, w As Vector3d) As Vector3d
 	Return Vector3d(v.X+w.X, v.Y+w.Y, v.Z+w.Z)
@@ -62,6 +62,6 @@ Operator /(v As Vector3d, c As Single) As Vector3d
 	Return Vector3d(v.X/c, v.Y/c, v.Z/c)
 End Operator
 
-Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d
+Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d '' TODO
 	Return Vector3d()
 End Function

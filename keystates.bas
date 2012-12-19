@@ -7,6 +7,7 @@ Constructor KeyStates	'' in fine : load from config file
 	This.AddKey("backward", SDLK_s)
 	This.AddKey("left", 		SDLK_a)
 	This.AddKey("right", 	SDLK_d)
+	This.AddKey("boost",		SDLK_LSHIFT)
 End Constructor
 
 Sub KeyStates.AddKey(keyfunc As String, keycode As Integer)
