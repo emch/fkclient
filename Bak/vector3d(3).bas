@@ -43,8 +43,9 @@ Sub Vector3d.SetZ(b_z As Single)
 End Sub
 
 Sub Vector3d.Normalize()
-	
-End Function
+	Dim norm As Single = Sqr(This.X * This.X + This.Y * This.Y + This.Z * This.Z)
+	This._x /= norm
+End Sub
 
 Operator +(v As Vector3d, w As Vector3d) As Vector3d
 	Return Vector3d(v.X+w.X, v.Y+w.Y, v.Z+w.Z)
@@ -62,6 +63,6 @@ Operator /(v As Vector3d, c As Single) As Vector3d
 	Return Vector3d(v.X/c, v.Y/c, v.Z/c)
 End Operator
 
-Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d
-	Return Vector3d()
+Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d '' TODO
+	Return Vector3d(v.Y*w.Z-v.Z*w.Y, w.X*v.Z-v.X*w.Z, v.X*w.Y-w.X*v.Y)
 End Function

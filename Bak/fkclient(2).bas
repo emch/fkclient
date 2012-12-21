@@ -16,7 +16,6 @@
 #Include "headers/config.bi"	'' configuration file management
 #Include "headers/logging.bi"	'' logging
 #Include "headers/camera.bi"
-#Include "headers/cursor.bi"
 
 '' Prototypes
 Declare Function InitWindow() As Integer
@@ -40,8 +39,7 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera
-Dim Shared myCursor As Cursor
-Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates)
+Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates) '' load initial vector from save?
 
 '' Lights
 '' NONE YET!
@@ -50,8 +48,8 @@ Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStat
 Dim Shared testChunk As Chunk = Chunk()
 
 '' Entry point
-ClearLogFile()									'' Clearing logfile for a new session!
-noError = LoadConfigFile(@configParams)'' Load config file in configuration hashtable
+ClearLogFile()										'' Clearing logfile for a new session!
+noError = LoadConfigFile(@configParams)	'' Load config file in configuration hashtable
 
 '' CONFIG VARIABLES, find a cleaner way but the idea is here!
 
@@ -81,59 +79,24 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	While SDL_PollEvent(@event) ''put in eventhandler object/function. Better --> call object dedicated functions
-		Select Case event.type
-			'' Red cross ...
-			Case SDL_QUIT_:
-				loopOn = FALSE
+	While SDL_PollEvent(@event)
+		Select Case event.type			
 			'' Keyboard event
 			Case SDL_KEYDOWN:
 				Select Case event.key.keysym.sym
-					Case SDLK_ESCAPE: '' bugging sometimes (when lots of other keys pressed)
+					Case SDLK_ESCAPE:	'' not working sometimes
 						loopOn = FALSE
 					'Case SDLK_F11:
 					'	fullscreenOn = Not fullscreenOn
-					Case myKeyStates.GetKeyCode("left"):
-						myKeyStates.SetKeyState("left", TRUE)
-						'myCamera.MoveBy(0.05, 0.0, 0.0) ''remove
-					Case myKeyStates.GetKeyCode("right"):
-						myKeyStates.SetKeyState("right", TRUE)
-						'myCamera.MoveBy(-0.05, 0.0, 0.0) ''remove
-					Case myKeyStates.GetKeyCode("forward"):
-						myKeyStates.SetKeyState("forward", TRUE)
-						'myCamera.MoveBy(0.0, -0.05, 0.0) ''remove
-					Case myKeyStates.GetKeyCode("backward"):
-						myKeyStates.SetKeyState("backward", TRUE)
-						'myCamera.MoveBy(0.0, 0.05, 0.0) ''remove
 				End Select
+				myCamera.OnKeyboard(event.key, TRUE)
 			Case SDL_KEYUP:
-				Select Case event.key.keysym.sym
-					Case myKeyStates.GetKeyCode("left"):
-						myKeyStates.SetKeyState("left", FALSE)
-					Case myKeyStates.GetKeyCode("right"):
-						myKeyStates.SetKeyState("right", FALSE)
-					Case myKeyStates.GetKeyCode("forward"):
-						myKeyStates.SetKeyState("forward", FALSE)
-					Case myKeyStates.GetKeyCode("backward"):
-						myKeyStates.SetKeyState("backward", FALSE) 
-				End Select
-				
+				myCamera.OnKeyboard(event.key, FALSE)
 			'' Mouse event
 			Case SDL_MOUSEBUTTONDOWN:
-				Select Case event.button.button
-					Case SDL_BUTTON_LEFT:
-						
-					Case SDL_BUTTON_RIGHT:
-						
-					Case SDL_BUTTON_MIDDLE:
-						
-					Case SDL_BUTTON_WHEELDOWN:
-						'' camera down
-					Case SDL_BUTTON_WHEELUP:
-						'' camera up
-				End Select
+				myCamera.OnMouseButton(event.button)
 			Case SDL_MOUSEMOTION
-				myCursor.Update(event.motion.xrel, event.motion.yrel, scr_width, scr_height) '' delete Cursor from project
+				myCamera.OnMouseMotion(event.motion)
 		End Select
 	Wend
 	
@@ -145,7 +108,6 @@ While loopOn And noError
    glFlush
    
    SDL_GL_SwapBuffers
-   'SDL_Delay 40			'' avoid high CPU usage (temporary)
 Wend
 
 SDL_Quit
@@ -157,9 +119,8 @@ Function InitWindow() As Integer
 	   Return FALSE
 	End If
 	
-	'' Set SDL videomode
+	'' Set SDL
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
-	
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
 	SDL_EnableKeyRepeat(100, 10) ' in fine : delete, change delay?
 	SDL_WM_GrabInput(SDL_GRAB_ON) 	'mouse confined to application window

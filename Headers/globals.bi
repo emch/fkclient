@@ -8,4 +8,9 @@
 	#Define TRUE	Not FALSE
 #EndIf
 
+'' Mathematical constants
+#Ifndef PI
+	#Define PI		3.14159
+#EndIf
+
 #EndIf

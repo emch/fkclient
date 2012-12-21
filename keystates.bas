@@ -10,7 +10,7 @@ Constructor KeyStates	'' in fine : load from config file
 	This.AddKey("boost",		SDLK_LSHIFT)
 End Constructor
 
-Sub KeyStates.AddKey(keyfunc As String, keycode As Integer)
+Sub KeyStates.AddKey(keyfunc As String, keycode As SDLKey)
 	This._conf.insert(keyfunc, keycode)
 	This._state.insert(keyfunc, FALSE)	'' default state is false
 End Sub
@@ -19,7 +19,7 @@ Function KeyStates.GetKeyState(keyfunc As String) As Integer
 	Return *This._state.GetValue(keyfunc) '' working?
 End Function
 
-Function KeyStates.GetKeyCode(keyfunc As String) As Integer
+Function KeyStates.GetKeyCode(keyfunc As String) As SDLKey
 	Return CInt(*This._conf.GetValue(keyfunc))
 End Function
 

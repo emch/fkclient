@@ -3,9 +3,9 @@
 
 '' Global definitions
 '' Boolean setup
-#Ifndef FALSE
+'#Ifndef FALSE
 	#Define FALSE	0
 	#Define TRUE	Not FALSE
-#EndIf
+'#EndIf
 
-#endif
+#EndIf

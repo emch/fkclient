@@ -43,7 +43,13 @@ Sub Vector3d.SetZ(b_z As Single)
 End Sub
 
 Sub Vector3d.Normalize()
-	
+	Dim norm As Single = Sqr(This.X * This.X + This.Y * This.Y + This.Z * This.Z)
+	If norm <> 0 Then
+		
+	EndIf
+	This._x /= norm
+	This._y /= norm
+	This._z /= norm
 End Sub
 
 Operator +(v As Vector3d, w As Vector3d) As Vector3d
@@ -63,5 +69,5 @@ Operator /(v As Vector3d, c As Single) As Vector3d
 End Operator
 
 Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d '' TODO
-	Return Vector3d()
+	Return Vector3d(v.Y*w.Z-v.Z*w.Y, w.X*v.Z-v.X*w.Z, v.X*w.Y-w.X*v.Y)
 End Function

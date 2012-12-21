@@ -2,6 +2,7 @@
 #define __HEADER_KEYSTATES_BI__
 
 #Include "ext/containers/hashtable.bi"
+#Include "SDL/SDL_keysym.bi"
 
 Type KeyStates
 	Private:
@@ -10,10 +11,12 @@ Type KeyStates
 	
 	Public:
 	Declare Constructor()
-	Declare Sub AddKey(As String, As Integer)					'' used to load keys from config file or default key otherwise
+	Declare Sub AddKey(As String, As SDLKey)			'' used to load keys from config file or default key otherwise
 	Declare Function GetKeyState(As String) As Integer
-	Declare Function GetKeyCode(As String) As Integer
-	Declare Sub SetKeyState(As String, As UByte)
+	Declare Function GetKeyCode(As String) As SDLKey
+	Declare Sub SetKeyState(As String, As Integer)
+	
+	Declare Function GetConfHashtable() As ext.fbext_HashTable((Integer))
 End Type
 
 #EndIf

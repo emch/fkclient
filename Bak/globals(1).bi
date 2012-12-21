@@ -3,9 +3,14 @@
 
 '' Global definitions
 '' Boolean setup
-'#Ifndef FALSE
+#Ifndef FALSE
 	#Define FALSE	0
 	#Define TRUE	Not FALSE
-'#EndIf
+#EndIf
+
+'' Mathematical constants
+#Ifndef PI
+	#Define PI	3.14159
+#EndIf
 
 #EndIf
