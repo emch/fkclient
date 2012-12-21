@@ -74,24 +74,39 @@ Sub FreeflyCamera.OnKeyboard(keyboardEvent As SDL_KeyboardEvent, downup As Integ
 End Sub
 
 Sub FreeflyCamera.Animate(timestep As UInteger)
-	'double realspeed = (_keystates[_keyconf["boost"]])?10*_speed:_speed;
-   ' if (_keystates[_keyconf["forward"]]) 
-   '     _position += _forward * (realspeed * timestep); //on avance
-   ' if (_keystates[_keyconf["backward"]])
-   '     _position -= _forward * (realspeed * timestep); //on recule
-   ' if (_keystates[_keyconf["strafe_left"]])
-   '     _position += _left * (realspeed * timestep); //on se déplace sur la gauche
-   ' if (_keystates[_keyconf["strafe_right"]]) 
-   '     _position -= _left * (realspeed * timestep); //on se déplace sur la droite
-   ' if (_verticalMotionActive)
-   ' {
-   '     if (timestep > _timeBeforeStoppingVerticalMotion)
-   '         _verticalMotionActive = false;
-   '     else
-   '         _timeBeforeStoppingVerticalMotion -= timestep;
-   '     _position += Vector3D(0,0,_verticalMotionDirection*realspeed*timestep); //on monte ou on descend, en fonction de la valeur de _verticalMotionDirection
-   ' }
-   ' _target = _position + _forward; //comme on a bougé, on recalcule la cible fixée par la caméra
+	Dim realspeed As Single
+	If This._keystates->GetKeyState("boost") = TRUE Then
+		realspeed = 10 * This._speed 
+	Else
+		realspeed = This._speed
+	EndIf
+   
+   If This._keystates->GetKeyState("forward") Then
+   	This._position += (realspeed * timestep) * This._forward
+   EndIf
+   
+	If This._keystates->GetKeyState("backward") Then
+		This._position -= (realspeed * timestep) * This._forward
+	EndIf
+	
+	If This._keystates->GetKeyState("left") Then
+		This._position += (realspeed * timestep) * This._left
+	EndIf
+	
+	If This._keystates->GetKeyState("right") Then
+		This._position -= (realspeed * timestep) * This._left
+	EndIf
+	
+	If _verticalMotionActive Then
+		If timestep > This._timeBeforeStoppingVerticalMotion Then
+			This._verticalMotionActive = FALSE
+		Else
+			This._timeBeforeStoppingVerticalMotion -= timestep
+			This._position += Vector3D(0, 0, realspeed * timestep *This._verticalMotionDirection)
+		EndIf
+	EndIf
+   
+   This._target = This._position + This._forward '' recalculating target
 End Sub
 
 Sub FreeflyCamera.SetSpeed(speed As Single)
@@ -109,5 +124,5 @@ Sub FreeflyCamera.SetPosition(position As Vector3d)
 End Sub
 
 Sub FreeflyCamera.Look()
-	'gluLookAt(_position.X,_position.Y,_position.Z, _target.X,_target.Y,_target.Z, 0,0,1);
+	gluLookAt(This._position.X, This._position.Y, This._position.Z, This._target.X, This._target.Y, This._target.Z, 0, 0, 1)
 End Sub

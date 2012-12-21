@@ -38,9 +38,9 @@ Dim loopOn As Byte = TRUE
 '' Configuration hashtable
 Dim Shared configParams As ext.fbext_HashTable((String))
 
-'' Camera
+'' Camera and timers
 Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates) '' load initial vector from save?
-
+Dim As Single current_time, elapsed_time, last_time
 '' Lights
 '' NONE YET!
 
@@ -79,7 +79,7 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	'While
+	'While ''useful?
 	SDL_PollEvent(@event)
 		Select Case event.type			
 			'' Keyboard event
@@ -104,6 +104,13 @@ While loopOn And noError
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
+	current_time = SDL_GetTicks()
+	elapsed_time = current_time - last_time
+	last_time = current_time
+
+	'' moving the camera
+   myCamera.Animate(elapsed_time)
+   
    noError = noError Or DrawScene()
 
    glFlush
@@ -179,11 +186,8 @@ Function DrawScene() As Integer
 	'' Reset the scene
 	glLoadIdentity
 	
-	'' Translate to camera position (use myCameraPosition?)
-	'myCamera.Move() 'place where keyboard event occurs, not here!
-	
-	'' Point towards a point (cursor determined)
-	'myCamera.Rotate(@myCursor) 'place where mouse event occurs, not here!
+	'' gluLookAt...
+	myCamera.Look()
 	
 	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	

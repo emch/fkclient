@@ -79,7 +79,8 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	While SDL_PollEvent(@event)
+	'While ''useful?
+	SDL_PollEvent(@event)
 		Select Case event.type			
 			'' Keyboard event
 			Case SDL_KEYDOWN:
@@ -89,7 +90,7 @@ While loopOn And noError
 					'Case SDLK_F11:
 					'	fullscreenOn = Not fullscreenOn
 				End Select
-				myCamera.OnKeyboard(event.key)
+				myCamera.OnKeyboard(event.key, TRUE)
 			Case SDL_KEYUP:
 				myCamera.OnKeyboard(event.key, FALSE)
 			'' Mouse event
@@ -98,11 +99,18 @@ While loopOn And noError
 			Case SDL_MOUSEMOTION
 				myCamera.OnMouseMotion(event.motion)
 		End Select
-	Wend
+	'Wend
 	
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
+	current_time = SDL_GetTicks()
+	elapsed_time = current_time - last_time
+	last_time = current_time
+
+	'' moving the camera
+   myCamera.Animate(elapsed_time)
+   
    noError = noError Or DrawScene()
 
    glFlush
@@ -178,11 +186,8 @@ Function DrawScene() As Integer
 	'' Reset the scene
 	glLoadIdentity
 	
-	'' Translate to camera position (use myCameraPosition?)
-	'myCamera.Move() 'place where keyboard event occurs, not here!
-	
-	'' Point towards a point (cursor determined)
-	'myCamera.Rotate(@myCursor) 'place where mouse event occurs, not here!
+	'' gluLookAt...
+	myCamera.Move()
 	
 	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	
