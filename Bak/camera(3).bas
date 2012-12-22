@@ -14,7 +14,7 @@ Constructor FreeflyCamera(position As Vector3d, keystates As KeyStates Ptr) '' T
 	This.VectorsFromAngles()
 	
 	This._speed = 0.01
-	This._sensivity = 0.2
+	This._sensivity = 0.02
 	This._verticalMotionActive = FALSE
 	
 	This._keystates = keystates
@@ -41,8 +41,8 @@ Sub FreeflyCamera.VectorsFromAngles()
 End Sub
 
 Sub FreeflyCamera.OnMouseMotion(mouseMotionEvent As SDL_MouseMotionEvent)
-	This._theta -= mouseMotionEvent.xrel*This._sensivity
-	This._phi 	-= mouseMotionEvent.yrel*This._sensivity
+	This._theta -= mouseMotionEvent.xrel * This._sensivity
+	This._phi 	-= mouseMotionEvent.yrel * This._sensivity
 	This.VectorsFromAngles()
 End Sub
 
@@ -94,7 +94,7 @@ Sub FreeflyCamera.Animate(timestep As UInteger)
 	EndIf
 	
 	If This._keystates->GetKeyState("right") Then
-		This._position -= This._left * (realspeed * timestep)
+		This._position -= (realspeed * timestep) * This._left
 	EndIf
 	
 	If _verticalMotionActive Then

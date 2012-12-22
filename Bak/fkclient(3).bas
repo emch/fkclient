@@ -187,7 +187,7 @@ Function DrawScene() As Integer
 	glLoadIdentity
 	
 	'' gluLookAt...
-	myCamera.Move()
+	myCamera.Look()
 	
 	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	

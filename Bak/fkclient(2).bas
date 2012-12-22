@@ -38,9 +38,9 @@ Dim loopOn As Byte = TRUE
 '' Configuration hashtable
 Dim Shared configParams As ext.fbext_HashTable((String))
 
-'' Camera
+'' Camera and timers
 Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates) '' load initial vector from save?
-
+Dim As Single current_time, elapsed_time, last_time
 '' Lights
 '' NONE YET!
 

@@ -80,8 +80,7 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	'While ''useful?
-	SDL_PollEvent(@event)
+	While SDL_PollEvent(@event)
 		Select Case event.type			
 			'' Keyboard event
 			Case SDL_KEYDOWN:
@@ -100,7 +99,7 @@ While loopOn And noError
 			Case SDL_MOUSEMOTION
 				myCamera.OnMouseMotion(event.motion)
 		End Select
-	'Wend
+	Wend
 	
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
