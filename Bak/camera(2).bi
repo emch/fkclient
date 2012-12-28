@@ -31,7 +31,7 @@ Type FreeflyCamera
 	
 	Declare Sub OnMouseMotion(As SDL_MouseMotionEvent)
 	Declare Sub OnMouseButton(As SDL_MouseButtonEvent)
-	Declare Sub OnKeyboard(As SDL_KeyboardEvent, As Integer )
+	Declare Sub OnKeyboard(As SDL_KeyboardEvent, As Integer)
 	Declare Sub KeystatesIterator(ByRef key As Const String, ByVal value As Integer Ptr)
 	
 	Declare Sub Animate(As UInteger)

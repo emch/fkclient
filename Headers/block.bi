@@ -9,7 +9,7 @@
 Type Block
 	Private:
 	_isActive As Byte
-	_blocktype As Blocktype
+	_blocktype As Blocktype Ptr
    
    Public:
    Declare Constructor()

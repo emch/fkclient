@@ -23,6 +23,9 @@
 #Define LOGGING_FILE_NAME	"fkclient.log"			'' Logging file name
 #Define LOGGING_PREFIX		Date + " | " + Time + " | "
 
+'' Textures
+#Define TEXTURE_SIZE			16
+
 ''
 '' Default parameters in case an error occurs during configuration file retrieval
 ''

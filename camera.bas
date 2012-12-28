@@ -21,9 +21,9 @@ Constructor FreeflyCamera(position As Vector3d, keystates As KeyStates Ptr) '' T
 End Constructor
 
 Sub FreeflyCamera.VectorsFromAngles()
-	Dim up As Vector3d = Vector3d(0.0,0.0,1.0) '' world vertical vector ???
+	Dim up As Vector3d = Vector3d(0.0,0.0,1.0) '' world vertical vector
 	
-   if This._phi > 89 Then
+   If This._phi > 89 Then
    	This._phi = 89
    ElseIf This._phi < -89 Then
    	This._phi = -89

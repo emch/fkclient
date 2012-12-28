@@ -16,6 +16,9 @@ End Constructor
 
 Destructor Mesh()
 	DeAllocate(this._vertexArray)
+	DeAllocate(this._normalArray)
+	DeAllocate(this._colorArray)
+	DeAllocate(this._indexArray)
 End Destructor
 
 Function Mesh.GetVertexArray() As GLfloat Ptr

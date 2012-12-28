@@ -38,8 +38,9 @@ Dim loopOn As Byte = TRUE
 '' Configuration hashtable
 Dim Shared configParams As ext.fbext_HashTable((String))
 
-'' Camera
+'' Camera and timers
 Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates) '' load initial vector from save?
+Dim As Single current_time, elapsed_time, last_time
 
 '' Lights
 '' NONE YET!
@@ -79,16 +80,17 @@ ResizeScene()									'' Set viewport accordingly
 
 '' Game loop
 While loopOn And noError
-	'While ''useful?
-	SDL_PollEvent(@event)
+	While SDL_PollEvent(@event)
 		Select Case event.type			
 			'' Keyboard event
 			Case SDL_KEYDOWN:
 				Select Case event.key.keysym.sym
 					Case SDLK_ESCAPE:	'' not working sometimes
 						loopOn = FALSE
-					'Case SDLK_F11:
-					'	fullscreenOn = Not fullscreenOn
+						Exit While
+					Case SDLK_F11:
+						fullscreenOn = Not fullscreenOn
+						'Exit While
 				End Select
 				myCamera.OnKeyboard(event.key, TRUE)
 			Case SDL_KEYUP:
@@ -99,7 +101,11 @@ While loopOn And noError
 			Case SDL_MOUSEMOTION
 				myCamera.OnMouseMotion(event.motion)
 		End Select
-	'Wend
+	Wend
+	
+	If loopOn = FALSE Then
+		Exit While
+	EndIf
 	
 	'' Temporary (future dev option) : wireframe
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
@@ -118,6 +124,9 @@ While loopOn And noError
    SDL_GL_SwapBuffers
 Wend
 
+'' Garbage collector
+testChunk.Destructor()
+
 SDL_Quit
 '' End of program
 
@@ -130,7 +139,7 @@ Function InitWindow() As Integer
 	'' Set SDL
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
-	SDL_EnableKeyRepeat(100, 10) ' in fine : delete, change delay?
+	SDL_EnableKeyRepeat(100, 10) 		' in fine : delete, change delay?
 	SDL_WM_GrabInput(SDL_GRAB_ON) 	'mouse confined to application window
 	SDL_ShowCursor(SDL_DISABLE)		'disabling mouse cursor
 	'' TODO : show cross in the middle of the screen!
@@ -155,9 +164,6 @@ Function InitScene() As Integer
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
 	glEnable GL_CULL_FACE
-	
-	'' Initialize camera position/direction
-	'myCamera.Initialize()
 	
 	'' Temporary
 	'' Load objects
@@ -188,8 +194,6 @@ Function DrawScene() As Integer
 	
 	'' gluLookAt...
 	myCamera.Look()
-	
-	'SDL_WarpMouse(scr_width/2, scr_height/2)
 	
 	'' Rendering objects
 	Dim chunkPos As Vector3d = Vector3d(0.0, 0.0, -10.0)

@@ -16,6 +16,9 @@ End Constructor
 
 Destructor Mesh()
 	DeAllocate(this._vertexArray)
+	DeAllocate(this._normalArray)
+	DeAllocate(this._vertexArray)
+	DeAllocate(this._vertexArray)
 End Destructor
 
 Function Mesh.GetVertexArray() As GLfloat Ptr
@@ -41,32 +44,23 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	
 	'' Fill vertex array
 	This._vertexArray[vertexArrayIndex] = vect.X
-	'vertexArrayIndex += 1
 	This._vertexArray[vertexArrayIndex+1] = vect.Y
-	'vertexArrayIndex += 1
 	This._vertexArray[vertexArrayIndex+2] = vect.Z
 	
 	'' Fill normal array
 	This._normalArray[normalArrayIndex] = norm.X
-	'normalArrayIndex += 1
 	This._normalArray[normalArrayIndex+1] = norm.Y
-	'normalArrayIndex += 1
 	This._normalArray[normalArrayIndex+2] = norm.Z
 	
 	'' Fill color array
 	This._normalArray[colorArrayIndex] = r
-	'colorArrayIndex += 1
 	This._normalArray[colorArrayIndex+1] = g
-	'colorArrayIndex += 1
 	This._normalArray[colorArrayIndex+2] = b
-	'colorArrayIndex += 1
 	This._normalArray[colorArrayIndex+3] = a
 	
 	'' Increase current number of vertices and return it (for indice purposes)
 	This._num += 1
-	
-	'LogToFile(Str(This._num)) '' debugging
-	
+
 	Return This._num
 End Function
 
@@ -77,10 +71,7 @@ Sub Mesh.AddTriangle(ind1 As Integer, ind2 As Integer, ind3 As Integer)
 	This._indexArray[indexArrayIndex+1] = ind2
 	This._indexArray[indexArrayIndex+2] = ind3
 	
-	This._indexArrayIndice += 3
-	
-	'LogToFile("i" & Str(This._indexArrayIndice)) '' debugging
-	
+	This._indexArrayIndice += 3	
 End Sub
 
 Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte

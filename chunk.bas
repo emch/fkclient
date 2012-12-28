@@ -32,6 +32,7 @@ Destructor Chunk
 	Next
 	
 	DeAllocate(This._blocks)
+	This._mesh->Destructor()
 End Destructor
 
 Sub Chunk.Load() '' adapt to load from file/other source

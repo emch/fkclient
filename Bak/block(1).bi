@@ -13,7 +13,6 @@ Type Block
    
    Public:
    Declare Constructor()
-   ''Declare Destructor()
    Declare Function IsActive() As Byte
    Declare Property SetActive(As Integer)
 End Type

@@ -23,7 +23,7 @@ End Constructor
 Sub FreeflyCamera.VectorsFromAngles()
 	Dim up As Vector3d = Vector3d(0.0,0.0,1.0) '' world vertical vector ???
 	
-   if This._phi > 89 Then
+   If This._phi > 89 Then
    	This._phi = 89
    ElseIf This._phi < -89 Then
    	This._phi = -89
@@ -41,8 +41,8 @@ Sub FreeflyCamera.VectorsFromAngles()
 End Sub
 
 Sub FreeflyCamera.OnMouseMotion(mouseMotionEvent As SDL_MouseMotionEvent)
-	'This._theta -= mouseMotionEvent.xrel * This._sensivity
-	'This._phi 	-= mouseMotionEvent.yrel * This._sensivity
+	This._theta -= mouseMotionEvent.xrel * This._sensivity
+	This._phi 	-= mouseMotionEvent.yrel * This._sensivity
 	This.VectorsFromAngles()
 End Sub
 

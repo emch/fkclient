@@ -32,6 +32,8 @@ Destructor Chunk
 	Next
 	
 	DeAllocate(This._blocks)
+	
+	'' destroy This._mesh
 End Destructor
 
 Sub Chunk.Load() '' adapt to load from file/other source
@@ -78,9 +80,8 @@ Sub Chunk.Render(b_position As Vector3d)
 	
 	glPushMatrix()
 	'' Translate Chunk position
-	glTranslatef(b_position.X, b_position.Y, -b_position.Z)
-	
-	'Code not working
+	glTranslatef(b_position.X, b_position.Y, b_position.Z)
+
 	glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
 	'glDrawElements(GL_TRIANGLES, This._mesh->GetNumVertices(), GL_INT, This._mesh->GetIndexArray()) '' not working
 	

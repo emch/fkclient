@@ -36,7 +36,7 @@ Type FreeflyCamera
 	
 	Declare Sub Animate(As UInteger)
 	Declare Sub SetSpeed(As Single)
-	Declare Sub SetSensitivity(As Single)
+	Declare Sub SetSensivity(As Single)
 	
 	Declare Sub SetPosition(As Vector3d)
 	

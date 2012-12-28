@@ -1,0 +1,1 @@
+'' current player position is bound to camera position
