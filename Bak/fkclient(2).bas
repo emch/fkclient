@@ -1,3 +1,6 @@
+'' Add a Linked List module
+'' ChunkManager will use Linked Lists to store chunks to be rendered
+
 '' Extended library
 #Include "ext/containers/hashtable.bi" ''include first
 
@@ -139,9 +142,9 @@ Function InitWindow() As Integer
 	'' Set SDL
 	SDL_WM_SetCaption(APP_NAME + VERSION_MESSAGE, NULL)
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1)
-	SDL_EnableKeyRepeat(100, 10) 		' in fine : delete, change delay?
-	SDL_WM_GrabInput(SDL_GRAB_ON) 	'mouse confined to application window
-	SDL_ShowCursor(SDL_DISABLE)		'disabling mouse cursor
+	SDL_EnableKeyRepeat(100, 10) 		''in fine : delete, change delay?
+	SDL_WM_GrabInput(SDL_GRAB_ON) 	''mouse confined to application window
+	SDL_ShowCursor(SDL_DISABLE)		''disabling mouse cursor
 	'' TODO : show cross in the middle of the screen!
 	
 	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
