@@ -11,7 +11,7 @@ Type World
 	Declare Constructor(As String, As ULongInt)
 	
 	Declare Sub Load(As String)			'' load from FKW files
-	Declare Sub Generate(As String)
+	Declare Sub Generate(As String)		'' generate FKW
 End Type
 
 #EndIf

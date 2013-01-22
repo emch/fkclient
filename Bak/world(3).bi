@@ -10,7 +10,7 @@ Type World
 	Public:
 	Declare Constructor(As String, As ULongInt)
 	
-	Declare Sub Load(As String)
+	Declare Sub Load(As String)			'' load from FKW files
 	Declare Sub Generate(As String)
 End Type
 

@@ -5,7 +5,6 @@ Type World
 	Private:
 	_name As String			'' world name
 	_seed As ULongInt			'' world seed
-	_nbchunks As Integer		'' number of chunks to render
 	
 	Public:
 	Declare Constructor(As String, As ULongInt)

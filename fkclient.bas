@@ -10,6 +10,7 @@
 #Include "headers/keystates.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/chunk.bi"
+#Include "headers/chunk_manager.bi"
 #Include "headers/block.bi"
 #Include "headers/params.bi"
 #Include "headers/globals.bi" '' booleans

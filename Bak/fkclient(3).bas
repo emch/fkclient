@@ -1,3 +1,6 @@
+'' Add a Linked List module
+'' ChunkManager will use Linked Lists to store chunks to be rendered
+
 '' Extended library
 #Include "ext/containers/hashtable.bi" ''include first
 
