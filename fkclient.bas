@@ -26,7 +26,7 @@ Declare Function DrawScene() as Integer
 
 '' Variables
 Dim Shared video As SDL_Surface Ptr
-Dim Shared fullscreenOn As Byte = FALSE
+Dim Shared flags As Integer = SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT
 
 '' SDL Event holder and keystates
 Dim event As SDL_Event
@@ -73,9 +73,11 @@ If scr_height = 0.0 Then
 	scr_height = SCR_HEIGHT_DEFAULT
 	LogToFile(SCR_HEIGHT_PARAM + " not found in config file, default parameter used")
 EndIf
-
+If scr_maxfps = 0.0 Then
+	scr_maxfps = SCR_MAXFPS_DEFAULT
+	LogToFile(SCR_MAXFPS_PARAM + " not found in config file, default parameter used")
+EndIf
 '' END CONFIG VARIABLES
-
 
 noError = noError Or InitWindow()		'' Init SDL window container and check if no error occurs
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
@@ -92,7 +94,19 @@ While loopOn And noError
 						loopOn = FALSE
 						'Exit While
 					Case SDLK_F11:
-						fullscreenOn = Not fullscreenOn
+						' see the way keys are managed below?
+						' some problems here (resize)
+						flags = video->flags
+						video = SDL_SetVideoMode(0, 0, 0, flags Xor SDL_FULLSCREEN)
+						If video = NULL Then
+							video = SDL_SetVideoMode(0, 0, 0, flags)
+							LogToFile("Failed to switch to fullscreen mode: " + *SDL_GetError())
+						EndIf
+						If video = NULL Then
+							LogToFile("Failed to switch back to windowed mode: " + *SDL_GetError())
+							Exit While
+						EndIf
+						ResizeScene()
 						'Exit While
 				End Select
 				myCamera.OnKeyboard(event.key, TRUE)
@@ -134,6 +148,7 @@ Wend
 testChunk.Destructor()
 
 SDL_Quit
+End
 '' End of program
 
 Function InitWindow() As Integer
@@ -150,7 +165,7 @@ Function InitWindow() As Integer
 	SDL_ShowCursor(SDL_DISABLE)		''disabling mouse cursor
 	'' TODO : show cross in the middle of the screen!
 	
-	video = SDL_SetVideoMode(scr_width, scr_height, 24, SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT)'' Or SDL_FULLSCREEN)
+	video = SDL_SetVideoMode(scr_width, scr_height, 24, flags)
 	''video = SDL_SetVideoMode (800, 600, 24, SDL_HWSURFACE OR SDL_DOUBLEBUF) --> use when menu mode???
 	
 	If video = NULL Then
