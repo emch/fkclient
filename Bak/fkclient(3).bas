@@ -148,6 +148,7 @@ Wend
 testChunk.Destructor()
 
 SDL_Quit
+End
 '' End of program
 
 Function InitWindow() As Integer

@@ -2,7 +2,7 @@
 #Include "ext/containers/hashtable.bi" ''include first
 
 '' Libraries
-#Include "SDL/SDL.bi"
+#Include "sdl/sdl.bi"
 #Include "gl/gl.bi"
 #Include "gl/glu.bi"
 

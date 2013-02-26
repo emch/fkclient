@@ -2,7 +2,7 @@
 #Include "ext/containers/hashtable.bi" ''include first
 
 '' Libraries
-#Include "SDL/SDL.bi"
+#Include "sdl/sdl.bi"
 #Include "gl/gl.bi"
 #Include "gl/glu.bi"
 
@@ -92,7 +92,7 @@ While loopOn And noError
 				Select Case event.key.keysym.sym
 					Case SDLK_ESCAPE:	'' not working sometimes
 						loopOn = FALSE
-						Exit While
+						'Exit While
 					Case SDLK_F11:
 						' see the way keys are managed below?
 						' some problems here (resize)
@@ -125,7 +125,7 @@ While loopOn And noError
 	EndIf
 	
 	'' Temporary (future dev option) : wireframe
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
 	current_time = SDL_GetTicks()
 	elapsed_time = current_time - last_time
