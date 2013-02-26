@@ -23,9 +23,6 @@
 #Define LOGGING_FILE_NAME	"fkclient.log"			'' Logging file name
 #Define LOGGING_PREFIX		Date + " | " + Time + " | "
 
-'' Textures
-#Define TEXTURE_SIZE			16							'' texture size in pixels (height/width)
-
 ''
 '' Default parameters in case an error occurs during configuration file retrieval
 ''
@@ -35,8 +32,8 @@
 #Define SCR_WIDTH_DEFAULT	850.0
 #Define SCR_HEIGHT_PARAM	"SCR_HEIGHT"
 #Define SCR_HEIGHT_DEFAULT	480.0
-''#Define SCR_WIDTH_FULL		1024.0
-''#Define SCR_HEIGHT_FULL		768.0
+#Define SCR_MAXFPS_PARAM	"SCR_MAXFPS"
+#Define SCR_MAXFPS_DEFAULT	600
 
 '' Keyboard parameters
 

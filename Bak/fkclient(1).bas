@@ -10,6 +10,7 @@
 #Include "headers/keystates.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/chunk.bi"
+#Include "headers/chunk_manager.bi"
 #Include "headers/block.bi"
 #Include "headers/params.bi"
 #Include "headers/globals.bi" '' booleans
@@ -56,9 +57,11 @@ noError = LoadConfigFile(@configParams)	'' Load config file in configuration has
 
 Dim Shared scr_width As Single
 Dim Shared scr_height As Single
+Dim Shared scr_maxfps As Single
 
 scr_width = Val(*configParams.GetValue(SCR_WIDTH_PARAM))
 scr_height = Val(*configParams.GetValue(SCR_HEIGHT_PARAM))
+scr_maxfps = Val(*configParams.GetValue(SCR_MAXFPS_PARAM))
 
 '' Error checking, find a cleaner way and use dedicated functions (config file correction) in config.bi
 '' see checkconfig in config.bas
@@ -120,6 +123,9 @@ While loopOn And noError
    noError = noError Or DrawScene()
 
    glFlush
+   
+   '' fps maximum
+   SDL_Delay(1000/scr_maxfps)
    
    SDL_GL_SwapBuffers
 Wend
