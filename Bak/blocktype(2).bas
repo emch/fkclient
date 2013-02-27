@@ -7,11 +7,20 @@ Constructor Blocktype(b_name As String)
 	This._texture = NULL
 End Constructor
 
-Constructor Blocktype(b_name As String, b_x As Byte, b_y As Byte)
-	'use an id rather than position (in pixel)
+Constructor Blocktype(b_name As String, id As UByte)
 	Dim subTexPos As SDL_Rect
-	subTexPos.x = b_x
-	subTexPos.y = b_y
+	Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
+	
+	subTexPos.x = (id Mod numTexAxis)*BLOCK_TEX_SIZE
+	subTexPos.y = (id - id Mod BLOCK_TEX_SIZE)*BLOCK_TEX_SIZE
+	' Checking that we do not go out of the tileset image
+	If subTexPos.x > TILESET_WIDTH - BLOCK_TEX_SIZE Then
+		subTexPos.x = TILESET_WIDTH - BLOCK_TEX_SIZE
+	EndIf
+	If subTexPos.y > TILESET_HEIGHT - BLOCK_TEX_SIZE Then
+		subTexPos.y = TILESET_HEIGHT - BLOCK_TEX_SIZE
+	EndIf
+	
 	subTexPos.w = BLOCK_TEX_SIZE
 	subTexPos.h = BLOCK_TEX_SIZE
 	
