@@ -9,10 +9,11 @@
 Type Block
 	Private:
 	_isActive As Byte
-	_blocktype As Blocktype Ptr
+	_blocktype As BlockTypes	' size(BlockTypes) = sizeof(Byte)?
    
    Public:
    Declare Constructor()
+   Declare Constructor(As Byte, As BlockTypes)
    Declare Function IsActive() As Byte
    Declare Property SetActive(As Integer)
 End Type

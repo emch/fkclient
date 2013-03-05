@@ -28,6 +28,8 @@ Type FreeflyCamera
 	
 	Public:
 	Declare Constructor(As Vector3d, As KeyStates Ptr)
+	Declare Destructor()
+	'' Destructor : destroy hashtables in memory?
 	
 	Declare Sub OnMouseMotion(As SDL_MouseMotionEvent)
 	Declare Sub OnMouseButton(As SDL_MouseButtonEvent)
@@ -36,7 +38,7 @@ Type FreeflyCamera
 	
 	Declare Sub Animate(As UInteger)
 	Declare Sub SetSpeed(As Single)
-	Declare Sub SetSensitivity(As Single)
+	Declare Sub SetSensivity(As Single)
 	
 	Declare Sub SetPosition(As Vector3d)
 	

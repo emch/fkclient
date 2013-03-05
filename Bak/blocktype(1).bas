@@ -7,7 +7,8 @@ Constructor Blocktype(b_name As String)
 	This._texture = NULL
 End Constructor
 
-Constructor Blocktype(b_name As String, id As UByte)
+' Example: to create a Blocktype "Cobblestone", use Blocktype("Cobblestone", COBBLESTONE)
+Constructor Blocktype(b_name As String, id As BlockTypes)
 	Dim subTexPos As SDL_Rect
 	Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
 	
@@ -24,6 +25,7 @@ Constructor Blocktype(b_name As String, id As UByte)
 	subTexPos.w = BLOCK_TEX_SIZE
 	subTexPos.h = BLOCK_TEX_SIZE
 	
+	This._id = id
 	This._name = b_name
 	This._texture = This.ExtractTex(subTexPos) 
 End Constructor

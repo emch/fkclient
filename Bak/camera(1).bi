@@ -28,6 +28,7 @@ Type FreeflyCamera
 	
 	Public:
 	Declare Constructor(As Vector3d, As KeyStates Ptr)
+	Declare Destructor()
 	
 	Declare Sub OnMouseMotion(As SDL_MouseMotionEvent)
 	Declare Sub OnMouseButton(As SDL_MouseButtonEvent)

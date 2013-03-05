@@ -32,8 +32,6 @@ Destructor Chunk
 	Next
 	
 	DeAllocate(This._blocks)
-	
-	'' destroy This._mesh
 	This._mesh->Destructor()
 End Destructor
 
@@ -84,7 +82,8 @@ Sub Chunk.Render(b_position As Vector3d)
 	glTranslatef(b_position.X, b_position.Y, b_position.Z)
 
 	glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
-	'glDrawElements(GL_TRIANGLES, This._mesh->GetNumVertices(), GL_INT, This._mesh->GetIndexArray()) '' not working
+	'' not fully working
+	''glDrawElements(GL_TRIANGLES, This._mesh->GetNumVertices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()
 	

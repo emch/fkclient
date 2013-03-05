@@ -3,24 +3,26 @@
 
 #Include "sdl/sdl.bi"
 
-#Define TEXTURE_FILE			"Res/Textures/blocktypes.png"
-#Define BLOCK_TEX_SIZE		16		'' block texture size in pixels (height & width)
-#Define TILESET_HEIGHT		256
-#Define TILESIT_WIDTH		256
+#Define TEXTURE_FILE				"Res/Textures/blocktypes.png"
+#Define BLOCK_TEX_SIZE			16		'' block texture size in pixels (height & width)
+#Define TILESET_HEIGHT			256
+#Define TILESET_WIDTH			256
 
 Enum BlockTypes
-	COBBLESTONE = 0
+	BTYPE_COBBLESTONE = 0
+	TNT = 8
 End Enum
 
 Type BlockType
 	Private:
+	_id			As BlockTypes
 	_name			As String
 	_texture		As SDL_Surface Ptr
 
 	Public:
 	Declare Constructor()
 	Declare Constructor(As String)
-	Declare Constructor(As String, As UByte)
+	Declare Constructor(As String, As BlockTypes)
 	
 	Declare Function GetName() As String
 	Declare Sub SetName(As String)

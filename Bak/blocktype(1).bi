@@ -9,18 +9,21 @@
 #Define TILESET_WIDTH			256
 
 Enum BlockTypes
-	COBBLESTONE = 0
+	BTYPE_COBBLESTONE = 0
+	BTYPE_TNT = 8
+	BTYPE_DEFAULT = 255 ' change to somewhere where there is ugly magenta
 End Enum
 
 Type BlockType
 	Private:
+	_id			As BlockTypes
 	_name			As String
 	_texture		As SDL_Surface Ptr
 
 	Public:
 	Declare Constructor()
 	Declare Constructor(As String)
-	Declare Constructor(As String, As UByte)
+	Declare Constructor(As String, As BlockTypes)
 	
 	Declare Function GetName() As String
 	Declare Sub SetName(As String)

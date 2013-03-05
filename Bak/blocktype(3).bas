@@ -7,12 +7,13 @@ Constructor Blocktype(b_name As String)
 	This._texture = NULL
 End Constructor
 
+' Example: to create a Blocktype "Cobblestone", use Blocktype("Cobblestone", COBBLESTONE)
 Constructor Blocktype(b_name As String, id As UByte)
 	Dim subTexPos As SDL_Rect
 	Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
 	
-	subTexPos.x = (id Mod numTexHeight)*BLOCK_TEX_SIZE
-	subTexPos.y = (id - id Mod BLOCK_TEX_SIZE)*BLOCK_TEX_SIZE
+	subTexPos.x = (id Mod numTexAxis)*BLOCK_TEX_SIZE
+	subTexPos.y = (id - id Mod numTexAxis)*BLOCK_TEX_SIZE
 	' Checking that we do not go out of the tileset image
 	If subTexPos.x > TILESET_WIDTH - BLOCK_TEX_SIZE Then
 		subTexPos.x = TILESET_WIDTH - BLOCK_TEX_SIZE

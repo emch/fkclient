@@ -9,11 +9,11 @@
 Type Block
 	Private:
 	_isActive As Byte
-	_blocktype As Blocktype
+	_blocktype As BlockTypes
    
    Public:
    Declare Constructor()
-   ''Declare Destructor()
+   Declare Constructor(As Byte, As BlockTypes)
    Declare Function IsActive() As Byte
    Declare Property SetActive(As Integer)
 End Type

@@ -11,14 +11,16 @@ Constructor Mesh(size As Integer)
 	This._vertexArray = Callocate(NUM_VERTEX_COORDS*size, SizeOf(GLfloat))
 	This._normalArray = Callocate(NUM_NORMAL_COORDS*size, SizeOf(GLfloat))
 	This._colorArray = Callocate(NUM_COLOR_COORDS*size, SizeOf(GLfloat))
-	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(Integer))
+	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(UInteger))
+	This._texcoordArray = Callocate(NUM_TEX_COORDS*size, SizeOf(Integer))
 End Constructor
 
 Destructor Mesh()
 	DeAllocate(this._vertexArray)
 	DeAllocate(this._normalArray)
 	DeAllocate(this._colorArray)
-	DeAllocate(this._vertexArray)
+	DeAllocate(this._indexArray)
+	DeAllocate(this._texcoordArray)
 End Destructor
 
 Function Mesh.GetVertexArray() As GLfloat Ptr
@@ -37,10 +39,15 @@ Function Mesh.GetIndexArray() As Integer Ptr
 	Return This._indexArray
 End Function
 
-Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As GLfloat, b As GLfloat, a As GLfloat) As Integer
-	Dim vertexArrayIndex As Integer 	= NUM_VERTEX_COORDS 	* This._num
-	Dim normalArrayIndex As Integer 	= NUM_NORMAL_COORDS 	* This._num
-	Dim colorArrayIndex As Integer 	= NUM_COLOR_COORDS 	* This._num
+Function Mesh.GetTexCoordArray() As Integer Ptr
+	Return This._texcoordArray
+End Function
+
+Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As GLfloat, b As GLfloat, a As GLfloat, t1 As Integer, t2 As Integer) As Integer
+	Dim vertexArrayIndex As Integer 		= NUM_VERTEX_COORDS 	* This._num
+	Dim normalArrayIndex As Integer 		= NUM_NORMAL_COORDS 	* This._num
+	Dim colorArrayIndex As Integer 		= NUM_COLOR_COORDS 	* This._num
+	Dim texcoordArrayIndex As Integer 	= NUM_TEX_COORDS		* This._num
 	
 	'' Fill vertex array
 	This._vertexArray[vertexArrayIndex] = vect.X
@@ -57,6 +64,10 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	This._normalArray[colorArrayIndex+1] = g
 	This._normalArray[colorArrayIndex+2] = b
 	This._normalArray[colorArrayIndex+3] = a
+	
+	'' Fill texcoord array
+	This._texcoordArray[texcoordArrayIndex] = t1
+	This._texcoordArray[texcoordArrayIndex+1] = t2
 	
 	'' Increase current number of vertices and return it (for indice purposes)
 	This._num += 1
@@ -101,10 +112,10 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	' Front
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
-	v1 = This.AddVertex(p1, n1, r, g, b, a)
-	v2 = This.AddVertex(p2, n1, r, g, b, a)
-	v3 = This.AddVertex(p3, n1, r, g, b, a)
-	v4 = This.AddVertex(p4, n1, r, g, b, a)
+	v1 = This.AddVertex(p1, n1, r, g, b, a, 0, 0)
+	v2 = This.AddVertex(p2, n1, r, g, b, a, 1, 0)
+	v3 = This.AddVertex(p3, n1, r, g, b, a, 1, 1)
+	v4 = This.AddVertex(p4, n1, r, g, b, a, 0, 1)
 	
 	This.AddTriangle(v1, v2, v3)
 	This.AddTriangle(v1, v3, v4)
@@ -112,10 +123,10 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	' Back
    n1 = Vector3d(0.0, 0.0, -1.0)
 
-   v5 = This.AddVertex(p5, n1, r, g, b, a)
-   v6 = This.AddVertex(p6, n1, r, g, b, a)
-   v7 = This.AddVertex(p7, n1, r, g, b, a)
-   v8 = This.AddVertex(p8, n1, r, g, b, a)
+   v5 = This.AddVertex(p5, n1, r, g, b, a, 0, 0)
+   v6 = This.AddVertex(p6, n1, r, g, b, a, 1, 0)
+   v7 = This.AddVertex(p7, n1, r, g, b, a, 1, 1)
+   v8 = This.AddVertex(p8, n1, r, g, b, a, 0, 1)
 
    This.AddTriangle(v5, v6, v7)
    This.AddTriangle(v5, v7, v8)
@@ -123,10 +134,10 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	' Right
 	n1 = Vector3d(1.0, 0.0, 0.0)
 	
-	v2 = This.AddVertex(p2, n1, r, g, b, a)
-	v5 = This.AddVertex(p5, n1, r, g, b, a)
-	v8 = This.AddVertex(p8, n1, r, g, b, a)
-	v3 = This.AddVertex(p3, n1, r, g, b, a)
+	v2 = This.AddVertex(p2, n1, r, g, b, a, 0, 0)
+	v5 = This.AddVertex(p5, n1, r, g, b, a, 1, 0)
+	v8 = This.AddVertex(p8, n1, r, g, b, a, 1, 1)
+	v3 = This.AddVertex(p3, n1, r, g, b, a, 0, 1)
 	
 	This.AddTriangle(v2, v5, v8)
 	This.AddTriangle(v2, v8, v3)
@@ -134,10 +145,10 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	' Left
 	n1 = Vector3d(-1.0, 0.0, 0.0)
 	
-	v6 = This.AddVertex(p6, n1, r, g, b, a)
-	v1 = This.AddVertex(p1, n1, r, g, b, a)
-	v4 = This.AddVertex(p4, n1, r, g, b, a)
-	v7 = This.AddVertex(p7, n1, r, g, b, a)
+	v6 = This.AddVertex(p6, n1, r, g, b, a, 0, 0)
+	v1 = This.AddVertex(p1, n1, r, g, b, a, 1, 0)
+	v4 = This.AddVertex(p4, n1, r, g, b, a, 1, 1)
+	v7 = This.AddVertex(p7, n1, r, g, b, a, 0, 1)
 	
 	This.AddTriangle(v6, v1, v4)
 	This.AddTriangle(v6, v4, v7)
@@ -145,10 +156,10 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
    ' Top
 	n1 = Vector3d(0.0, 1.0, 0.0)
 	
-	v4 = This.AddVertex(p4, n1, r, g, b, a)
-	v3 = This.AddVertex(p3, n1, r, g, b, a)
-	v8 = This.AddVertex(p8, n1, r, g, b, a)
-	v7 = This.AddVertex(p7, n1, r, g, b, a)
+	v4 = This.AddVertex(p4, n1, r, g, b, a, 0, 0)
+	v3 = This.AddVertex(p3, n1, r, g, b, a, 1, 0)
+	v8 = This.AddVertex(p8, n1, r, g, b, a, 1, 1)
+	v7 = This.AddVertex(p7, n1, r, g, b, a, 0, 1)
 	
 	This.AddTriangle(v4, v3, v8)
 	This.AddTriangle(v4, v8, v7)
