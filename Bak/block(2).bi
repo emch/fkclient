@@ -9,7 +9,7 @@
 Type Block
 	Private:
 	_isActive As Byte
-	_blocktype As BlockTypes	' the size is only a byte
+	_blocktype As BlockTypes	' size(BlockTypes) = sizeof(Byte)?
    
    Public:
    Declare Constructor()

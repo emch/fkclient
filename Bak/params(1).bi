@@ -13,7 +13,7 @@
 #Define VERSION_MESSAGE Str(VERSION_MAIN) + "." + Str(VERSION_MINOR) + "." + Str(VERSION_DEBUG)
 
 '' Chunks
-#Define CHUNK_SIZE 			16
+#Define CHUNK_SIZE 			2
 #Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name
@@ -33,7 +33,7 @@
 #Define SCR_HEIGHT_PARAM	"SCR_HEIGHT"
 #Define SCR_HEIGHT_DEFAULT	480.0
 #Define SCR_MAXFPS_PARAM	"SCR_MAXFPS"
-#Define SCR_MAXFPS_DEFAULT	600
+#Define SCR_MAXFPS_DEFAULT	60.0
 
 '' Keyboard parameters
 

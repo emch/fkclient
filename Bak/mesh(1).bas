@@ -11,7 +11,7 @@ Constructor Mesh(size As Integer)
 	This._vertexArray = Callocate(NUM_VERTEX_COORDS*size, SizeOf(GLfloat))
 	This._normalArray = Callocate(NUM_NORMAL_COORDS*size, SizeOf(GLfloat))
 	This._colorArray = Callocate(NUM_COLOR_COORDS*size, SizeOf(GLfloat))
-	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(UInteger))
+	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(GLuint))
 	This._texcoordArray = Callocate(NUM_TEX_COORDS*size, SizeOf(Integer))
 End Constructor
 
@@ -43,7 +43,7 @@ Function Mesh.GetTexCoordArray() As Integer Ptr
 	Return This._texcoordArray
 End Function
 
-Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As GLfloat, b As GLfloat, a As GLfloat, t1 As Integer, t2 As Integer) As Integer
+Sub Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As GLfloat, b As GLfloat, a As GLfloat, t1 As Integer, t2 As Integer)
 	Dim vertexArrayIndex As Integer 		= NUM_VERTEX_COORDS 	* This._num
 	Dim normalArrayIndex As Integer 		= NUM_NORMAL_COORDS 	* This._num
 	Dim colorArrayIndex As Integer 		= NUM_COLOR_COORDS 	* This._num
@@ -60,10 +60,10 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	This._normalArray[normalArrayIndex+2] = norm.Z
 	
 	'' Fill color array
-	This._normalArray[colorArrayIndex] = r
-	This._normalArray[colorArrayIndex+1] = g
-	This._normalArray[colorArrayIndex+2] = b
-	This._normalArray[colorArrayIndex+3] = a
+	This._colorArray[colorArrayIndex] = r
+	This._colorArray[colorArrayIndex+1] = g
+	This._colorArray[colorArrayIndex+2] = b
+	This._colorArray[colorArrayIndex+3] = a
 	
 	'' Fill texcoord array
 	This._texcoordArray[texcoordArrayIndex] = t1
@@ -71,36 +71,37 @@ Function Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As G
 	
 	'' Increase current number of vertices and return it (for indice purposes)
 	This._num += 1
+End Sub
 
-	Return This._num
-End Function
-
-Sub Mesh.AddTriangle(ind1 As Integer, ind2 As Integer, ind3 As Integer)
+Sub Mesh.AddTriangle(ind1 As UInteger, ind2 As UInteger, ind3 As UInteger)
 	Dim indexArrayIndex As Integer = This._indexArrayIndice
 	
 	This._indexArray[indexArrayIndex] = ind1
 	This._indexArray[indexArrayIndex+1] = ind2
 	This._indexArray[indexArrayIndex+2] = ind3
 	
-	This._indexArrayIndice += 3	
+	This._indexArrayIndice += 3
 End Sub
 
 Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	'' Cube extremities
-	Dim p1 As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
-	Dim p2 As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
-   Dim p3 As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
-   Dim p4 As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
-   Dim p5 As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
-   Dim p6 As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
-   Dim p7 As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
-   Dim p8 As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+	Dim v0v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
+	Dim v1v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
+   Dim v2v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
+   Dim v3v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
+   Dim v4v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+   Dim v5v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+   Dim v6v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+   Dim v7v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+   
+   '' Textures coordinates
+   'Dim t1 as vector2d = Vector2d(0,0) ...?
 	
 	'' Normal vector
 	Dim n1 As Vector3d = Vector3d()
 	
-	'' Indices
-	Dim As Integer v1, v2, v3, v4, v5, v6, v7, v8
+	'' IndicexArray length
+	Dim indexArrayLength As Integer = This._indexArrayIndice	
 	
 	'' Color / Texture?
 	Dim r As GLfloat = 1.0
@@ -112,68 +113,70 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	' Front
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
-	v1 = This.AddVertex(p1, n1, r, g, b, a, 0, 0)
-	v2 = This.AddVertex(p2, n1, r, g, b, a, 1, 0)
-	v3 = This.AddVertex(p3, n1, r, g, b, a, 1, 1)
-	v4 = This.AddVertex(p4, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v1v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v2v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v3v, n1, r, g, b, a, 0, 1)
 	
-	This.AddTriangle(v1, v2, v3)
-	This.AddTriangle(v1, v3, v4)
+	This.AddTriangle(indexArrayLength, indexArrayLength+1, indexArrayLength+2)
+	This.AddTriangle(indexArrayLength+2, indexArrayLength+3, indexArrayLength)
 	
 	' Back
-   n1 = Vector3d(0.0, 0.0, -1.0)
+   n1 = Vector3d(1.0, 0.0, 0.0)
 
-   v5 = This.AddVertex(p5, n1, r, g, b, a, 0, 0)
-   v6 = This.AddVertex(p6, n1, r, g, b, a, 1, 0)
-   v7 = This.AddVertex(p7, n1, r, g, b, a, 1, 1)
-   v8 = This.AddVertex(p8, n1, r, g, b, a, 0, 1)
+   This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
+   This.AddVertex(v3v, n1, r, g, b, a, 1, 0)
+   This.AddVertex(v4v, n1, r, g, b, a, 1, 1)
+   This.AddVertex(v5v, n1, r, g, b, a, 0, 1)
 
-   This.AddTriangle(v5, v6, v7)
-   This.AddTriangle(v5, v7, v8)
+   This.AddTriangle(indexArrayLength+4, indexArrayLength+5, indexArrayLength+6)
+   This.AddTriangle(indexArrayLength+6, indexArrayLength+7, indexArrayLength+4)
 	
 	' Right
-	n1 = Vector3d(1.0, 0.0, 0.0)
+	n1 = Vector3d(0.0, 1.0, 0.0)
 	
-	v2 = This.AddVertex(p2, n1, r, g, b, a, 0, 0)
-	v5 = This.AddVertex(p5, n1, r, g, b, a, 1, 0)
-	v8 = This.AddVertex(p8, n1, r, g, b, a, 1, 1)
-	v3 = This.AddVertex(p3, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v5v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v6v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v1v, n1, r, g, b, a, 0, 1)
 	
-	This.AddTriangle(v2, v5, v8)
-	This.AddTriangle(v2, v8, v3)
+	This.AddTriangle(indexArrayLength+8, indexArrayLength+9, indexArrayLength+10)
+	This.AddTriangle(indexArrayLength+10, indexArrayLength+11, indexArrayLength+8)
 	
 	' Left
 	n1 = Vector3d(-1.0, 0.0, 0.0)
 	
-	v6 = This.AddVertex(p6, n1, r, g, b, a, 0, 0)
-	v1 = This.AddVertex(p1, n1, r, g, b, a, 1, 0)
-	v4 = This.AddVertex(p4, n1, r, g, b, a, 1, 1)
-	v7 = This.AddVertex(p7, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v1v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v6v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v7v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
 	
-	This.AddTriangle(v6, v1, v4)
-	This.AddTriangle(v6, v4, v7)
+	This.AddTriangle(indexArrayLength+12, indexArrayLength+13, indexArrayLength+14)
+	This.AddTriangle(indexArrayLength+14, indexArrayLength+15, indexArrayLength+12)
    
    ' Top
-	n1 = Vector3d(0.0, 1.0, 0.0)
-	
-	v4 = This.AddVertex(p4, n1, r, g, b, a, 0, 0)
-	v3 = This.AddVertex(p3, n1, r, g, b, a, 1, 0)
-	v8 = This.AddVertex(p8, n1, r, g, b, a, 1, 1)
-	v7 = This.AddVertex(p7, n1, r, g, b, a, 0, 1)
-	
-	This.AddTriangle(v4, v3, v8)
-	This.AddTriangle(v4, v8, v7)
-	
-	' Bottom
 	n1 = Vector3d(0.0, -1.0, 0.0)
 	
-	v6 = This.AddVertex(p6, n1, r, g, b, a)
-	v5 = This.AddVertex(p5, n1, r, g, b, a)
-	v2 = This.AddVertex(p2, n1, r, g, b, a)
-	v1 = This.AddVertex(p1, n1, r, g, b, a)
+	This.AddVertex(v7v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v4v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v3v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
 	
-	This.AddTriangle(v6, v5, v2)
-	This.AddTriangle(v6, v2, v1)
+	'Not being added!!! Why???
+	This.AddTriangle(indexArrayLength+16, indexArrayLength+17, indexArrayLength+18)
+	This.AddTriangle(indexArrayLength+18, indexArrayLength+19, indexArrayLength+16)
+	
+	' Bottom
+	n1 = Vector3d(0.0, 0.0, -1.0)
+	
+	This.AddVertex(v4v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v7v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v6v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v5v, n1, r, g, b, a, 0, 1)
+	
+	'Not being added!! Why?
+	This.AddTriangle(indexArrayLength+20, indexArrayLength+21, indexArrayLength+22)
+	This.AddTriangle(indexArrayLength+22, indexArrayLength+23, indexArrayLength+20)
 	
 	Return TRUE
 End Function

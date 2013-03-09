@@ -83,8 +83,6 @@ noError = noError Or InitWindow()		'' Init SDL window container and check if no 
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
 
-LogToFile(NUM_INDEX_COORDS + "blabla")
-
 '' Game loop
 While loopOn And noError
 	While SDL_PollEvent(@event)
@@ -187,7 +185,7 @@ Function InitScene() As Integer
 	glEnable	GL_TEXTURE_2D												'' Enables texturing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
-	glEnable GL_CULL_FACE	' Working as we wish?
+	'glEnable GL_CULL_FACE	' Working as we wish?
 	
 	'' Load textures here?
 	

@@ -53,9 +53,9 @@ Sub Chunk.CreateMesh()
 	This._mesh = New Mesh(MAX_VERTICES)
 	
 	'' Fill mesh arrays with data from Chunk
-	For x = 0 To CHUNK_SIZE - 1
-		For y = 0 To CHUNK_SIZE - 1
-			For z = 0 To CHUNK_SIZE - 1
+	For x = 0 To CHUNK_SIZE
+		For y = 0 To CHUNK_SIZE
+			For z = 0 To CHUNK_SIZE
 				If This._blocks[x][y][z].IsActive() = TRUE Then
 					This._mesh->AppendCube(x,y,z) '' add a cube to the mesh
 				EndIf
@@ -65,7 +65,7 @@ Sub Chunk.CreateMesh()
 End Sub
 
 Property Chunk.Update(dt As Single)
-	'' UpdateMesh here !
+	'' UpdateMesh here ! --> use an array?
 End Property
 
 Sub Chunk.Render(b_position As Vector3d)
@@ -76,6 +76,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
 	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
 	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
+	glTexCoordPointer(NUM_TEX_COORDS, GL_INT, 0, This._mesh->GetTexCoordArray())
 	
 	glPushMatrix()
 	'' Translate Chunk position
@@ -88,7 +89,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_COLOR_ARRAY And GL_NORMAL_ARRAY And GL_VERTEX_ARRAY)
+	glDisableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

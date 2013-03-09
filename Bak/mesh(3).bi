@@ -8,9 +8,9 @@
 #Define NUM_VERTEX_COORDS 	3
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
-'#Define NUM_INDEX_COORDS	3/2 '3/2
+#Define NUM_INDEX_COORDS	3/2
 #Define NUM_TEX_COORDS		2
-#Define MAX_VERTICES 		6*6*BLOCKS_PER_CHUNK '' to optimize
+#Define MAX_VERTICES 		24*BLOCKS_PER_CHUNK
 
 Type Mesh
 	Private:
@@ -20,7 +20,7 @@ Type Mesh
 	_vertexArray As GLfloat Ptr	'' glVertexPointer
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer
-	_indexArray As Integer Ptr
+	_indexArray As UInteger Ptr
 	_texcoordArray As Integer Ptr '' glTexCoordPointer
 	
 	Public:
@@ -35,8 +35,8 @@ Type Mesh
 	Declare Function GetNumVertices() As Integer
 	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
-	Declare Function AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer) As Integer
-	Declare Sub AddTriangle(As Integer, As Integer, As Integer)
+	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
+	Declare Sub AddTriangle(As UInteger, As UInteger, As UInteger)
 	Declare Function AppendCube(As Single, As Single, As Single) As Byte
 End Type
 
