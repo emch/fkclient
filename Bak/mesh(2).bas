@@ -11,7 +11,7 @@ Constructor Mesh(size As Integer)
 	This._vertexArray = Callocate(NUM_VERTEX_COORDS*size, SizeOf(GLfloat))
 	This._normalArray = Callocate(NUM_NORMAL_COORDS*size, SizeOf(GLfloat))
 	This._colorArray = Callocate(NUM_COLOR_COORDS*size, SizeOf(GLfloat))
-	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(UInteger))
+	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(GLuint))
 	This._texcoordArray = Callocate(NUM_TEX_COORDS*size, SizeOf(Integer))
 End Constructor
 
@@ -35,7 +35,7 @@ Function Mesh.GetColorArray() As GLfloat Ptr
 	Return This._colorArray
 End Function
 
-Function Mesh.GetIndexArray() As Integer Ptr
+Function Mesh.GetIndexArray() As GLuint Ptr
 	Return This._indexArray
 End Function
 
@@ -69,11 +69,11 @@ Sub Mesh.AddVertex(vect As Vector3d, norm As Vector3d, r As GLfloat, g As GLfloa
 	This._texcoordArray[texcoordArrayIndex] = t1
 	This._texcoordArray[texcoordArrayIndex+1] = t2
 	
-	'' Increase current number of vertices and return it (for indice purposes)
+	'' Increase current number of vertices
 	This._num += 1
 End Sub
 
-Sub Mesh.AddTriangle(ind1 As UInteger, ind2 As UInteger, ind3 As UInteger)
+Sub Mesh.AddTriangle(ind1 As GLuint, ind2 As GLuint, ind3 As GLuint)
 	Dim indexArrayIndex As Integer = This._indexArrayIndice
 	
 	This._indexArray[indexArrayIndex] = ind1
@@ -101,7 +101,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	Dim n1 As Vector3d = Vector3d()
 	
 	'' IndicexArray length
-	Dim indexArrayLength As Integer = This._indexArrayIndice	
+	Dim indexArrayLength As Integer = This._indexArrayIndice	'last indice before any modification
 	
 	'' Color / Texture?
 	Dim r As GLfloat = 1.0
@@ -110,7 +110,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	Dim a As GLfloat = 1.0
 	
 	'' Beginning cube drawing
-	' Front
+	' Face
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
 	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
@@ -121,7 +121,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(indexArrayLength, indexArrayLength+1, indexArrayLength+2)
 	This.AddTriangle(indexArrayLength+2, indexArrayLength+3, indexArrayLength)
 	
-	' Back
+	' Face
    n1 = Vector3d(1.0, 0.0, 0.0)
 
    This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
@@ -132,7 +132,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
    This.AddTriangle(indexArrayLength+4, indexArrayLength+5, indexArrayLength+6)
    This.AddTriangle(indexArrayLength+6, indexArrayLength+7, indexArrayLength+4)
 	
-	' Right
+	' Face
 	n1 = Vector3d(0.0, 1.0, 0.0)
 	
 	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
@@ -143,7 +143,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(indexArrayLength+8, indexArrayLength+9, indexArrayLength+10)
 	This.AddTriangle(indexArrayLength+10, indexArrayLength+11, indexArrayLength+8)
 	
-	' Left
+	' Face
 	n1 = Vector3d(-1.0, 0.0, 0.0)
 	
 	This.AddVertex(v1v, n1, r, g, b, a, 0, 0)
@@ -154,7 +154,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(indexArrayLength+12, indexArrayLength+13, indexArrayLength+14)
 	This.AddTriangle(indexArrayLength+14, indexArrayLength+15, indexArrayLength+12)
    
-   ' Top
+   ' Face
 	n1 = Vector3d(0.0, -1.0, 0.0)
 	
 	This.AddVertex(v7v, n1, r, g, b, a, 0, 0)
@@ -166,7 +166,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(indexArrayLength+16, indexArrayLength+17, indexArrayLength+18)
 	This.AddTriangle(indexArrayLength+18, indexArrayLength+19, indexArrayLength+16)
 	
-	' Bottom
+	' Face
 	n1 = Vector3d(0.0, 0.0, -1.0)
 	
 	This.AddVertex(v4v, n1, r, g, b, a, 0, 0)

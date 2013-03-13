@@ -36,7 +36,7 @@ Type Mesh
 	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
-	Declare Sub AddTriangle(As UInteger, As UInteger, As UInteger)
+	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
 	Declare Function AppendCube(As Single, As Single, As Single) As Byte
 End Type
 

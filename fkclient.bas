@@ -125,7 +125,7 @@ While loopOn And noError
 	EndIf
 	
 	'' Temporary (future dev option) : wireframe
-	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
 	current_time = SDL_GetTicks()
 	elapsed_time = current_time - last_time
@@ -147,8 +147,10 @@ Wend
 '' Garbage collector
 testChunk.Destructor()
 
+'' End message
+LogToFile("Game ended")
+
 SDL_Quit
-End
 '' End of program
 
 Function InitWindow() As Integer

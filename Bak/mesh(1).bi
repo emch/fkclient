@@ -5,7 +5,7 @@
 #Include "headers/params.bi"
 #Include "headers/vector3d.bi"
 
-#Define NUM_VERTEX_COORDS 	3
+#Define NUM_VERTEX_COORDS 	3+1
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
 #Define NUM_INDEX_COORDS	NUM_VERTEX_COORDS/2
@@ -30,13 +30,13 @@ Type Mesh
 	Declare Function GetVertexArray() As GLfloat Ptr
 	Declare Function GetNormalArray() As GLfloat Ptr
 	Declare Function GetColorArray() As GLfloat Ptr
-	Declare Function GetIndexArray() As Integer Ptr
+	Declare Function GetIndexArray() As GLuint Ptr
 	Declare Function GetTexCoordArray() As Integer Ptr 
 	Declare Function GetNumVertices() As Integer
 	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
-	Declare Sub AddTriangle(As UInteger, As UInteger, As UInteger)
+	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
 	Declare Function AppendCube(As Single, As Single, As Single) As Byte
 End Type
 

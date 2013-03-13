@@ -4,12 +4,12 @@
 #Include "vector3d.bi"
 #Include "blocktype.bi"
 
-#Define BLOCK_RENDER_SIZE	1
+#Define BLOCK_RENDER_SIZE	0.5
 
 Type Block
 	Private:
 	_isActive As Byte
-	_blocktype As BlockTypes	' size(BlockTypes) = sizeof(Byte)?
+	_blocktype As BlockTypes
    
    Public:
    Declare Constructor()

@@ -70,7 +70,7 @@ End Property
 
 Sub Chunk.Render(b_position As Vector3d)
 	'' Activate rendering from arrays
-	glEnableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
+	glEnableClientState(GL_VERTEX_ARRAY)' And GL_NORMAL_ARRAY And GL_COLOR_ARRAY) 'And GL_TEX_ARRAY ?
 	
 	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
@@ -83,13 +83,14 @@ Sub Chunk.Render(b_position As Vector3d)
 	glTranslatef(b_position.X, b_position.Y, b_position.Z)
 
 	'glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
-	'' not fully working
-	glDrawElements(GL_TRIANGLES, This._mesh->GetNumVertices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
+	' No problem with CHUNK_SIZE = 1
+	' Problems begin when CHUNK_SIZE = 2 (one vertice is not even drawn (or not in the right place) + triangles not drawn ...)
+	glDrawElements(GL_TRIANGLES, This._mesh->GetNumIndices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
+	glDisableClientState(GL_VERTEX_ARRAY)' And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

@@ -147,7 +147,11 @@ Wend
 '' Garbage collector
 testChunk.Destructor()
 
+'' End message
+LogToFile("Game ended")
+
 SDL_Quit
+
 End
 '' End of program
 

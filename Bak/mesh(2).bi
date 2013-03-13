@@ -20,7 +20,7 @@ Type Mesh
 	_vertexArray As GLfloat Ptr	'' glVertexPointer
 	_normalArray As GLfloat Ptr 	'' glNormalPointer
 	_colorArray As GLfloat Ptr 	'' glColorPointer
-	_indexArray As UInteger Ptr
+	_indexArray As GLuint Ptr
 	_texcoordArray As Integer Ptr '' glTexCoordPointer
 	
 	Public:
@@ -30,13 +30,13 @@ Type Mesh
 	Declare Function GetVertexArray() As GLfloat Ptr
 	Declare Function GetNormalArray() As GLfloat Ptr
 	Declare Function GetColorArray() As GLfloat Ptr
-	Declare Function GetIndexArray() As Integer Ptr
+	Declare Function GetIndexArray() As GLuint Ptr
 	Declare Function GetTexCoordArray() As Integer Ptr 
 	Declare Function GetNumVertices() As Integer
 	Declare Function GetNumIndices() As Integer
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
-	Declare Sub AddTriangle(As UInteger, As UInteger, As UInteger)
+	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
 	Declare Function AppendCube(As Single, As Single, As Single) As Byte
 End Type
 
