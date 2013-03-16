@@ -8,7 +8,7 @@ Constructor Mesh(size As Integer)
 	This._size = size
 	This._num = 0
 	This._indexArrayIndice = 0
-	This._vertexArray = Callocate(NUM_VERTEX_COORDS*(size+1), SizeOf(GLfloat))
+	This._vertexArray = Callocate(NUM_VERTEX_COORDS*size, SizeOf(GLfloat))
 	This._normalArray = Callocate(NUM_NORMAL_COORDS*size, SizeOf(GLfloat))
 	This._colorArray = Callocate(NUM_COLOR_COORDS*size, SizeOf(GLfloat))
 	This._indexArray = Callocate(NUM_INDEX_COORDS*size, SizeOf(GLuint))
@@ -81,6 +81,10 @@ Sub Mesh.AddTriangle(ind1 As GLuint, ind2 As GLuint, ind3 As GLuint)
 	This._indexArray[indexArrayIndex+2] = ind3
 	
 	This._indexArrayIndice += 3
+	
+	Open "debug.txt" For Append As #1
+	Print #1, Str(ind1) & "-" & Str(ind2) & "-" & Str(ind3) & "-" & Str(This._indexArrayIndice)
+	Close #1
 End Sub
 
 Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
@@ -101,7 +105,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	Dim n1 As Vector3d = Vector3d()
 	
 	'' IndicexArray length
-	Dim indexArrayLength As Integer = This._indexArrayIndice	'last indice before any modification
+	Dim indexArrayLength As Integer = This._num 'This._indexArrayIndice	'last indice before any modification
 	
 	'' Color / Texture?
 	Dim r As GLfloat = 1.0

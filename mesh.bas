@@ -101,7 +101,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	Dim n1 As Vector3d = Vector3d()
 	
 	'' IndicexArray length
-	Dim indexArrayLength As Integer = This._indexArrayIndice	'last indice before any modification
+	Dim indexArrayLength As Integer = This._num 'This._indexArrayIndice	'last indice before any modification
 	
 	'' Color / Texture?
 	Dim r As GLfloat = 1.0

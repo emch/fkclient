@@ -81,6 +81,10 @@ Sub Mesh.AddTriangle(ind1 As GLuint, ind2 As GLuint, ind3 As GLuint)
 	This._indexArray[indexArrayIndex+2] = ind3
 	
 	This._indexArrayIndice += 3
+	
+	Open "debug.txt" For Append As #1
+	Print #1, Str(ind1) & "-" & Str(ind2) & "-" & Str(ind3) & "-" & Str(This._indexArrayIndice)'Str(This._indexArrayIndice)
+	Close #1
 End Sub
 
 Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
@@ -163,8 +167,8 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
 	
 	'Not being added!!! Why???
-	'This.AddTriangle(indexArrayLength+16, indexArrayLength+17, indexArrayLength+18)
-	'This.AddTriangle(indexArrayLength+18, indexArrayLength+19, indexArrayLength+16)
+	This.AddTriangle(indexArrayLength+16, indexArrayLength+17, indexArrayLength+18)
+	This.AddTriangle(indexArrayLength+18, indexArrayLength+19, indexArrayLength+16)
 	
 	' Face
 	n1 = Vector3d(0.0, 0.0, -1.0)
@@ -175,8 +179,8 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddVertex(v5v, n1, r, g, b, a, 0, 1)
 	
 	'Not being added!! Why?
-	'This.AddTriangle(indexArrayLength+20, indexArrayLength+21, indexArrayLength+22)
-	'This.AddTriangle(indexArrayLength+22, indexArrayLength+23, indexArrayLength+20)
+	This.AddTriangle(indexArrayLength+20, indexArrayLength+21, indexArrayLength+22)
+	This.AddTriangle(indexArrayLength+22, indexArrayLength+23, indexArrayLength+20)
 	
 	Return TRUE
 End Function

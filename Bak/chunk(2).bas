@@ -85,7 +85,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	'glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
 	' No problem with CHUNK_SIZE = 1
 	' Problems begin when CHUNK_SIZE = 2 (one vertice is not even drawn (or not in the right place) + triangles not drawn ...)
-	glDrawElements(GL_TRIANGLES, This._mesh->GetNumIndices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
+	glDrawElements(GL_TRIANGLE_FAN, This._mesh->GetNumIndices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()
 	

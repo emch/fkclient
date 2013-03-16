@@ -187,7 +187,7 @@ Function InitScene() As Integer
 	glEnable	GL_TEXTURE_2D												'' Enables texturing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
-	'glEnable GL_CULL_FACE	' Working as we wish?
+	glEnable GL_CULL_FACE	' Working as we wish?
 	
 	'' Load textures here?
 	

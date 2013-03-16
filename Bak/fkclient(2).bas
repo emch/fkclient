@@ -125,7 +125,7 @@ While loopOn And noError
 	EndIf
 	
 	'' Temporary (future dev option) : wireframe
-	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
 	current_time = SDL_GetTicks()
 	elapsed_time = current_time - last_time
@@ -151,8 +151,6 @@ testChunk.Destructor()
 LogToFile("Game ended")
 
 SDL_Quit
-
-End
 '' End of program
 
 Function InitWindow() As Integer
@@ -189,7 +187,7 @@ Function InitScene() As Integer
 	glEnable	GL_TEXTURE_2D												'' Enables texturing
 	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
 	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
-	'glEnable GL_CULL_FACE	' Working as we wish?
+	glEnable GL_CULL_FACE	' Working as we wish?
 	
 	'' Load textures here?
 	
