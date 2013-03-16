@@ -3,6 +3,7 @@
 
 '' Libraries
 #Include "sdl/sdl.bi"
+#Include "sdl/sdl_image.bi"
 #Include "gl/gl.bi"
 #Include "gl/glu.bi"
 
@@ -26,7 +27,7 @@ Declare Function DrawScene() as Integer
 
 '' Variables
 Dim Shared video As SDL_Surface Ptr
-Dim Shared flags As Integer = SDL_DOUBLEBUF or SDL_OPENGL or SDL_OPENGLBLIT
+Dim Shared flags As Integer = SDL_DOUBLEBUF Or SDL_HWSURFACE Or SDL_OPENGL Or SDL_OPENGLBLIT
 
 '' SDL Event holder and keystates
 Dim event As SDL_Event
@@ -83,6 +84,14 @@ noError = noError Or InitWindow()		'' Init SDL window container and check if no 
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
 
+' Debug
+Dim debugBlocktype As BlockType = Blocktype("cobble", BTYPE_COBBLESTONE)
+Dim dest As SDL_Rect
+Dim debugSurface As SDL_Surface Ptr
+' End debug
+
+debugSurface = IMG_Load("blocktypes.png")
+
 '' Game loop
 While loopOn And noError
 	While SDL_PollEvent(@event)
@@ -136,7 +145,23 @@ While loopOn And noError
    
    noError = noError Or DrawScene()
 
-   glFlush
+	glFlush
+
+	dest.x = 0
+   dest.y = 0
+   'dest.w = 256 'debugBlocktype.GetTexture()->w  ' bug here : texture not in memory?
+   'dest.h = 256 'debugBlocktype.GetTexture()->h
+	'SDL_BlitSurface(debugBlocktype.GetTexture(), NULL, video, @dest)
+	'If debugBlocktype.GetTexture() = NULL Then
+	'	LogToFile("error") 'TRUE ... (bug)
+	'EndIf
+	
+	dest.w = debugSurface->w
+   dest.h = debugSurface->h
+	If debugSurface = NULL Then
+		LogToFile("SDL error: " + *SDL_GetError())
+	EndIf
+	SDL_BlitSurface(debugSurface, NULL, video, @dest)
    
    '' fps maximum (delay)
    SDL_Delay(1000/scr_maxfps)

@@ -4,8 +4,12 @@
 
 Constructor Blocktype(b_name As String)
 	This._name = b_name
-	This._texture = NULL
+	This._texture = Callocate(1, SizeOf(SDL_Surface))
 End Constructor
+
+Destructor Blocktype()
+	DeAllocate(This._texture)
+End Destructor
 
 ' Example: to create a Blocktype "Cobblestone", use Blocktype("Cobblestone", BTYPE_COBBLESTONE)
 Constructor Blocktype(b_name As String, id As BlockTypes)
@@ -27,7 +31,7 @@ Constructor Blocktype(b_name As String, id As BlockTypes)
 	
 	This._id = id
 	This._name = b_name
-	This._texture = This.ExtractTex(subTexPos) 
+	This._texture = IMG_Load(TEXTURE_FILE) 'This.ExtractTex(subTexPos)
 End Constructor
 
 Function Blocktype.GetName() As String
@@ -50,4 +54,8 @@ Function Blocktype.ExtractTex(b_pos As SDL_Rect) As SDL_Surface Ptr
 	SDL_FreeSurface(tileset)
 	
 	Return texture
+End Function
+
+Function Blocktype.GetTexture() As SDL_Surface Ptr
+	Return This._texture
 End Function

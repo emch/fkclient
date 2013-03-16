@@ -70,13 +70,16 @@ End Property
 
 Sub Chunk.Render(b_position As Vector3d)
 	'' Activate rendering from arrays
-	glEnableClientState(GL_VERTEX_ARRAY)' And GL_NORMAL_ARRAY And GL_COLOR_ARRAY) 'And GL_TEX_ARRAY ?
+	glEnableClientState(GL_VERTEX_ARRAY)
+	glEnableClientState(GL_NORMAL_ARRAY)
+	glEnableClientState(GL_COLOR_ARRAY)
+	'glEnableClientState(GL_TEXTURE_COORD_ARRAY) ' bugging (declare a texture?)
 	
 	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
 	glNormalPointer(GL_FLOAT, 0, This._mesh->GetNormalArray())
 	glColorPointer(NUM_COLOR_COORDS, GL_FLOAT, 0, This._mesh->GetColorArray())
-	'glTexCoordPointer(NUM_TEX_COORDS, GL_INT, 0, This._mesh->GetTexCoordArray())
+	glTexCoordPointer(NUM_TEX_COORDS, GL_INT, 0, This._mesh->GetTexCoordArray())
 	
 	glPushMatrix()
 	'' Translate Chunk position
@@ -88,7 +91,10 @@ Sub Chunk.Render(b_position As Vector3d)
 	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_VERTEX_ARRAY)' And GL_NORMAL_ARRAY And GL_COLOR_ARRAY)
+	glDisableClientState(GL_VERTEX_ARRAY)
+	glDisableClientState(GL_NORMAL_ARRAY)
+	glDisableClientState(GL_COLOR_ARRAY)
+	'glDisableClientState(GL_TEXTURE_COORD_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

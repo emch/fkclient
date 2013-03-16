@@ -21,6 +21,7 @@ Type BlockType
 	_texture		As SDL_Surface Ptr
 
 	Public:
+	Declare Destructor()
 	Declare Constructor()
 	Declare Constructor(As String)
 	Declare Constructor(As String, As BlockTypes)
@@ -28,6 +29,7 @@ Type BlockType
 	Declare Function GetName() As String
 	Declare Sub SetName(As String)
 	Declare Function ExtractTex(As SDL_Rect) As SDL_Surface Ptr
+	Declare Function GetTexture() As SDL_Surface Ptr
 End Type
 
 'Type BlockTypes
