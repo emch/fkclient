@@ -85,13 +85,16 @@ Sub Chunk.Render(b_position As Vector3d)
 	'' Translate Chunk position
 	glTranslatef(b_position.X, b_position.Y, b_position.Z)
 
-	'glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
+	'' Draw mesg
 	glDrawElements(GL_TRIANGLES, This._mesh->GetNumIndices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()
 	
 	'' Disable rendering from arrays
-	glDisableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY  And GL_COLOR_ARRAY) ' And GL_TEXTURE_COORD_ARRAY)
+	glDisableClientState(GL_VERTEX_ARRAY)
+	glDisableClientState(GL_NORMAL_ARRAY)
+	glDisableClientState(GL_COLOR_ARRAY)
+	'glDisableClientState(GL_TEXTURE_COORD_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

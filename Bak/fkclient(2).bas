@@ -88,9 +88,8 @@ ResizeScene()									'' Set viewport accordingly
 Dim debugBlocktype As BlockType = Blocktype("cobble", BTYPE_COBBLESTONE)
 Dim dest As SDL_Rect
 Dim debugSurface As SDL_Surface Ptr
+'debugSurface = IMG_Load("blocktypes.png")
 ' End debug
-
-debugSurface = IMG_Load("blocktypes.png")
 
 '' Game loop
 While loopOn And noError
@@ -147,8 +146,8 @@ While loopOn And noError
 
 	glFlush
 
-	dest.x = 0
-   dest.y = 0
+	'dest.x = 0
+   'dest.y = 0
    'dest.w = 256 'debugBlocktype.GetTexture()->w  ' bug here : texture not in memory?
    'dest.h = 256 'debugBlocktype.GetTexture()->h
 	'SDL_BlitSurface(debugBlocktype.GetTexture(), NULL, video, @dest)
@@ -156,12 +155,12 @@ While loopOn And noError
 	'	LogToFile("error") 'TRUE ... (bug)
 	'EndIf
 	
-	dest.w = debugSurface->w
-   dest.h = debugSurface->h
-	If debugSurface = NULL Then
-		LogToFile("SDL error: " + *SDL_GetError())
-	EndIf
-	SDL_BlitSurface(debugSurface, NULL, video, @dest)
+	'dest.w = debugSurface->w
+   'dest.h = debugSurface->h
+	'If debugSurface = NULL Then
+	'	LogToFile("SDL error: " + *SDL_GetError())
+	'EndIf
+	'SDL_BlitSurface(debugSurface, NULL, video, @dest)
    
    '' fps maximum (delay)
    SDL_Delay(1000/scr_maxfps)

@@ -70,7 +70,10 @@ End Property
 
 Sub Chunk.Render(b_position As Vector3d)
 	'' Activate rendering from arrays
-	glEnableClientState(GL_VERTEX_ARRAY And GL_NORMAL_ARRAY And GL_COLOR_ARRAY) ' And GL_TEXTURE_COORD_ARRAY) bugging (declare a texture?)
+	glEnableClientState(GL_VERTEX_ARRAY)
+	glEnableClientState(GL_NORMAL_ARRAY)
+	glEnableClientState(GL_COLOR_ARRAY)
+	'glEnableClientState(GL_TEXTURE_COORD_ARRAY) ' bugging (declare a texture?)
 	
 	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())

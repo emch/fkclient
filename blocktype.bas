@@ -1,6 +1,7 @@
 #Include "sdl/sdl.bi"
 #Include "sdl/sdl_image.bi"
 #Include "headers/blocktype.bi"
+#Include "headers/logging.bi"
 
 Constructor Blocktype(b_name As String)
 	This._name = b_name
@@ -31,7 +32,11 @@ Constructor Blocktype(b_name As String, id As BlockTypes)
 	
 	This._id = id
 	This._name = b_name
-	This._texture = IMG_Load(TEXTURE_FILE) 'This.ExtractTex(subTexPos)
+	
+	This._texture = IMG_Load("cobble.png") 'This.ExtractTex(subTexPos) --> bugging
+	If This._texture = NULL Then
+		LogToFile("Loading texture failed: " + *SDL_GetError())
+	EndIf
 End Constructor
 
 Function Blocktype.GetName() As String
@@ -43,6 +48,7 @@ Sub Blocktype.SetName(b_name As String)
 End Sub
 
 '' Extract texture as SDL_Surface from a tileset
+'' Bug here
 Function Blocktype.ExtractTex(b_pos As SDL_Rect) As SDL_Surface Ptr
 	Dim tileset As SDL_Surface Ptr = IMG_Load(TEXTURE_FILE)
 	Dim texture As SDL_Surface Ptr = NULL
@@ -50,8 +56,12 @@ Function Blocktype.ExtractTex(b_pos As SDL_Rect) As SDL_Surface Ptr
 	texPos.x = 0
 	texPos.y = 0
 	
-	SDL_BlitSurface(tileset, @b_pos, texture, @texPos)
-	SDL_FreeSurface(tileset)
+	If tileset = NULL Then
+		LogToFile("Loading image failed: " + *SDL_GetError())
+	Else
+		SDL_BlitSurface(tileset, @b_pos, texture, @texPos)
+		SDL_FreeSurface(tileset)
+	EndIf
 	
 	Return texture
 End Function

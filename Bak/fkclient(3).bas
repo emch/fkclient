@@ -145,10 +145,10 @@ While loopOn And noError
    
    noError = noError Or DrawScene()
 
-glFlush
+	glFlush
 
-	dest.x = 0
-   dest.y = 0
+	'dest.x = 0
+   'dest.y = 0
    'dest.w = 256 'debugBlocktype.GetTexture()->w  ' bug here : texture not in memory?
    'dest.h = 256 'debugBlocktype.GetTexture()->h
 	'SDL_BlitSurface(debugBlocktype.GetTexture(), NULL, video, @dest)
@@ -156,12 +156,12 @@ glFlush
 	'	LogToFile("error") 'TRUE ... (bug)
 	'EndIf
 	
-	dest.w = debugSurface->w
-   dest.h = debugSurface->h
-	If debugSurface = NULL Then
-		LogToFile("SDL error: " + *SDL_GetError())
-	EndIf
-	SDL_BlitSurface(debugSurface, NULL, video, @dest)
+	'dest.w = debugSurface->w
+   'dest.h = debugSurface->h
+	'If debugSurface = NULL Then
+	'	LogToFile("SDL error: " + *SDL_GetError())
+	'EndIf
+	'SDL_BlitSurface(debugSurface, NULL, video, @dest)
    
    '' fps maximum (delay)
    SDL_Delay(1000/scr_maxfps)

@@ -14,9 +14,9 @@
 #Include "headers/chunk_manager.bi"
 #Include "headers/block.bi"
 #Include "headers/params.bi"
-#Include "headers/globals.bi" '' booleans
-#Include "headers/config.bi"	'' configuration file management
-#Include "headers/logging.bi"	'' logging
+#Include "headers/globals.bi"
+#Include "headers/config.bi"
+#Include "headers/logging.bi"
 #Include "headers/camera.bi"
 
 '' Prototypes
@@ -88,9 +88,8 @@ ResizeScene()									'' Set viewport accordingly
 Dim debugBlocktype As BlockType = Blocktype("cobble", BTYPE_COBBLESTONE)
 Dim dest As SDL_Rect
 Dim debugSurface As SDL_Surface Ptr
+'debugSurface = IMG_Load("blocktypes.png")
 ' End debug
-
-debugSurface = IMG_Load("blocktypes.png")
 
 '' Game loop
 While loopOn And noError
