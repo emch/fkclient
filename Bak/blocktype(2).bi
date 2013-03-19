@@ -10,6 +10,7 @@
 
 Enum BlockTypes
 	BTYPE_COBBLESTONE = 0
+	BTYPE_DIRT = 2
 	BTYPE_TNT = 8
 	BTYPE_DEFAULT = 168
 End Enum
@@ -31,14 +32,5 @@ Type BlockType
 	Declare Function ExtractTex(As SDL_Rect) As SDL_Surface Ptr
 	Declare Function GetTexture() As SDL_Surface Ptr
 End Type
-
-'Type BlockTypes
-'	Private:
-'	_num As Integer					'' number of blocktypes
-'	_blocktypes As BlockType Ptr	'' array containing all block types
-'	
-'	Public:
-'	Declare Sub LoadBlocktypes() '' in fine: load from FKD datafile
-'End Type
 
 #endif

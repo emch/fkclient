@@ -4,7 +4,7 @@
 #Include "GL/glu.bi"
 #Include "headers/block.bi"
 #Include "headers/vector3d.bi"
-#Include "headers/globals.bi" '' booleans
+#Include "headers/globals.bi" '' Booleans
 #Include "headers/blocktype.bi"
 
 Constructor Block

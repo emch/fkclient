@@ -7,6 +7,7 @@
 #Define BLOCK_TEX_SIZE			16		'' block texture size in pixels (height & width)
 #Define TILESET_HEIGHT			256
 #Define TILESET_WIDTH			256
+#Define NUM_TEX					(TILESET_HEIGHT/BLOCK_TEX_SIZE)*(TILESET_WIDTH/BLOCK_TEX_SIZE)	'' Number of textures
 
 Enum BlockTypes
 	BTYPE_COBBLESTONE = 0

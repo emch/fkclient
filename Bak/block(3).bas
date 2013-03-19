@@ -9,6 +9,7 @@
 
 Constructor Block
 	This._isActive = TRUE
+	This._blocktype = BTYPE_DEFAULT
 End Constructor
 
 Function Block.IsActive() As Byte

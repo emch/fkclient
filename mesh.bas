@@ -113,10 +113,11 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
    	If TexturePng->format->BytesPerPixel = 3 Then
    		TextureMode = GL_RGB
    	EndIf
+   	
    	glGenTextures(1, @TexName)
-	   glBindTexture(GL_TEXTURE_2D, TexName)
+	   glBindTexture(GL_TEXTURE_2D, TexName) 'Arrays: TexNames[BTYPE_...] and TexArray[BTYPE_...]?
 	   SDL_LockSurface(TexturePng)
-	   glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, 16, 16, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
+	   glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, TexturePng->w, TexturePng->h, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
 	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
    EndIf
@@ -137,7 +138,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	Dim a As GLfloat = 1.0
 	
 	'' Beginning cube drawing
-	' Face
+	' Top
 	n1 = Vector3d(0.0, 0.0, 1.0)
 	
 	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
@@ -148,7 +149,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddTriangle(indexArrayLength, indexArrayLength+1, indexArrayLength+2)
 	This.AddTriangle(indexArrayLength+2, indexArrayLength+3, indexArrayLength)
 	
-	' Face
+	' Back
    n1 = Vector3d(1.0, 0.0, 0.0)
 
    This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
@@ -159,41 +160,40 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
    This.AddTriangle(indexArrayLength+4, indexArrayLength+5, indexArrayLength+6)
    This.AddTriangle(indexArrayLength+6, indexArrayLength+7, indexArrayLength+4)
 	
-	' Face
+	' Left
 	n1 = Vector3d(0.0, 1.0, 0.0)
 	
-	This.AddVertex(v0v, n1, r, g, b, a, 0, 0)
-	This.AddVertex(v5v, n1, r, g, b, a, 1, 0)
-	This.AddVertex(v6v, n1, r, g, b, a, 1, 1)
-	This.AddVertex(v1v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v0v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v5v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v6v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v1v, n1, r, g, b, a, 0, 0)
 	
 	This.AddTriangle(indexArrayLength+8, indexArrayLength+9, indexArrayLength+10)
 	This.AddTriangle(indexArrayLength+10, indexArrayLength+11, indexArrayLength+8)
 	
-	' Face
+	' Front
 	n1 = Vector3d(-1.0, 0.0, 0.0)
 	
-	This.AddVertex(v1v, n1, r, g, b, a, 0, 0)
-	This.AddVertex(v6v, n1, r, g, b, a, 1, 0)
-	This.AddVertex(v7v, n1, r, g, b, a, 1, 1)
-	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v1v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v6v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v7v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v2v, n1, r, g, b, a, 0, 0)
 	
 	This.AddTriangle(indexArrayLength+12, indexArrayLength+13, indexArrayLength+14)
 	This.AddTriangle(indexArrayLength+14, indexArrayLength+15, indexArrayLength+12)
    
-   ' Face
+   ' Right
 	n1 = Vector3d(0.0, -1.0, 0.0)
 	
-	This.AddVertex(v7v, n1, r, g, b, a, 0, 0)
-	This.AddVertex(v4v, n1, r, g, b, a, 1, 0)
-	This.AddVertex(v3v, n1, r, g, b, a, 1, 1)
-	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v7v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v4v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v3v, n1, r, g, b, a, 0, 0)
+	This.AddVertex(v2v, n1, r, g, b, a, 1, 0)
 	
-	'Not being added!!! Why???
 	This.AddTriangle(indexArrayLength+16, indexArrayLength+17, indexArrayLength+18)
 	This.AddTriangle(indexArrayLength+18, indexArrayLength+19, indexArrayLength+16)
 	
-	' Face
+	' Bottom
 	n1 = Vector3d(0.0, 0.0, -1.0)
 	
 	This.AddVertex(v4v, n1, r, g, b, a, 0, 0)
@@ -201,7 +201,6 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
 	This.AddVertex(v6v, n1, r, g, b, a, 1, 1)
 	This.AddVertex(v5v, n1, r, g, b, a, 0, 1)
 	
-	'Not being added!! Why?
 	This.AddTriangle(indexArrayLength+20, indexArrayLength+21, indexArrayLength+22)
 	This.AddTriangle(indexArrayLength+22, indexArrayLength+23, indexArrayLength+20)
 	

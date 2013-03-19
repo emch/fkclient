@@ -1,7 +1,6 @@
-Logfile created on 03-19-2013 at 21:41:47
+Logfile created on 03-19-2013 at 23:41:53
 Using FK client 0.0.0
 
-03-19-2013 | 21:41:47 | SDL initialised
-03-19-2013 | 21:41:50 | OpenGL initialised
-03-19-2013 | 21:41:50 | Scene resized
-03-19-2013 | 21:41:50 | Loading texture failed: Couldn't open debug.png
+03-19-2013 | 23:41:54 | SDL initialised
+03-19-2013 | 23:41:56 | OpenGL initialised
+03-19-2013 | 23:41:56 | Scene resized

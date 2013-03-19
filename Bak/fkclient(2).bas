@@ -24,6 +24,7 @@ Declare Function InitWindow() As Integer
 Declare Function InitScene() As Integer
 Declare Sub ResizeScene()
 Declare Function DrawScene() as Integer
+Declare Function LoadTextures() As Integer
 
 '' Variables
 Dim Shared video As SDL_Surface Ptr
@@ -49,6 +50,10 @@ Dim As Single current_time, elapsed_time, last_time
 
 '' Scene objects
 Dim Shared testChunk As Chunk = Chunk()
+
+'' Texture management
+Dim Shared myTexNames As GLuint Ptr
+Dim Shared myTexArray(NUM_TEX) As SDL_Surface
 
 '' Entry point
 ClearLogFile()										'' Clearing logfile for a new session!
@@ -83,13 +88,7 @@ EndIf
 noError = noError Or InitWindow()		'' Init SDL window container and check if no error occurs
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
-
-' Debug
-Dim debugBlocktype As BlockType = Blocktype("dirt", BTYPE_DIRT)
-Dim dest As SDL_Rect
-Dim debugSurface As SDL_Surface Ptr
-'debugSurface = IMG_Load("blocktypes.png")
-' End debug
+'noError = noError Or LoadTextures()		''' bugging!!!
 
 '' Game loop
 While loopOn And noError
@@ -132,7 +131,7 @@ While loopOn And noError
 		Exit While
 	EndIf
 	
-	'' Temporary (future dev option) : wireframe
+	'' Wireframe
 	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
 	current_time = SDL_GetTicks()
@@ -146,22 +145,6 @@ While loopOn And noError
 
 	glFlush
 
-	'dest.x = 0
-   'dest.y = 0
-   'dest.w = 256 'debugBlocktype.GetTexture()->w  ' bug here : texture not in memory?
-   'dest.h = 256 'debugBlocktype.GetTexture()->h
-	'SDL_BlitSurface(debugBlocktype.GetTexture(), NULL, video, @dest)
-	'If debugBlocktype.GetTexture() = NULL Then
-	'	LogToFile("error") 'TRUE ... (bug)
-	'EndIf
-	
-	'dest.w = debugSurface->w
-   'dest.h = debugSurface->h
-	'If debugSurface = NULL Then
-	'	LogToFile("SDL error: " + *SDL_GetError())
-	'EndIf
-	'SDL_BlitSurface(debugSurface, NULL, video, @dest)
-   
    '' fps maximum (delay)
    SDL_Delay(1000/scr_maxfps)
    
@@ -204,14 +187,14 @@ Function InitWindow() As Integer
 End Function
 
 Function InitScene() As Integer
-	glShadeModel GL_SMOOTH                                  	'' Enable Smooth Shading
-	glClearColor 0.0, 0.0, 0.0, 0.5                         	'' Black Background
-	glClearDepth 1.0                                        	'' Depth Buffer Setup
-	glEnable GL_DEPTH_TEST                                  	'' Enables Depth Testing
-	glEnable	GL_TEXTURE_2D												'' Enables texturing
-	glDepthFunc GL_LEQUAL                                   	'' The Type Of Depth Testing To Do
-	glHint GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST        	'' Really Nice Perspective Calculations
-	glEnable GL_CULL_FACE	' Working as we wish?
+	glShadeModel(GL_SMOOTH)                                  '' Enable Smooth Shading
+	glClearColor(0.0, 0.0, 0.0, 0.5)                         '' Black Background
+	glClearDepth(1.0)                                        '' Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST)                                  '' Enables Depth Testing
+	glEnable(GL_TEXTURE_2D)												'' Enables texturing
+	glDepthFunc(GL_LEQUAL)                                 	'' The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)        '' Really Nice Perspective Calculations
+	glEnable(GL_CULL_FACE)												'' Backface culling (defined by normal)
 	
 	'' Load textures here?
 	
@@ -250,4 +233,33 @@ Function DrawScene() As Integer
 	testChunk.Render(chunkPos)
 	
 	Return TRUE
+End Function
+
+'' not working
+Function LoadTextures() As Integer
+	Dim i As Integer
+	Dim pass As Integer = TRUE
+	Dim TexturePng As SDL_Surface Ptr = IMG_Load("Res/Textures/debug.png") 'replace by texture file location
+   Dim TextureMode As Integer = GL_RGBA
+   
+   glGenTextures(NUM_TEX, myTexNames)
+   
+	For i = 0 To NUM_TEX-1
+		If TexturePng = NULL Then
+   		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
+   		pass = pass Or FALSE
+		Else
+	   	If TexturePng->format->BytesPerPixel = 3 Then
+	   		TextureMode = GL_RGB
+	   	EndIf
+	   	
+			glBindTexture(GL_TEXTURE_2D, myTexNames[i])
+			SDL_LockSurface(TexturePng)
+		   glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, TexturePng->w, TexturePng->h, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
+		   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+		End If
+	Next
+	
+	Return pass
 End Function
