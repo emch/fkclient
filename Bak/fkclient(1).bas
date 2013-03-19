@@ -85,7 +85,7 @@ noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
 
 ' Debug
-Dim debugBlocktype As BlockType = Blocktype("cobble", BTYPE_COBBLESTONE)
+Dim debugBlocktype As BlockType = Blocktype("dirt", BTYPE_DIRT)
 Dim dest As SDL_Rect
 Dim debugSurface As SDL_Surface Ptr
 'debugSurface = IMG_Load("blocktypes.png")

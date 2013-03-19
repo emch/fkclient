@@ -85,7 +85,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	'' Translate Chunk position
 	glTranslatef(b_position.X, b_position.Y, b_position.Z)
 
-	'glDrawArrays(GL_TRIANGLES, 0, This._mesh->GetNumVertices())
+	'' Draw mesh
 	glDrawElements(GL_TRIANGLES, This._mesh->GetNumIndices(), GL_UNSIGNED_INT, This._mesh->GetIndexArray())
 	
 	glPopMatrix()

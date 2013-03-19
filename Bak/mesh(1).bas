@@ -1,13 +1,12 @@
+#Include "sdl/sdl.bi"
+#Include "sdl/sdl_image.bi"
+
 #Include "headers/mesh.bi"
 #Include "headers/globals.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/block.bi"
 #Include "headers/logging.bi"
 #Include "headers/blocktype.bi"
-
-' Debug
-Dim debugCobble As BlockType = Blocktype("cobblestone", BTYPE_COBBLESTONE)
-' End debug
 
 Constructor Mesh(size As Integer)
 	This._size = size
@@ -98,6 +97,29 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single) As Byte
    Dim v5v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
    Dim v6v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
    Dim v7v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
+   
+   '' Texturing (create a function and store textures in some array?)
+   Dim TexName As GLuint
+   
+   ' Note: debug.png --> GL_RGB
+   Dim TexturePng As SDL_Surface Ptr = IMG_Load("Res/Textures/debug.png")
+   Dim TextureMode As Integer = GL_RGB
+   
+   If TexturePng = NULL Then
+   	LogToFile("Failed loading texture: " + *SDL_GetError())
+   	
+   	'' TODO: load default texture here
+   Else
+   	If TexturePng->format->BytesPerPixel = 4 Then
+   		TextureMode = GL_RGB
+   	EndIf
+   	glGenTextures(1, @TexName)
+	   glBindTexture(GL_TEXTURE_2D, TexName)
+	   SDL_LockSurface(TexturePng)
+	   glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, 16, 16, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+   EndIf
    
    '' Textures coordinates
    'Dim t1 as vector2d = Vector2d(0,0) ...?

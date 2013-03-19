@@ -14,9 +14,9 @@
 #Include "headers/chunk_manager.bi"
 #Include "headers/block.bi"
 #Include "headers/params.bi"
-#Include "headers/globals.bi" '' booleans
-#Include "headers/config.bi"	'' configuration file management
-#Include "headers/logging.bi"	'' logging
+#Include "headers/globals.bi"
+#Include "headers/config.bi"
+#Include "headers/logging.bi"
 #Include "headers/camera.bi"
 
 '' Prototypes
@@ -85,7 +85,7 @@ noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
 
 ' Debug
-Dim debugBlocktype As BlockType = Blocktype("cobble", BTYPE_COBBLESTONE)
+Dim debugBlocktype As BlockType = Blocktype("dirt", BTYPE_DIRT)
 Dim dest As SDL_Rect
 Dim debugSurface As SDL_Surface Ptr
 'debugSurface = IMG_Load("blocktypes.png")
@@ -133,7 +133,7 @@ While loopOn And noError
 	EndIf
 	
 	'' Temporary (future dev option) : wireframe
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	'glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
 	current_time = SDL_GetTicks()
 	elapsed_time = current_time - last_time

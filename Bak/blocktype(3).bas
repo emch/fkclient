@@ -48,6 +48,7 @@ Sub Blocktype.SetName(b_name As String)
 End Sub
 
 '' Extract texture as SDL_Surface from a tileset
+'' Bug here
 Function Blocktype.ExtractTex(b_pos As SDL_Rect) As SDL_Surface Ptr
 	Dim tileset As SDL_Surface Ptr = IMG_Load(TEXTURE_FILE)
 	Dim texture As SDL_Surface Ptr = NULL

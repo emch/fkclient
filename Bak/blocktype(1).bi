@@ -10,6 +10,7 @@
 
 Enum BlockTypes
 	BTYPE_COBBLESTONE = 0
+	BTYPE_DIRT = 2
 	BTYPE_TNT = 8
 	BTYPE_DEFAULT = 168
 End Enum

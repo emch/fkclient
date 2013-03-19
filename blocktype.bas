@@ -33,7 +33,7 @@ Constructor Blocktype(b_name As String, id As BlockTypes)
 	This._id = id
 	This._name = b_name
 	
-	This._texture = IMG_Load("cobble.png") 'This.ExtractTex(subTexPos) --> bugging
+	This._texture = IMG_Load("debug.png") 'This.ExtractTex(subTexPos) --> bugging
 	If This._texture = NULL Then
 		LogToFile("Loading texture failed: " + *SDL_GetError())
 	EndIf

@@ -3,7 +3,7 @@
 
 #Include "sdl/sdl.bi"
 
-#Define TEXTURE_FILE				"Res/Textures/blocktypes.png"
+#Define TEXTURE_FILE				"blocktypes.png" '"Res/Textures/blocktypes.png"
 #Define BLOCK_TEX_SIZE			16		'' block texture size in pixels (height & width)
 #Define TILESET_HEIGHT			256
 #Define TILESET_WIDTH			256

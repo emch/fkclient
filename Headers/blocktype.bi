@@ -33,13 +33,4 @@ Type BlockType
 	Declare Function GetTexture() As SDL_Surface Ptr
 End Type
 
-'Type BlockTypes
-'	Private:
-'	_num As Integer					'' number of blocktypes
-'	_blocktypes As BlockType Ptr	'' array containing all block types
-'	
-'	Public:
-'	Declare Sub LoadBlocktypes() '' in fine: load from FKD datafile
-'End Type
-
 #endif
