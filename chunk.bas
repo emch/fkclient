@@ -47,7 +47,7 @@ Sub Chunk.Load() '' adapt to load from file/other source
 	Next
 End Sub
 
-Sub Chunk.CreateMesh()
+Sub Chunk.CreateMesh(texNames As GLuint Ptr)
 	Dim As Integer x,y,z
 	
 	This._mesh = New Mesh(MAX_VERTICES)
@@ -57,7 +57,7 @@ Sub Chunk.CreateMesh()
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1
 				If This._blocks[x][y][z].IsActive() = TRUE Then
-					This._mesh->AppendCube(x,y,z) '' add a cube to the mesh
+					This._mesh->AppendCube(x,y,z, texNames) '' add a cube to the mesh
 				EndIf
 			Next
 		Next

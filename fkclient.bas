@@ -53,7 +53,7 @@ Dim Shared testChunk As Chunk = Chunk()
 
 '' Texture management
 Dim Shared myTexNames As GLuint Ptr
-Dim Shared myTexArray(NUM_TEX) As SDL_Surface
+myTexNames = Callocate(NUM_TEX, SizeOf(GLuint))
 
 '' Entry point
 ClearLogFile()										'' Clearing logfile for a new session!
@@ -88,7 +88,7 @@ EndIf
 noError = noError Or InitWindow()		'' Init SDL window container and check if no error occurs
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
-'noError = noError Or LoadTextures()		''' bugging!!!
+noError = noError Or LoadTextures()		'' Loading textures
 
 '' Game loop
 While loopOn And noError
@@ -153,6 +153,7 @@ Wend
 
 '' Garbage collector
 testChunk.Destructor()
+DeAllocate(myTexNames)
 
 '' End message
 LogToFile("Game ended")
@@ -201,7 +202,7 @@ Function InitScene() As Integer
 	'' Temporary
 	'' Load objects
 	testChunk.Load()
-	testChunk.CreateMesh()
+	testChunk.CreateMesh(myTexNames)
 	'' End temporary
 	
 	LogToFile("OpenGL initialised")
@@ -235,20 +236,21 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
-'' not working
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
 	Dim TexturePng As SDL_Surface Ptr = IMG_Load("Res/Textures/debug.png") 'replace by texture file location
    Dim TextureMode As Integer = GL_RGBA
    
-   glGenTextures(NUM_TEX, myTexNames)
+   LogToFile(Str(NUM_TEX))
+   glGenTextures(NUM_TEX, myTexNames) ' bug here
    
 	For i = 0 To NUM_TEX-1
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
    		pass = pass Or FALSE
 		Else
+			TextureMode = GL_RGBA ' Re-initialization
 	   	If TexturePng->format->BytesPerPixel = 3 Then
 	   		TextureMode = GL_RGB
 	   	EndIf

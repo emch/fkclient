@@ -14,7 +14,7 @@ Type Chunk
 	Declare Constructor()
 	Declare Destructor()
 	Declare Sub Load()
-	Declare Sub CreateMesh()
+	Declare Sub CreateMesh(As GLuint Ptr)
 	Declare Property Update(As Single)
 	Declare Sub Render(As Vector3d)
 	Declare Function GetBlocks() As Block Ptr Ptr Ptr

@@ -73,7 +73,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	glEnableClientState(GL_VERTEX_ARRAY)
 	glEnableClientState(GL_NORMAL_ARRAY)
 	glEnableClientState(GL_COLOR_ARRAY)
-	'glEnableClientState(GL_TEXTURE_COORD_ARRAY) ' bugging (declare a texture?)
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY)
 	
 	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())
@@ -94,7 +94,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	glDisableClientState(GL_VERTEX_ARRAY)
 	glDisableClientState(GL_NORMAL_ARRAY)
 	glDisableClientState(GL_COLOR_ARRAY)
-	'glDisableClientState(GL_TEXTURE_COORD_ARRAY)
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY)
 End Sub
 
 Function Chunk.GetBlocks() As Block Ptr Ptr Ptr

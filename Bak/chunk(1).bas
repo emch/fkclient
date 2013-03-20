@@ -47,7 +47,7 @@ Sub Chunk.Load() '' adapt to load from file/other source
 	Next
 End Sub
 
-Sub Chunk.CreateMesh()
+Sub Chunk.CreateMesh(texNames As GLuint Ptr)
 	Dim As Integer x,y,z
 	
 	This._mesh = New Mesh(MAX_VERTICES)
@@ -73,7 +73,7 @@ Sub Chunk.Render(b_position As Vector3d)
 	glEnableClientState(GL_VERTEX_ARRAY)
 	glEnableClientState(GL_NORMAL_ARRAY)
 	glEnableClientState(GL_COLOR_ARRAY)
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY) ' bugging (declare a texture?)
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY)
 	
 	'' Assign pointers to data
 	glVertexPointer(NUM_VERTEX_COORDS, GL_FLOAT, 0, This._mesh->GetVertexArray())

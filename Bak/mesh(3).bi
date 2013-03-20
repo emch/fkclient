@@ -5,10 +5,10 @@
 #Include "headers/params.bi"
 #Include "headers/vector3d.bi"
 
-#Define NUM_VERTEX_COORDS 	3
+#Define NUM_VERTEX_COORDS 	3+1
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
-#Define NUM_INDEX_COORDS	2 'NUM_VERTEX_COORDS/2
+#Define NUM_INDEX_COORDS	NUM_VERTEX_COORDS/2
 #Define NUM_TEX_COORDS		2
 #Define MAX_VERTICES 		24*BLOCKS_PER_CHUNK
 

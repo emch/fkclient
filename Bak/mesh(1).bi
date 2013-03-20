@@ -5,7 +5,7 @@
 #Include "headers/params.bi"
 #Include "headers/vector3d.bi"
 
-#Define NUM_VERTEX_COORDS 	3+1
+#Define NUM_VERTEX_COORDS 	3
 #Define NUM_NORMAL_COORDS 	3
 #Define NUM_COLOR_COORDS	4
 #Define NUM_INDEX_COORDS	NUM_VERTEX_COORDS/2
@@ -37,7 +37,7 @@ Type Mesh
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
 	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
-	Declare Function AppendCube(As Single, As Single, As Single) As Byte
+	Declare Function AppendCube(As Single, As Single, As Single, texNames As GLuint Ptr) As Byte
 End Type
 
 #EndIf
