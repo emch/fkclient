@@ -87,7 +87,7 @@ Sub Mesh.AddTriangle(ind1 As GLuint, ind2 As GLuint, ind3 As GLuint)
 	This._indexArrayIndice += 3
 End Sub
 
-Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLuint Ptr) As Byte
+Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLuint Ptr) As Byte 'GLuint only (instead of Ptr)
 	'' Cube extremities
 	Dim v0v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
 	Dim v1v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
@@ -98,28 +98,9 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLui
    Dim v6v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
    Dim v7v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
    
-   '' Texturing (create a function and store textures in some array?)
-   Dim TexName As GLuint = texNames[0]
-   
-   'Dim TexturePng As SDL_Surface Ptr = IMG_Load("Res/Textures/debug.png")
-   'Dim TextureMode As Integer = GL_RGBA
-   
-   'If TexturePng = NULL Then
-   	'LogToFile("Failed loading texture: " + *SDL_GetError())
-   	
-   	'' TODO: load default texture here
-   'Else
-   	'If TexturePng->format->BytesPerPixel = 3 Then
-   	'	TextureMode = GL_RGB
-   	'EndIf
-   	
-   	glGenTextures(1, @TexName)
-	   glBindTexture(GL_TEXTURE_2D, TexName) 'Arrays: TexNames[BTYPE_...] and TexArray[BTYPE_...]?
-	   'SDL_LockSurface(TexturePng)
-	   'glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, TexturePng->w, TexturePng->h, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
-	   'glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-		'glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-   'EndIf
+   '' Texturing
+   Dim TexName As GLuint = texNames[1]
+	glBindTexture(GL_TEXTURE_2D, TexName)
    
    '' Textures coordinates
    'Dim t1 as vector2d = Vector2d(0,0) ...?

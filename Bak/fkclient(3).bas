@@ -54,7 +54,6 @@ Dim Shared testChunk As Chunk = Chunk()
 '' Texture management
 Dim Shared myTexNames As GLuint Ptr
 myTexNames = Callocate(NUM_TEX, SizeOf(GLuint))
-'Dim Shared myTexArray(NUM_TEX) As SDL_Surface
 
 '' Entry point
 ClearLogFile()										'' Clearing logfile for a new session!
@@ -194,6 +193,7 @@ Function InitScene() As Integer
 	glClearDepth(1.0)                                        '' Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST)                                  '' Enables Depth Testing
 	glEnable(GL_TEXTURE_2D)												'' Enables texturing
+	'glEnable(GL_LIGHTING) 'Lighting !!! See http://sjbaker.org/steve/omniv/opengl_lighting.html
 	glDepthFunc(GL_LEQUAL)                                 	'' The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)        '' Really Nice Perspective Calculations
 	glEnable(GL_CULL_FACE)												'' Backface culling (defined by normal)
@@ -237,32 +237,64 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
+' Bugging with blitting
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
-	Dim TexturePng As SDL_Surface Ptr = IMG_Load("Res/Textures/debug.png") 'replace by texture file location
-   Dim TextureMode As Integer = GL_RGBA
+	
+	Dim TexturePng As SDL_Surface Ptr '= IMG_Load("Res/Textures/debug.png") 'replace by texture file location
+	TexturePng = SDL_CreateRGBSurface(SDL_HWSURFACE, BLOCK_TEX_SIZE, BLOCK_TEX_SIZE, 32, 0, 0, 0, 0) 'not working?
+   Dim TexTileset As SDL_Surface Ptr = IMG_Load(TEXTURE_FILE)
+	Dim TexMode As Integer = GL_RGBA
    
-   LogToFile(Str(NUM_TEX))
-   glGenTextures(NUM_TEX, myTexNames) ' bug here
+   If TexTileset = NULL Then
+   	LogToFile("Tileset image not found: " + *SDL_GetError())
+   	Return FALSE
+   EndIf
+	If TexTileset->format->BytesPerPixel = 3 Then 'TexTileset
+		TexMode = GL_RGB
+	EndIf
+	
+   Dim TexPos As SDL_Rect
+   Dim TexOutPos As SDL_Rect
+	TexOutPos.x = 0
+	TexOutPos.y = 0
+	
+   Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
    
-	For i = 0 To NUM_TEX-1
+   glGenTextures(NUM_TEX, myTexNames)
+   
+	For i = 0 To 1 'NUM_TEX-1
+		TexPos.x = (i Mod numTexAxis) * BLOCK_TEX_SIZE
+		TexPos.y = (i - i Mod numTexAxis) * BLOCK_TEX_SIZE
+		' Checking that we do not go out of the tileset image
+		If TexPos.x > TILESET_WIDTH - BLOCK_TEX_SIZE Then
+			TexPos.x = TILESET_WIDTH - BLOCK_TEX_SIZE
+		EndIf
+		If TexPos.y > TILESET_HEIGHT - BLOCK_TEX_SIZE Then
+			TexPos.y = TILESET_HEIGHT - BLOCK_TEX_SIZE
+		EndIf
+		
+		TexPos.w = BLOCK_TEX_SIZE
+		TexPos.h = BLOCK_TEX_SIZE
+		
+		If SDL_BlitSurface(TexTileSet, @TexPos, TexturePng, @TexOutPos) = -1 Then
+			LogToFile("Blitting failed: " + *SDL_GetError())
+		EndIf
+		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
    		pass = pass Or FALSE
-		Else
-			TextureMode = GL_RGBA ' Re-initialization
-	   	If TexturePng->format->BytesPerPixel = 3 Then
-	   		TextureMode = GL_RGB
-	   	EndIf
-	   	
+		Else	   	
 			glBindTexture(GL_TEXTURE_2D, myTexNames[i])
 			SDL_LockSurface(TexturePng)
-		   glTexImage2D(GL_TEXTURE_2D, 0, TextureMode, TexturePng->w, TexturePng->h, 0, TextureMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
+		   glTexImage2D(GL_TEXTURE_2D, 0, TexMode, TexturePng->w, TexturePng->h, 0, TexMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
 		   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+			SDL_UnlockSurface(TexturePng)
 		End If
 	Next
 	
+	SDL_FreeSurface(TexturePng)
 	Return pass
 End Function

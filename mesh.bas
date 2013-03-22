@@ -87,7 +87,7 @@ Sub Mesh.AddTriangle(ind1 As GLuint, ind2 As GLuint, ind3 As GLuint)
 	This._indexArrayIndice += 3
 End Sub
 
-Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLuint Ptr) As Byte
+Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLuint Ptr) As Byte 'GLuint only (instead of Ptr)
 	'' Cube extremities
 	Dim v0v As Vector3d = Vector3d(x+BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
 	Dim v1v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y+BLOCK_RENDER_SIZE, z+BLOCK_RENDER_SIZE)
@@ -99,7 +99,7 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single, texNames As GLui
    Dim v7v As Vector3d = Vector3d(x-BLOCK_RENDER_SIZE, y-BLOCK_RENDER_SIZE, z-BLOCK_RENDER_SIZE)
    
    '' Texturing
-   Dim TexName As GLuint = texNames[0]
+   Dim TexName As GLuint = texNames[1]
 	glBindTexture(GL_TEXTURE_2D, TexName)
    
    '' Textures coordinates
