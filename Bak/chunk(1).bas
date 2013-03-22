@@ -57,7 +57,7 @@ Sub Chunk.CreateMesh(texNames As GLuint Ptr)
 		For y = 0 To CHUNK_SIZE - 1
 			For z = 0 To CHUNK_SIZE - 1
 				If This._blocks[x][y][z].IsActive() = TRUE Then
-					This._mesh->AppendCube(x,y,z) '' add a cube to the mesh
+					This._mesh->AppendCube(x,y,z, texNames[This._blocks[x][y][z].GetBlocktype()]) '' add a cube to the mesh
 				EndIf
 			Next
 		Next

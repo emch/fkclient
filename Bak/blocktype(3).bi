@@ -7,12 +7,11 @@
 #Define BLOCK_TEX_SIZE			16		'' block texture size in pixels (height & width)
 #Define TILESET_HEIGHT			256
 #Define TILESET_WIDTH			256
+#Define NUM_TEX					(TILESET_HEIGHT/BLOCK_TEX_SIZE)*(TILESET_WIDTH/BLOCK_TEX_SIZE)	'' Number of textures
 
 Enum BlockTypes
-	BTYPE_COBBLESTONE = 0
-	BTYPE_DIRT = 2
-	BTYPE_TNT = 8
-	BTYPE_DEFAULT = 168
+	BTYPE_ERROR = 0
+	'BTYPE_DEBUG = 1
 End Enum
 
 Type BlockType
@@ -32,14 +31,5 @@ Type BlockType
 	Declare Function ExtractTex(As SDL_Rect) As SDL_Surface Ptr
 	Declare Function GetTexture() As SDL_Surface Ptr
 End Type
-
-'Type BlockTypes
-'	Private:
-'	_num As Integer					'' number of blocktypes
-'	_blocktypes As BlockType Ptr	'' array containing all block types
-'	
-'	Public:
-'	Declare Sub LoadBlocktypes() '' in fine: load from FKD datafile
-'End Type
 
 #endif

@@ -4,7 +4,7 @@
 #Include "vector3d.bi"
 #Include "blocktype.bi"
 
-#Define BLOCK_RENDER_SIZE	1
+#Define BLOCK_RENDER_SIZE	0.5
 
 Type Block
 	Private:

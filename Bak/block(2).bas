@@ -4,12 +4,12 @@
 #Include "GL/glu.bi"
 #Include "headers/block.bi"
 #Include "headers/vector3d.bi"
-#Include "headers/globals.bi" '' booleans
+#Include "headers/globals.bi" '' Booleans
 #Include "headers/blocktype.bi"
 
 Constructor Block
 	This._isActive = TRUE
-	This._blocktype = BTYPE_DEFAULT
+	This._blocktype = BTYPE_DEBUG
 End Constructor
 
 Constructor Block(b_isActive As Byte, b_blocktype As BlockTypes)
@@ -27,3 +27,7 @@ End Function
 Property Block.SetActive(activate As Integer)
 	This._isActive = activate
 End Property
+
+Function Block.GetBlocktype() As Blocktypes
+	Return This._blocktype
+End Function

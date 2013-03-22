@@ -1,3 +1,5 @@
+'' Note: useless class (most probably)
+
 #Include "sdl/sdl.bi"
 #Include "sdl/sdl_image.bi"
 #Include "headers/blocktype.bi"
@@ -12,7 +14,6 @@ Destructor Blocktype()
 	DeAllocate(This._texture)
 End Destructor
 
-' Example: to create a Blocktype "Cobblestone", use Blocktype("Cobblestone", BTYPE_COBBLESTONE)
 Constructor Blocktype(b_name As String, id As BlockTypes)
 	Dim subTexPos As SDL_Rect
 	Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
@@ -33,7 +34,7 @@ Constructor Blocktype(b_name As String, id As BlockTypes)
 	This._id = id
 	This._name = b_name
 	
-	This._texture = IMG_Load(TEXTURE_FILE) 'This.ExtractTex(subTexPos) --> bugging
+	This._texture = IMG_Load("debug.png") 'This.ExtractTex(subTexPos) --> bugging
 	If This._texture = NULL Then
 		LogToFile("Loading texture failed: " + *SDL_GetError())
 	EndIf

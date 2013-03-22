@@ -6,6 +6,7 @@
 #Include "sdl/sdl_image.bi"
 #Include "gl/gl.bi"
 #Include "gl/glu.bi"
+#Include "gl/glext.bi"
 
 '' Project headers
 #Include "headers/keystates.bi"
@@ -85,10 +86,18 @@ If scr_maxfps = 0.0 Then
 EndIf
 '' END CONFIG VARIABLES
 
+' Initializaing systems
 noError = noError Or InitWindow()		'' Init SDL window container and check if no error occurs
 noError = noError Or InitScene()			'' Init OpenGL and check if no error occurs
 ResizeScene()									'' Set viewport accordingly
 noError = noError Or LoadTextures()		'' Loading textures
+
+' Loading game content
+'' Temporary
+'' Load objects
+testChunk.Load()
+testChunk.CreateMesh(myTexNames)
+'' End temporary
 
 '' Game loop
 While loopOn And noError
@@ -200,12 +209,6 @@ Function InitScene() As Integer
 	
 	'' Load textures here?
 	
-	'' Temporary
-	'' Load objects
-	testChunk.Load()
-	testChunk.CreateMesh(myTexNames)
-	'' End temporary
-	
 	LogToFile("OpenGL initialised")
 	Return TRUE																'' No error occurred
 End Function
@@ -237,36 +240,43 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
-' Bugging with blitting
+'' Error: some textures have left/right inverted
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
 	
-	Dim TexturePng As SDL_Surface Ptr '= IMG_Load("Res/Textures/debug.png") 'replace by texture file location
-	TexturePng = SDL_CreateRGBSurface(SDL_HWSURFACE, BLOCK_TEX_SIZE, BLOCK_TEX_SIZE, 32, 0, 0, 0, 0) 'not working?
+	Dim TexturePng As SDL_Surface Ptr
+	TexturePng = SDL_CreateRGBSurface(SDL_HWSURFACE, BLOCK_TEX_SIZE, BLOCK_TEX_SIZE, 32, 0, 0, 0, 0)
+	
    Dim TexTileset As SDL_Surface Ptr = IMG_Load(TEXTURE_FILE)
-	Dim TexMode As Integer = GL_RGBA
+	Dim TexMode As Integer = GL_RGB
    
    If TexTileset = NULL Then
    	LogToFile("Tileset image not found: " + *SDL_GetError())
    	Return FALSE
    EndIf
-	If TexTileset->format->BytesPerPixel = 3 Then 'TexTileset
-		TexMode = GL_RGB
-	EndIf
+   
+   ' Checking tileset dimensions
+   If ((TexTileset->h = TILESET_HEIGHT) = FALSE) Or ((TexTileset->w = TILESET_WIDTH) = FALSE) Then
+   	LogToFile("Inadequate tileset image dimensions")
+   	Return FALSE
+   EndIf
 	
+	' Texture positions
    Dim TexPos As SDL_Rect
    Dim TexOutPos As SDL_Rect
 	TexOutPos.x = 0
 	TexOutPos.y = 0
 	
-   Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE	' number of textures on x axis
+	' Number of textures on x axis
+   Dim numTexAxis As Integer = TILESET_WIDTH / BLOCK_TEX_SIZE
    
    glGenTextures(NUM_TEX, myTexNames)
    
-	For i = 0 To 2 'NUM_TEX-1 ' problème quand NUM_TEX-1 --> empilement des textures ???
+	For i = 0 To NUM_TEX-1
 		TexPos.x = (i Mod numTexAxis) * BLOCK_TEX_SIZE
 		TexPos.y = (i - i Mod numTexAxis) * BLOCK_TEX_SIZE
+		
 		' Checking that we do not go out of the tileset image
 		If TexPos.x > TILESET_WIDTH - BLOCK_TEX_SIZE Then
 			TexPos.x = TILESET_WIDTH - BLOCK_TEX_SIZE
@@ -278,17 +288,18 @@ Function LoadTextures() As Integer
 		TexPos.w = BLOCK_TEX_SIZE
 		TexPos.h = BLOCK_TEX_SIZE
 		
-		If SDL_BlitSurface(TexTileSet, @TexPos, TexturePng, @TexOutPos) = -1 Then
+		' Blitting surface to TexturePng
+		If SDL_BlitSurface(TexTileSet, @TexPos, TexturePng, NULL) = -1 Then
 			LogToFile("Blitting failed: " + *SDL_GetError())
 		EndIf
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
    		pass = pass Or FALSE
-		Else	   	
+		Else
 			glBindTexture(GL_TEXTURE_2D, myTexNames[i])
 			SDL_LockSurface(TexturePng)
-		   glTexImage2D(GL_TEXTURE_2D, 0, TexMode, TexturePng->w, TexturePng->h, 0, TexMode, GL_UNSIGNED_BYTE, TexturePng->Pixels)
+		   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TexturePng->w, TexturePng->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, TexturePng->Pixels)
 		   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 			SDL_UnlockSurface(TexturePng)
@@ -296,5 +307,7 @@ Function LoadTextures() As Integer
 	Next
 	
 	SDL_FreeSurface(TexturePng)
+	SDL_FreeSurface(TexTileset)
+	
 	Return pass
 End Function
