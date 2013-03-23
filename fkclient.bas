@@ -19,6 +19,7 @@
 #Include "headers/config.bi"
 #Include "headers/logging.bi"
 #Include "headers/camera.bi"
+#Include "headers/sdl_helpers.bi"
 
 '' Prototypes
 Declare Function InitWindow() As Integer
@@ -26,6 +27,7 @@ Declare Function InitScene() As Integer
 Declare Sub ResizeScene()
 Declare Function DrawScene() as Integer
 Declare Function LoadTextures() As Integer
+Declare Function FlipImageHorizontally(As SDL_Surface Ptr) As SDL_Surface Ptr
 
 '' Variables
 Dim Shared video As SDL_Surface Ptr
@@ -292,6 +294,9 @@ Function LoadTextures() As Integer
 		If SDL_BlitSurface(TexTileSet, @TexPos, TexturePng, NULL) = -1 Then
 			LogToFile("Blitting failed: " + *SDL_GetError())
 		EndIf
+		
+		' Flipping TexturePng (horizontal inversion)
+		'FlipHorizontally(TexturePng) '' Not working!
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())

@@ -19,6 +19,7 @@
 #Include "headers/config.bi"
 #Include "headers/logging.bi"
 #Include "headers/camera.bi"
+#Include "headers/sdl_helpers.bi"
 
 '' Prototypes
 Declare Function InitWindow() As Integer
@@ -26,6 +27,7 @@ Declare Function InitScene() As Integer
 Declare Sub ResizeScene()
 Declare Function DrawScene() as Integer
 Declare Function LoadTextures() As Integer
+Declare Function FlipImageHorizontally(As SDL_Surface Ptr) As SDL_Surface Ptr
 
 '' Variables
 Dim Shared video As SDL_Surface Ptr
@@ -240,8 +242,7 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
-'' Error in color loading? (red is loaded as blue)
-'' Error in mesh (see mesh.bas) --> some textures have left/right inverted
+'' Error: some textures have left/right inverted
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
@@ -293,6 +294,9 @@ Function LoadTextures() As Integer
 		If SDL_BlitSurface(TexTileSet, @TexPos, TexturePng, NULL) = -1 Then
 			LogToFile("Blitting failed: " + *SDL_GetError())
 		EndIf
+		
+		' Flipping TexturePng (horizontal inversion)
+		'TexturePng = FlipHorizontally(TexturePng)
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
