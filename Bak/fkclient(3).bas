@@ -296,7 +296,7 @@ Function LoadTextures() As Integer
 		EndIf
 		
 		' Flipping TexturePng (horizontal inversion)
-		'TexturePng = FlipHorizontally(TexturePng)
+		'FlipHorizontally(TexturePng) '' Not working!
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())
