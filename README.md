@@ -17,3 +17,10 @@ Used libraries are :
 A server (fkserver) will be developed to allow multiplayer, of course.
 
 To open the project, use fbedit and open the .fbp file. If you want to participate, please contact me.
+
+running fkclient 0.0.0
+======================
+
+If not textures appear and the game somehow crashes, this means that the game cannot access the textures folder. Find the "Res" folder and copy it entirely in the folder where the executable lies.
+
+fkclient 0.0.0 was successfully tested on (C)Windows 7 and (C)Windows XP.
