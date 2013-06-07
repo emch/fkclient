@@ -35,7 +35,7 @@ Destructor Chunk
 	This._mesh->Destructor()
 End Destructor
 
-Sub Chunk.Load() '' adapt to load from file/other source
+Sub Chunk.Load() '' adapt to load from binary information or random seed/contiguous chunks information
 	Dim As Integer i, j, k
 	
 	For i = 0 To CHUNK_SIZE - 1

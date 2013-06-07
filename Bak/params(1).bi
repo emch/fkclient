@@ -13,7 +13,7 @@
 #Define VERSION_MESSAGE Str(VERSION_MAIN) + "." + Str(VERSION_MINOR) + "." + Str(VERSION_DEBUG)
 
 '' Chunks
-#Define CHUNK_SIZE 			3
+#Define CHUNK_SIZE 			16
 #Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name

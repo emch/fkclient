@@ -1,0 +1,29 @@
+- Chunk rendering optimization
+- POssibility to manage different textures for up face and other faces (cf. grass)
+- Finish drawing main textures (dirt, brick, …) see minecraft.png
+
+- Random chunk generation (from seed)
+- Multiple chunks management (and real-time chunk generation for non-visited parts of the world)
+- Chunks loading from binary file
+
+Algo :
+-- Load a given number of chunks around current position (camera then player) with max/min altitude
+-- Load chunks from file
+-- If chunk corresponding to position doesn't exist, generate chunk randomly (first: without any probability settings)
+-- Save chunks in binary file
+
+
+- Surlignage du voxel sélectionné (raytracing)
+
+- Collisions
+- Model loading (simple cube then character) + texture loading
+- Model animation (skeleton)
+- World simple generation
+- World complete generation
+- Lighting
+- Gravity
+- Sound
+- Menu management
+- FileSystem Manager
+
+- Use SDL_types everywhere?

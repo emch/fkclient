@@ -275,6 +275,8 @@ Function LoadTextures() As Integer
    
    glGenTextures(NUM_TEX, myTexNames)
    
+   LogToFile(Str(NUM_TEX))
+   
 	For i = 0 To NUM_TEX-1
 		TexPos.x = (i Mod numTexAxis) * BLOCK_TEX_SIZE
 		TexPos.y = (i - i Mod numTexAxis) * BLOCK_TEX_SIZE
@@ -295,8 +297,8 @@ Function LoadTextures() As Integer
 			LogToFile("Blitting failed: " + *SDL_GetError())
 		EndIf
 		
-		' Flipping TexturePng (horizontal inversion)
-		FlipHorizontally(TexturePng) '' Not working!
+		' Flipping TexturePng (horizontal inversion in blocktypes.png)
+		FlipHorizontally(TexturePng)
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())

@@ -21,7 +21,7 @@
 
 '' Log file name
 #Define LOGGING_FILE_NAME	"fkclient.log"			'' Logging file name
-#Define LOGGING_PREFIX		Date + " | " + Time + " | "
+#Define LOGGING_PREFIX		Date + " [ " + Time + " ] "
 
 ''
 '' Default parameters in case an error occurs during configuration file retrieval

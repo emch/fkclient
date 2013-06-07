@@ -295,8 +295,8 @@ Function LoadTextures() As Integer
 			LogToFile("Blitting failed: " + *SDL_GetError())
 		EndIf
 		
-		' Flipping TexturePng (horizontal inversion)
-		'FlipHorizontally(TexturePng) '' Not working!
+		' Flipping TexturePng (horizontal inversion in blocktypes.png)
+		FlipHorizontally(TexturePng)
 		
 		If TexturePng = NULL Then
    		LogToFile("Failed loading texture at indice " + Str(i) + ": " + *SDL_GetError())

@@ -5,11 +5,11 @@
 #Include "headers/block.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/globals.bi" '' Booleans
-#Include "headers/blocktype.bi"
+#Include "headers/blocktypes.bi"
 
 Constructor Block
 	This._isActive = TRUE
-	This._blocktype = BTYPE_DEBUG
+	This._blocktype = BTYPE_DIRT
 End Constructor
 
 Constructor Block(b_isActive As Byte, b_blocktype As BlockTypes)
