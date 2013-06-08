@@ -16,7 +16,7 @@ Type Block
    Declare Constructor(As Byte, As BlockTypes)
    Declare Function IsActive() As Byte
    Declare Property SetActive(As Integer)
-   Declare Function GetBlocktype() As Byte
+   Declare Function GetBlocktype() As Blocktypes
 End Type
 
 #endif

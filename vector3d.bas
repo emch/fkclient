@@ -67,6 +67,6 @@ Operator /(v As Vector3d, c As Single) As Vector3d
 	Return Vector3d(v.X/c, v.Y/c, v.Z/c)
 End Operator
 
-Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d '' TODO
+Function CrossProduct(v As Vector3d, w As Vector3d) As Vector3d
 	Return Vector3d(v.Y*w.Z-v.Z*w.Y, w.X*v.Z-v.X*w.Z, v.X*w.Y-w.X*v.Y)
 End Function

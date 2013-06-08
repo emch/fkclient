@@ -1,0 +1,21 @@
+' fkguitex.tdf - Texture Definition File
+' This is a comment
+' This file defines the different positions of the widgets textures in the fkgui.png texture file
+
+panel{
+
+}
+
+button{
+	default{
+	
+	}
+	
+	clicked{
+	
+	}
+	
+	hover{
+	
+	}
+}

@@ -44,6 +44,9 @@ End Sub
 
 Sub Vector3d.Normalize()
 	Dim norm As Single = Sqr(This.X * This.X + This.Y * This.Y + This.Z * This.Z)
+	If norm <> 0 Then
+		
+	EndIf
 	This._x /= norm
 	This._y /= norm
 	This._z /= norm

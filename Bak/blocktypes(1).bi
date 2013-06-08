@@ -12,7 +12,7 @@
 
 Enum BlockTypes
 	BTYPE_ERROR = 0			'' no texture!
-	BTYPE_DEBUG = 1
+	BTYPE_DEBUG = 1			'' arrow (pointing up if everything was coded fine!)
 	BTYPE_GRAVEL = 2
 	BTYPE_COBBLESTONE = 3
 	BTYPE_DIRT = 4

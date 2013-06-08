@@ -2,7 +2,7 @@
 #define __HEADER_BLOCK_BI__
 
 #Include "vector3d.bi"
-#Include "blocktype.bi"
+#Include "blocktypes.bi"
 
 #Define BLOCK_RENDER_SIZE	0.5
 

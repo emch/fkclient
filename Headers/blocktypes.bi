@@ -11,12 +11,12 @@
 #Define NUM_TEX					(TILESET_HEIGHT/BLOCK_TEX_SIZE)*(TILESET_WIDTH/BLOCK_TEX_SIZE)	'' Maximum number of textures
 
 Enum BlockTypes
-	BTYPE_ERROR = 0			'' no texture!
-	BTYPE_DEBUG = 1			'' arrow (pointing up if everything was coded fine!)
-	BTYPE_GRAVEL = 2
+	BTYPE_ERROR 		= 0	'' no texture!
+	BTYPE_DEBUG 		= 1	'' arrow (pointing up if everything was coded fine!)
+	BTYPE_GRAVEL 		= 2
 	BTYPE_COBBLESTONE = 3
-	BTYPE_DIRT = 4
-	BTYPE_GRASS = 5
+	BTYPE_DIRT 			= 4
+	BTYPE_GRASS 		= 5
 End Enum
 
 #EndIf
