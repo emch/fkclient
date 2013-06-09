@@ -1,12 +1,15 @@
 #Include "sdl/sdl.bi"
 #Include "sdl/sdl_image.bi"
-
 #Include "headers/mesh.bi"
 #Include "headers/globals.bi"
 #Include "headers/vector3d.bi"
 #Include "headers/block.bi"
 #Include "headers/logging.bi"
-#Include "headers/blocktype.bi"
+#Include "headers/blocktypes.bi"
+
+Constructor Mesh()
+
+End Constructor
 
 Constructor Mesh(size As Integer)
 	This._size = size

@@ -37,7 +37,7 @@ Type Mesh
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
 	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
-	Declare Function AppendCube(As Single, As Single, As Single, texNames As GLuint Ptr) As Byte
+	Declare Function AppendCube(As Single, As Single, As Single, As GLuint) As Byte
 End Type
 
 #EndIf

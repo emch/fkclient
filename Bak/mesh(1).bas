@@ -5,7 +5,11 @@
 #Include "headers/vector3d.bi"
 #Include "headers/block.bi"
 #Include "headers/logging.bi"
-#Include "headers/blocktype.bi"
+#Include "headers/blocktypes.bi"
+
+Constructor Mesh()
+	Mesh(1024)
+End Constructor
 
 Constructor Mesh(size As Integer)
 	This._size = size
