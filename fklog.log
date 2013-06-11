@@ -1,0 +1,10 @@
+Logfile created on 06-11-2013 at 18:56:45
+Using FK client 0.0.0
+
+[06-11-2013][18:56:45] SCR_WIDTH not found in config file, default parameter used
+[06-11-2013][18:56:45] SCR_HEIGHT not found in config file, default parameter used
+[06-11-2013][18:56:45] SCR_MAXFPS not found in config file, default parameter used
+[06-11-2013][18:56:46] SDL initialised
+[06-11-2013][18:56:46] OpenGL initialised
+[06-11-2013][18:56:46] Scene resized
+[06-11-2013][18:56:50] Game ended

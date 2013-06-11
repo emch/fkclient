@@ -17,10 +17,13 @@
 #Define BLOCKS_PER_CHUNK	CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 '' Configuration file name
-#Define CONFIG_FILE_NAME	"fkclient.cfg"			'' Configuration filename
+#Define CONFIG_FILE_NAME	"fkconfig.cfg"			'' Configuration filename
+
+'' GUI
+#Define 
 
 '' Log file name
-#Define LOGGING_FILE_NAME	"fkclient.log"			'' Logging file name
+#Define LOGGING_FILE_NAME	"fklog.log"				'' Logging file name
 #Define LOGGING_PREFIX		"[" + Date + "][" + Time + "] "
 
 ''

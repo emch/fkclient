@@ -4,8 +4,18 @@
 #Include "gl/gl.bi"
 #Include "headers/linked_list.bi"
 #Include "headers/vector2d.bi"
+#Include "headers/vector3d.bi"
+#Include "headers/params.bi"
 
-#Define GUI_NUM_EVENTS 3
+#Define NUM_VERTEX_COORDS 	3
+#Define NUM_NORMAL_COORDS 	3
+#Define NUM_COLOR_COORDS	4
+#Define NUM_INDEX_COORDS	NUM_VERTEX_COORDS/2
+#Define NUM_TEX_COORDS		2
+#Define MAX_VERTICES 		4*GUI_MAX_WIDGETS
+
+#Define GUI_NUM_EVENTS 		5
+#Define GUI_GL_DEPTH			-1	'' GUI Z-coordinate (in camera local frame)
 
 Enum GuiEventSource
 	GUI_EVENT_NONE 					= 0
@@ -36,7 +46,7 @@ Type GuiWidget
 	_isVisible 						As Byte
 	_font 							As GuiFont
 	_fntcolor 						As Integer
-	_backcolor 						As Integer
+	_backcolor(3)					As GLfloat
 	_eventsCbs(GUI_NUM_EVENTS) As Any Ptr
 	'texture info?
 	'http://virtualink.wikidot.com/fbtut:fbpdatatype
@@ -44,8 +54,17 @@ Type GuiWidget
 	Public:
 	Declare Constructor()
 	Declare Destructor()
-	Declare Sub	SetEnabled(As Byte)
+	Declare Sub SetParameters()
+	
+	Declare Sub SetParent(As GuiWidget Ptr)
+	Declare Sub SetPosition(As Vector3d)
+	Declare Sub SetDimensions(As Vector3d)
+	Declare Sub SetIMargins(As Integer, As Integer, As Integer, As Integer)
+	Declare Sub SetEnabled(As Byte)
 	Declare Sub SetVisible(As Byte)
+	'' setfont and setfont color
+	Declare Sub SetBackColor(As GLfloat, As GLfloat, As GLfloat)
+	'' setcallback(ptr to function, eventtype)
 End Type
 
 'Widgets in a GuiPanel are defined relatively to it (position)
@@ -62,19 +81,19 @@ End Type
 
 Type GuiManager 'Make it a parameter of fkclient
 	Private:
-	_widgets 			As LinkedList
-	_isEnabled 			As Byte
-	_isVisible 			As Byte
-	_eventsource 		As GuiEventSource
+	_widgets					As GuiWidget Ptr Ptr '' Ptr to array of pointers
+	_isEnabled 				As Byte
+	_isVisible 				As Byte
+	_eventsource 			As GuiEventSource
 	
-	_size 				As Integer		'' maximum number of vertices
-	_num 					As Integer 		'' number of vertices
-	_indexArrayIndice As Integer		'' running indice in indexArray
-	_vertexArray 		As GLfloat Ptr	'' glVertexPointer
-	_normalArray 		As GLfloat Ptr '' glNormalPointer
-	_colorArray 		As GLfloat Ptr '' glColorPointer
-	_indexArray 		As GLuint Ptr
-	_texcoordArray 	As Integer Ptr '' glTexCoordPointer
+	_size 					As Integer		'' maximum number of vertices
+	_num 						As Integer 		'' number of vertices
+	_indexArrayIndice 	As Integer		'' running indice in indexArray
+	_vertexArray 			As GLfloat Ptr	'' glVertexPointer
+	_normalArray 			As GLfloat Ptr '' glNormalPointer
+	_colorArray 			As GLfloat Ptr '' glColorPointer
+	_indexArray 			As GLuint Ptr
+	_texcoordArray 		As Integer Ptr '' glTexCoordPointer
 	
 	'' Rendering arrays
 	Declare Function GetVertexArray() As GLfloat Ptr
@@ -85,22 +104,24 @@ Type GuiManager 'Make it a parameter of fkclient
 	Declare Function GetNumVertices() As Integer
 	Declare Function GetNumIndices() As Integer
 	
-	'' Mesh generation functions
-	'Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
-	'Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
+	'' Mesh generation functions (internal use only)
+	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
+	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
 	Declare Function AppendQuad() As Byte
-	Declare Sub LoadTexInfo() ' Load info from the first/unique TDF file located in Res/Gui
+	Declare Sub LoadTexInfo() ' In fine: load info from the first/unique TDF file located in Res/Gui
 	
 	Public:
 	Declare Constructor()
 	Declare Destructor()
+	
 	Declare Sub InitGui()
 	Declare Sub RenderGui()
-	Declare Sub PollEvents() 'Get through all widgets
-	Declare Sub AddWidget(As GuiWidget Ptr)
-	Declare Sub RemoveWidget(As GuiWidget Ptr)
+	Declare Sub UpdateGui() 	' Updating mesh
+	Declare Sub PollEvents() 	' Get through all widgets
+	Declare Function AddWidget(As GuiWidget Ptr) As Byte
+	Declare Function RemoveWidget(As GuiWidget Ptr) As Byte
 	Declare Sub SetGuiEnabled(As Byte)
-	Declare Sub SetGuiDisabled(As Byte)
+	Declare Sub SetGuiVisible(As Byte) 
 End Type
 
 #EndIf

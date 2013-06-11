@@ -19,6 +19,9 @@
 '' Configuration file name
 #Define CONFIG_FILE_NAME	"fkconfig.cfg"			'' Configuration filename
 
+'' GUI
+#Define GUI_MAX_WIDGETS		10							'' Max managed widgets
+
 '' Log file name
 #Define LOGGING_FILE_NAME	"fklog.log"				'' Logging file name
 #Define LOGGING_PREFIX		"[" + Date + "][" + Time + "] "

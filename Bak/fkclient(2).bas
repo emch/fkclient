@@ -242,7 +242,6 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
-'' Error: some textures have left/right inverted
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
@@ -275,9 +274,7 @@ Function LoadTextures() As Integer
    
    glGenTextures(NUM_TEX, myTexNames)
    
-   LogToFile(Str(NUM_TEX))
-   
-	For i = 0 To NUM_TEX-1
+	For i = 0 To NUM_ACTIVE_TEX-1 'NUM_TEX
 		TexPos.x = (i Mod numTexAxis) * BLOCK_TEX_SIZE
 		TexPos.y = (i - i Mod numTexAxis) * BLOCK_TEX_SIZE
 		

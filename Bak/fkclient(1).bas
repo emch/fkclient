@@ -45,7 +45,7 @@ Dim loopOn As Byte = TRUE
 Dim Shared configParams As ext.fbext_HashTable((String))
 
 '' Camera and timers
-Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(0,0,0), @myKeyStates) '' load initial vector from save?
+Dim Shared myCamera As FreeflyCamera = FreeflyCamera(Vector3d(-10,0,0), @myKeyStates) '' load initial vector from save?
 Dim As Single current_time, elapsed_time, last_time
 
 '' Lights
@@ -242,7 +242,6 @@ Function DrawScene() As Integer
 	Return TRUE
 End Function
 
-'' Error: some textures have left/right inverted
 Function LoadTextures() As Integer
 	Dim i As Integer
 	Dim pass As Integer = TRUE
