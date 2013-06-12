@@ -26,6 +26,7 @@ Type Mesh
 	Public:
 	Declare Constructor(As Integer)
 	Declare Destructor()
+	
 	'' Rendering arrays
 	Declare Function GetVertexArray() As GLfloat Ptr
 	Declare Function GetNormalArray() As GLfloat Ptr
@@ -34,10 +35,15 @@ Type Mesh
 	Declare Function GetTexCoordArray() As Integer Ptr 
 	Declare Function GetNumVertices() As Integer
 	Declare Function GetNumIndices() As Integer
+	
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
 	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
+	
+	'' Cube Center Position + Texture Information
 	Declare Function AppendCube(As Single, As Single, As Single, As GLuint) As Byte
+	'' Top-Left Hand Corner position + Width/Height + Texture info
+	Declare Function AppendQuad(As Single, As Single, As Single, As Single, As Single, As GLuint) As Byte
 End Type
 
 #EndIf

@@ -37,7 +37,11 @@ Type Mesh
 	'' Mesh generation functions
 	Declare Sub AddVertex(As Vector3d, As Vector3d, As GLfloat, As GLfloat, As GLfloat, As GLfloat, As Integer, As Integer)
 	Declare Sub AddTriangle(As GLuint, As GLuint, As GLuint)
+	
+	'' Cube Center Position + Texture Information
 	Declare Function AppendCube(As Single, As Single, As Single, As GLuint) As Byte
+	'' Top-Left Hand Corner position + Width/Height + Texture info
+	Declare Function AppendQuad(As Single, As Single, As Single, As Single, As Single, As GLuint) As Byte
 End Type
 
 #EndIf

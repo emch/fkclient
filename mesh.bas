@@ -186,6 +186,43 @@ Function Mesh.AppendCube(x As Single, y As Single, z As Single, texName As GLuin
 	Return TRUE
 End Function
 
+Function Mesh.AppendQuad(x As Single, y As Single, z As Single, w As Single, h As Single, texName As GLuint) As Byte
+	'' See front part of previous function
+	'' Do not take care of texture in first function version!
+	Dim v0v As Vector3d = Vector3d(x,   y,   z)
+	Dim v1v As Vector3d = Vector3d(x+w, y,   z)
+   Dim v2v As Vector3d = Vector3d(x+w, y-h, z)
+   Dim v3v As Vector3d = Vector3d(x,   y-h, z)
+   
+   '' Texturing
+	'glBindTexture(GL_TEXTURE_2D, texName)
+	
+	'' Normal vector
+	Dim n1 As Vector3d = Vector3d()
+	
+	'' IndicexArray length
+	Dim indexArrayLength As Integer = This._num 'last indice before any modification
+	
+	'' Color / Texture?
+	Dim r As GLfloat = 1.0
+	Dim g As GLfloat = 1.0
+	Dim b As GLfloat = 1.0
+	Dim a As GLfloat = 1.0
+	
+	'' Quad drawing
+	n1 = Vector3d(-1.0, 0.0, 0.0)
+	
+	This.AddVertex(v0v, n1, r, g, b, a, 1, 0)
+	This.AddVertex(v1v, n1, r, g, b, a, 1, 1)
+	This.AddVertex(v2v, n1, r, g, b, a, 0, 1)
+	This.AddVertex(v3v, n1, r, g, b, a, 0, 0)
+	
+	This.AddTriangle(indexArrayLength, indexArrayLength+1, indexArrayLength+2)
+	This.AddTriangle(indexArrayLength+2, indexArrayLength+3, indexArrayLength)
+	
+	Return TRUE
+End Function
+
 Function Mesh.GetNumVertices() As Integer
 	Return This._num
 End Function
